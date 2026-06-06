@@ -1,0 +1,94 @@
+/* Shopify Prospector — prospect data (SOURCE OF TRUTH).
+   The site renders every prospect from here. Add a prospect = PREPEND one object
+   (newest first). Never overwrite older prospects. Keep this valid JS.
+
+   id        "YYYY-MM-DD-brand-slug" (globally unique)
+   date      "YYYY-MM-DD" (newest first)
+   title     Brand name
+   categories array of >=1 vertical slug from scripts/taxonomy.js
+   summary   array of HTML strings (the "why this is a good lead in 20s")
+   sections  array of { h, intro?, blocks?[{ sub?, p?, list?[], why?, note? }] }
+   sources   HTML string of EXACT <a href> links joined by " · "
+   prospect  structured record — see the header of docs/HANDOVER.md for the full
+             field list. Gate-enforced invariants: >=2 revenue signals, >=3
+             weaknesses, >=1 named contact, demo with 3-5 mechanics, score that
+             sums and matches its priority band, >=1 outreach draft, a caveats line. */
+window.SITE_ITEMS = [
+
+  {
+    id: "2025-01-06-example-brand",
+    date: "2025-01-06",
+    title: "Example Brand (seed record — delete after first real run)",
+    categories: ["supplements"],
+    summary: [
+      "<b>~$180k/mo on a theme they've outgrown.</b> Founder-led, publicly active, three high-severity PDP leaks.",
+      "Subscribe-and-save exists but lives off the PDP — the single highest-value, easiest-to-demo fix."
+    ],
+    sections: [
+      {
+        h: "Why this is a good lead",
+        blocks: [
+          { p: "This record is a worked example of the exact shape every real prospect uses. It shows the renderer how to lay out revenue signals, contacts, weaknesses, the demo plan, the score, and ready-to-send outreach.",
+            why: "Revenue clears six figures (two aligned signals), the site has 3+ named fixable weaknesses, and the founder is reachable — the three things that make a prospect worth building for." }
+        ]
+      }
+    ],
+    sources: "<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">Example Brand — homepage</a>",
+    prospect: {
+      url: "example.com",
+      vertical: "supplements",
+      shopifyConfirmed: true,
+      shopifySignal: "meta-shopify-checkout-api-token in homepage HTML",
+      revenue: {
+        estimate: "$180k/mo",
+        confidence: "medium",
+        signals: [
+          { method: "Review velocity", detail: "~140 reviews/mo at ~3% review rate, ~$45 AOV", source: "on-site review widget" },
+          { method: "Ad-spend proxy", detail: "20+ live Meta ads running 4+ weeks", source: "Facebook Ad Library" }
+        ]
+      },
+      contacts: [
+        { name: "Jane Founder", role: "Founder & CEO", linkedin: "https://linkedin.com/in/example",
+          email: "jane@example.com", emailStatus: "pattern-guess", publiclyActive: true,
+          notes: "On two DTC podcasts in the last 6 months — strong accessibility signal." }
+      ],
+      weaknesses: [
+        { issue: "Subscribe-and-save lives on a separate page, not the PDP", area: "pdp", severity: "high", why: "Major LTV leak on a daily consumable; most buyers never reach the subscription page." },
+        { issue: "Reviews buried below the fold, not beside the buy box", area: "pdp", severity: "high", why: "Social proof isn't visible at the decision point, costing conversion." },
+        { issue: "No sticky add-to-cart on a long PDP", area: "mobile", severity: "med", why: "Buy button scrolls away on mobile, where most traffic is." },
+        { issue: "Generic stock hero, no value proposition above the fold", area: "home", severity: "med", why: "Cold ad traffic hits the homepage with no reason-to-believe." }
+      ],
+      lighthouse: { mobile: null, desktop: null },
+      demo: {
+        primaryPage: "pdp",
+        rationale: "They run product-level Meta ads straight to the bestseller PDP — rebuild where the buying decision happens.",
+        mechanics: [
+          "Inline one-time vs subscribe-and-save selector with the saving shown",
+          "Sticky add-to-cart bar on mobile",
+          "Reviews + press logos pulled up beside the buy box",
+          "Per-day cost maths under the price",
+          "\"Complete your routine\" bundle upsell"
+        ],
+        bestseller: "Example Bestseller — example.com/products/bestseller"
+      },
+      score: { revenue: 3, weakness: 4, accessibility: 5, vertical: 4, total: 16 },
+      priority: "top",
+      outreach: [
+        { channel: "email", style: "teardown",
+          subject: "your bestseller page",
+          body: "Hi Jane,\n\nI was on your [bestseller] page and noticed the subscribe option isn't on the product page itself — it's a click away, so most people never see it. On a daily-use product that's a big repeat-revenue leak.\n\nI rebuilt the page to show one-time vs subscribe inline with the saving, pulled your reviews up next to the buy button, and added a sticky add-to-cart for mobile. Quick before/after, no charge:\n\n[demo link]\n\nWorth a look?\n\n[Your name]" },
+        { channel: "email", style: "demo-offer",
+          subject: "rebuilt your product page (free)",
+          body: "Hi Jane,\n\nI rebuilt your [bestseller] page as a free demo — inline subscribe-and-save, reviews by the buy box, sticky mobile cart. Here's the before/after:\n\n[demo link]\n\nIf it's useful, happy to walk through it on a quick call.\n\n[Your name]" }
+      ],
+      operatorTodo: [
+        "Verify jane@example.com in Apollo before sending (currently a pattern guess).",
+        "Run PageSpeed Insights on the bestseller PDP (mobile + desktop) and paste scores.",
+        "Pull /products.json in a browser for the real bestseller + variant data to build the demo.",
+        "Eyeball the live PDP on a phone to confirm the visual read."
+      ],
+      caveats: "Revenue is an estimate from review velocity + ad activity, not filed accounts (US brand, no Companies House). DTC-only figure. Email is a pattern guess, not verified. Lighthouse not yet run."
+    }
+  }
+
+];

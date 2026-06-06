@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node scripts/check.js; Write-Output \"---EXIT: $LASTEXITCODE---\")",
+      "PowerShell(node scripts/check.js 2025-01-06; Write-Output \"---EXIT: $LASTEXITCODE---\")",
+      "PowerShell(npx --yes http-server -p 8099 -c-1 .)",
+      "PowerShell(winget install --id GitHub.cli -e --silent)",
+      "PowerShell(winget install --id GitHub.cli -e --source winget --silent --accept-source-agreements --accept-package-agreements --disable-interactivity)",
+      "PowerShell(git config user.name)",
+      "PowerShell(git config user.email)",
+      "PowerShell(git init)",
+      "PowerShell(git add -A)",
+      "PowerShell(git commit -m \"Initial build: Shopify Prospector\")",
+      "PowerShell(git branch -M main)"
+    ]
+  }
+}

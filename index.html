@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Prospector</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>try{var t=localStorage.getItem('site-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand"><span class="dot"></span>Prospector <small>shopify leads · daily</small></span>
+    <span class="spacer"></span>
+    <a class="btn" href="#stats">Analytics</a>
+    <a class="btn" href="#">Latest</a>
+    <button id="theme-toggle" aria-label="Toggle theme">◐</button>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Filter by brand, weakness, contact…" aria-label="Filter prospects">
+      </div>
+      <nav id="nav"></nav>
+    </aside>
+    <main id="content"><div class="wrap"><div class="loading">Loading…</div></div></main>
+  </div>
+  <script src="assets/app.js"></script>
+</body>
+</html>

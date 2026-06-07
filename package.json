@@ -1,0 +1,9 @@
+{
+  "name": "client-research",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shopify Prospector — additive Postgres data layer for operator-entered notes (does not touch the git prospect pipeline).",
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0"
+  }
+}

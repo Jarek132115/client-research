@@ -30,6 +30,15 @@ Lighthouse score, a URL, or a revenue figure.
 1. READ: knowledge/digest.md (house standard, brands already seen — never re-surface),
    knowledge/sources.md (mine top scorers first), knowledge/outcomes.md (bias to what
    works), and recent entries in data/items.js (don't repeat recent brands).
+1b. LEARN (approval-gated): run `node scripts/build-insights.js` to refresh
+   knowledge/insights.json from logged outcomes, then READ it. Let it INFORM (not
+   override) today's vertical pick and the pricing/targeting language in records —
+   e.g. lean toward a vertical/opener/weakness-lead with a strong reply rate, and
+   quote in line with pricingByVertical. BUT only ACT on changes that have been
+   APPROVED (ticked `[x]`) in knowledge/suggestions.md. Append any new data-driven
+   suggestions as unchecked `[ ]` items; NEVER auto-apply them and NEVER edit the
+   vertical rotation, taxonomy, or digest.md house standard on your own. Treat low
+   `confidence` (small sample) as a weak hint only.
 2. PICK TODAY'S VERTICAL: compute days since ROTATION_EPOCH in scripts/taxonomy.js,
    modulo the ROTATION list. State which vertical. Tag every prospect with it.
 3. DISCOVER 15–25 US candidate brands in that vertical, biased to the larger

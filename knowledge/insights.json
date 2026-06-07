@@ -1,0 +1,16 @@
+{
+  "generated": "2026-06-07T03:20:55.182Z",
+  "sampleSize": {
+    "outreach": 0,
+    "deals": 0
+  },
+  "confidence": "low",
+  "overallReplyRate": 0,
+  "winRate": 0,
+  "topVertical": null,
+  "topOpener": null,
+  "topWeaknessLead": null,
+  "replyRateByOpener": [],
+  "replyRateByVertical": [],
+  "pricingByVertical": []
+}

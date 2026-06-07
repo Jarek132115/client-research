@@ -563,8 +563,67 @@
     content.scrollTop = 0;
   }
 
+  /* ── Insights dashboard (Phase 5: reads /api/notes?insights=1, derived + read-only) ── */
+  function insRateCard(title, arr, unit) {
+    if (!arr || !arr.length) return `<div class="card"><h3>${title}</h3><div class="ins-empty">Not enough data yet — log ${unit} to populate this.</div></div>`;
+    const rows = arr.map(a => `<div class="ins-row">
+      <span class="ins-k">${esc(a.key)}</span>
+      <span class="bar"><i style="width:${Math.max(0, Math.min(100, a.rate))}%"></i></span>
+      <span class="ins-v">${a.rate}% <small>(${a.replies}/${a.sent})</small></span></div>`).join("");
+    return `<div class="card"><h3>${title}</h3><div class="ins-rows">${rows}</div></div>`;
+  }
+  function renderInsights(ins) {
+    const ss = ins.sampleSize || { outreach: 0, deals: 0 };
+    const o = ins.outreach || {}, d = ins.deals || {}, ww = ins.whatsWorking || {};
+    const confColor = { high: "var(--top)", medium: "var(--hold)", low: "var(--text-faint)" }[ins.confidence] || "var(--text-faint)";
+    const stageOrder = ["not-started", "contacted", "replied", "call-booked", "quoted", "negotiating", "won", "lost"];
+    const stageCells = stageOrder.filter(s => (d.stageCounts || {})[s]).map(s =>
+      `<div class="stat"><div class="v">${d.stageCounts[s]}</div><div class="k">${s}</div></div>`).join("");
+    const pricingRows = (d.pricingByVertical || []).map(p =>
+      `<tr><td>${esc(p.vertical)}</td><td class="num">${p.quoted.n}</td><td class="num">${p.quoted.avg ? "$" + p.quoted.avg : "—"}</td><td class="num">${p.quoted.median ? "$" + p.quoted.median : "—"}</td><td class="num">${p.close.avg ? "$" + p.close.avg : "—"}</td></tr>`).join("");
+    const wwCard = (label, x) => `<div class="stat ins-ww"><div class="k">${label}</div>${x ? `<div class="v">${esc(x.key)}</div><div class="ins-ww-sub">${x.rate}% · n=${x.sent}</div>` : `<div class="ins-ww-none">not enough data</div>`}</div>`;
+    content.innerHTML = `<div class="wrap">
+      <div class="p-head"><div><h1 class="p-title" style="margin-bottom:2px">Insights</h1>
+        <span class="ins-meta">learned from your logged outreach + deals · generated ${esc((ins.generated || "").slice(0, 10))}</span></div>
+        <div class="p-scorebox" style="min-width:auto"><div class="lbl" style="margin:0">confidence</div>
+          <div style="font-family:var(--mono);font-weight:600;color:${confColor};text-transform:uppercase;font-size:13px">${esc(ins.confidence || "low")}</div>
+          <div class="lbl" style="margin-top:4px">${ss.outreach} outreach · ${ss.deals} deals</div></div></div>
+      ${(ss.outreach === 0 && ss.deals === 0) ? `<div class="summary" style="border-left-color:var(--hold)"><p>No captured data yet. Log outreach and deals on your prospects, and this dashboard fills in automatically — reply rates by opener and vertical, deal win rate, pricing, and what's working.</p></div>` : ""}
+
+      <h3 class="ins-h">Reply rate</h3>
+      <div class="stats-grid"><div class="stat"><div class="v">${o.replyRate || 0}%</div><div class="k">overall reply rate</div></div>
+        <div class="stat"><div class="v">${o.replies || 0}/${o.total || 0}</div><div class="k">replies / sent</div></div></div>
+      ${insRateCard("By opener", o.byOpener, "outreach")}
+      ${insRateCard("By vertical", o.byVertical, "outreach")}
+      ${insRateCard("By weakness lead", o.byWeakness, "outreach")}
+
+      <h3 class="ins-h">Deal pipeline</h3>
+      ${stageCells ? `<div class="stats-grid">${stageCells}</div>` : `<div class="card"><div class="ins-empty">No deals logged yet.</div></div>`}
+      <div class="stats-grid"><div class="stat"><div class="v">${d.winRate || 0}%</div><div class="k">win rate (won/(won+lost))</div></div>
+        <div class="stat"><div class="v">${(d.quoted && d.quoted.avg) ? "$" + d.quoted.avg : "—"}</div><div class="k">avg quoted</div></div>
+        <div class="stat"><div class="v">${(d.close && d.close.avg) ? "$" + d.close.avg : "—"}</div><div class="k">avg close value</div></div></div>
+      <div class="card"><h3>Pricing by vertical</h3>${pricingRows ?
+        `<table class="vtable"><thead><tr><th>Vertical</th><th style="text-align:right">Deals</th><th style="text-align:right">Avg quoted</th><th style="text-align:right">Median</th><th style="text-align:right">Avg close</th></tr></thead><tbody>${pricingRows}</tbody></table>`
+        : `<div class="ins-empty">Not enough data yet — log deals with prices to populate this.</div>`}</div>
+
+      <h3 class="ins-h">What's working</h3>
+      <div class="stats-grid">${wwCard("Top vertical", ww.topVertical)}${wwCard("Top opener", ww.topOpener)}${wwCard("Top weakness lead", ww.topWeaknessLead)}</div>
+      <p class="ins-foot">Derived, read-only. The 2am routine reads a compact form of this (knowledge/insights.json) and proposes changes in knowledge/suggestions.md — which you approve before anything changes.</p>
+    </div>`;
+    content.scrollTop = 0;
+  }
+  function showInsights() {
+    current = "__insights__"; markActive();
+    content.innerHTML = `<div class="wrap"><div class="loading">Loading insights…</div></div>`;
+    fetch("/api/notes?insights=1", { cache: "no-store" })
+      .then(r => { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(ins => { if (current === "__insights__") renderInsights(ins); })
+      .catch(() => { if (current === "__insights__") content.innerHTML = `<div class="wrap"><div class="empty">Couldn't load insights right now — the rest of the site is unaffected. Try again.</div></div>`; });
+  }
+
   function route() {
     const h = (location.hash || "").replace(/^#/, "");
+    if (h === "insights") return showInsights();
     if (h === "stats") return showStats();
     if (h && META.some(r => r.id === h)) return show(h);
     if (META[0]) { current = META[0].id; markActive(); return show(META[0].id); }

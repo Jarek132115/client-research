@@ -5,6 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 const { CATEGORIES, CATEGORY_LABELS, CATEGORY_LABELS_SHORT } = require("./taxonomy.js");
+const { leadWeaknessArea } = require("./insights.js");
 const REPO = path.resolve(__dirname, "..");
 const SRC = path.join(REPO, "data", "items.js");
 const OUT_INDEX = path.join(REPO, "data", "index.json");
@@ -27,7 +28,7 @@ function searchBlob(r){ const p=r.prospect||{};
 const index = all.map(r=>{ const p=r.prospect||{}; return {
   id:r.id,date:r.date,title:r.title,categories:r.categories||[],url:p.url||"",
   score:(p.score&&p.score.total)||0,priority:p.priority||"",
-  revenue:(p.revenue&&p.revenue.estimate)||"",q:searchBlob(r) }; });
+  revenue:(p.revenue&&p.revenue.estimate)||"",wkLead:leadWeaknessArea(p),q:searchBlob(r) }; });
 fs.writeFileSync(OUT_INDEX, JSON.stringify(index,null,0));
 const counts={}; for(const r of all) for(const c of (r.categories||[])) counts[c]=(counts[c]||0)+1;
 const facet = CATEGORIES.filter(c=>counts[c]).map(c=>({slug:c,count:counts[c],

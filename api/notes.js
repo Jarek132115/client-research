@@ -8,6 +8,16 @@
    Auth: mirrors middleware.js EXACTLY — a request is authorized only if it
    carries the cookie  pp_auth=<tokenFor(SITE_PASS)>. Parameterized queries only. */
 const { sql } = require("@vercel/postgres");
+const { computeInsights } = require("../scripts/insights.js");
+// Static require so Vercel bundles index.json into this function (prospect metadata
+// for the insights join). Read-only; reflects the last deploy's prospect set.
+let PROSPECT_INDEX = [];
+try { PROSPECT_INDEX = require("../data/index.json"); } catch (e) { PROSPECT_INDEX = []; }
+function metaFromIndex() {
+  const m = {};
+  for (const r of PROSPECT_INDEX) m[r.id] = { vertical: (r.categories || [])[0] || "", score: r.score || 0, priority: r.priority || "", wkLead: r.wkLead || "" };
+  return m;
+}
 
 const KINDS = ["outreach", "pricing", "note", "outcome"];
 
@@ -38,6 +48,14 @@ module.exports = async (req, res) => {
         const deals = {};
         for (const r of rows) deals[r.prospect_id] = r.payload;
         res.status(200).json({ deals });
+        return;
+      }
+      // Insights: aggregate all captured rows, joined to prospect metadata. Read-only.
+      if (!prospectId && req.query && req.query.insights) {
+        const { rows } = await sql`SELECT id, prospect_id, kind, payload, created_at FROM store_notes`;
+        const data = computeInsights(rows, metaFromIndex());
+        data.generated = new Date().toISOString();
+        res.status(200).json(data);
         return;
       }
       if (!prospectId) { res.status(400).json({ error: "prospect_id required" }); return; }

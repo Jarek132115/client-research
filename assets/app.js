@@ -190,6 +190,98 @@
     return `<div class="card todo"><h3>Operator to-do (before sending)</h3>` +
       todo.map(t => `<div class="todo-item"><span class="box"></span><span>${esc(t)}</span></div>`).join("") + `</div>`;
   }
+
+  /* ── Outreach log (Phase 2: DB-backed, /api/notes kind="outreach") ── */
+  const OL_CHANNELS = ["email", "LinkedIn DM", "Instagram DM", "other"];
+  const OL_STYLES = ["teardown", "demo-offer", "follow-up", "other"];
+  const OL_RESPONSES = ["no-reply", "opened", "replied-cold", "replied-interested", "call-booked", "bounced", "closed-won", "closed-lost"];
+  function olRespClass(r) {
+    return ({ "closed-won": "olr-win", "call-booked": "olr-win", "replied-interested": "olr-good",
+      "opened": "olr-warm", "replied-cold": "olr-warm", "no-reply": "olr-neutral",
+      "bounced": "olr-bad", "closed-lost": "olr-bad" })[r] || "olr-neutral";
+  }
+  function olToday() { const d = new Date(), z = n => String(n).padStart(2, "0"); return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate()); }
+  function outreachLogCard(id) {
+    const opt = (arr, sel) => arr.map(o => `<option value="${esc(o)}"${o === sel ? " selected" : ""}>${esc(o)}</option>`).join("");
+    return `<div class="card ol-card">
+      <h3>Outreach log</h3>
+      <p class="ol-hint">Your real sent outreach for this prospect, saved live to the database — separate from the draft templates above.</p>
+      <form class="ol-form" id="ol-form" autocomplete="off">
+        <div class="ol-row">
+          <label class="ol-field"><span>Date</span><input type="date" name="date" value="${olToday()}"></label>
+          <label class="ol-field"><span>Channel</span><select name="channel">${opt(OL_CHANNELS, "email")}</select></label>
+          <label class="ol-field"><span>Style</span><select name="style">${opt(OL_STYLES, "teardown")}</select></label>
+          <label class="ol-field"><span>Response</span><select name="response">${opt(OL_RESPONSES, "no-reply")}</select></label>
+        </div>
+        <label class="ol-field"><span>What I sent</span><textarea name="sent" rows="3" placeholder="Paste or summarise the message you sent…"></textarea></label>
+        <label class="ol-field"><span>Notes (optional)</span><textarea name="notes" rows="2" placeholder="Anything to remember…"></textarea></label>
+        <div class="ol-actions"><button type="submit" class="ol-save">Save outreach</button><span class="ol-status" id="ol-status"></span></div>
+      </form>
+      <div class="ol-list" id="ol-list"><div class="ol-loading">Loading saved outreach…</div></div>
+    </div>`;
+  }
+  function initOutreachLog(id) {
+    const form = document.getElementById("ol-form");
+    const listEl = document.getElementById("ol-list");
+    const statusEl = document.getElementById("ol-status");
+    if (!form || !listEl) return;
+    function renderList(entries) {
+      if (!entries.length) { listEl.innerHTML = `<div class="ol-empty">No outreach logged yet.</div>`; return; }
+      listEl.innerHTML = entries.map(n => {
+        const p = n.payload || {}, resp = p.response || "no-reply", sent = p.sent || "";
+        const sentHtml = !sent ? "" : (sent.length > 120
+          ? `<details class="ol-sent"><summary>what I sent</summary><div class="ol-sent-body">${esc(sent)}</div></details>`
+          : `<div class="ol-sent-body inline">${esc(sent)}</div>`);
+        return `<div class="ol-entry">
+          <div class="ol-entry-head">
+            <span class="ol-date">${esc(p.date || (n.created_at || "").slice(0, 10))}</span>
+            ${p.channel ? `<span class="ol-tag">${esc(p.channel)}</span>` : ""}
+            ${p.style ? `<span class="ol-tag">${esc(p.style)}</span>` : ""}
+            <span class="ol-resp ${olRespClass(resp)}">${esc(resp)}</span>
+            <button class="ol-del" data-id="${esc(n.id)}" title="Delete entry">×</button>
+          </div>${sentHtml}${p.notes ? `<div class="ol-notes">${esc(p.notes)}</div>` : ""}</div>`;
+      }).join("");
+      listEl.querySelectorAll(".ol-del").forEach(b => b.addEventListener("click", () => delEntry(b.dataset.id)));
+    }
+    async function loadList() {
+      try {
+        const res = await fetch("/api/notes?prospect_id=" + encodeURIComponent(id), { cache: "no-store" });
+        if (!res.ok) throw new Error("http " + res.status);
+        const data = await res.json();
+        if (current !== id) return; // navigated away before this resolved
+        renderList((data.notes || []).filter(n => n.kind === "outreach"));
+      } catch (e) {
+        if (current !== id) return;
+        listEl.innerHTML = `<div class="ol-error">Couldn't load saved outreach (the rest of this page is unaffected). Try reloading.</div>`;
+      }
+    }
+    async function delEntry(rowId) {
+      if (!window.confirm("Delete this outreach entry?")) return;
+      try {
+        const res = await fetch("/api/notes?id=" + encodeURIComponent(rowId), { method: "DELETE" });
+        if (!res.ok) throw new Error("http " + res.status);
+        await loadList();
+      } catch (e) { statusEl.textContent = "delete failed"; statusEl.className = "ol-status err"; }
+    }
+    form.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const fd = new FormData(form);
+      const payload = { date: fd.get("date"), channel: fd.get("channel"), style: fd.get("style"),
+        sent: (fd.get("sent") || "").trim(), response: fd.get("response"), notes: (fd.get("notes") || "").trim() };
+      statusEl.textContent = "saving…"; statusEl.className = "ol-status";
+      try {
+        const res = await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prospect_id: id, kind: "outreach", payload }) });
+        if (!res.ok) throw new Error("http " + res.status);
+        statusEl.textContent = "saved ✓"; statusEl.className = "ol-status ok";
+        form.querySelector('[name=sent]').value = ""; form.querySelector('[name=notes]').value = "";
+        setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 1600);
+        await loadList();
+      } catch (e) { statusEl.textContent = "save failed — your text is still here"; statusEl.className = "ol-status err"; }
+    });
+    loadList();
+  }
+
   function renderSections(sections) {
     return (sections || []).map(s => {
       const blocks = (s.blocks || []).map(b => {
@@ -239,6 +331,7 @@
       ${p.demo ? demoCard(p.demo) : ""}
       ${p.lighthouse ? lighthouseCard(p.lighthouse) : ""}
       ${(p.outreach || []).length ? outreachCard(p.outreach) : ""}
+      ${outreachLogCard(id)}
       ${(p.operatorTodo || []).length ? todoCard(p.operatorTodo) : ""}
       ${p.caveats ? `<div class="card"><h3>Caveats</h3><div class="caveats">${esc(p.caveats)}</div></div>` : ""}
       ${r.sources ? `<div class="sources">Sources: ${r.sources}</div>` : ""}
@@ -253,6 +346,7 @@
         }).catch(() => { btn.textContent = "copy failed"; });
       });
     });
+    initOutreachLog(id);
     content.scrollTop = 0;
   }
 

@@ -150,3 +150,39 @@ main{overflow-y:auto;max-height:calc(100vh - 53px)}
   .wrap{padding:20px 18px 60px}.p-title{font-size:24px}
   .score-grid,.lh-grid{grid-template-columns:1fr}
 }
+
+/* ── Outreach log (Phase 2: DB-backed operator capture) — reuses existing tokens ── */
+.ol-card .ol-hint{font-size:12px;color:var(--text-dim);margin:-6px 0 14px}
+.ol-form{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.ol-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ol-field{display:flex;flex-direction:column;gap:4px}
+.ol-field>span{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)}
+.ol-field input,.ol-field select,.ol-field textarea{width:100%;font-family:var(--mono);font-size:12.5px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:9px 11px;outline:none;transition:.15s;resize:vertical}
+.ol-field input:focus,.ol-field select:focus,.ol-field textarea:focus{border-color:var(--accent-dim);box-shadow:0 0 0 3px var(--accent-ink)}
+.ol-actions{display:flex;align-items:center;gap:12px}
+.ol-save{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;color:var(--accent-ink);background:var(--accent);border:0;border-radius:var(--radius-sm);padding:9px 16px;transition:.15s}
+.ol-save:hover{background:var(--accent-dim)}
+.ol-status{font-family:var(--mono);font-size:11px;color:var(--text-faint)}
+.ol-status.ok{color:var(--accent)}
+.ol-status.err{color:var(--high)}
+.ol-list{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.ol-loading,.ol-empty,.ol-error{font-family:var(--mono);font-size:12px;color:var(--text-faint)}
+.ol-error{color:var(--hold)}
+.ol-entry{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px}
+.ol-entry-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ol-date{font-family:var(--mono);font-size:11.5px;color:var(--text);font-weight:600}
+.ol-tag{font-family:var(--mono);font-size:10px;color:var(--text-dim);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1px 7px}
+.ol-resp{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:4px}
+.olr-win{background:color-mix(in srgb,var(--top) 18%,transparent);color:var(--top)}
+.olr-good{background:color-mix(in srgb,var(--solid) 18%,transparent);color:var(--solid)}
+.olr-warm{background:color-mix(in srgb,var(--hold) 18%,transparent);color:var(--hold)}
+.olr-neutral{background:var(--panel-2);color:var(--text-faint)}
+.olr-bad{background:color-mix(in srgb,var(--high) 18%,transparent);color:var(--high)}
+.ol-del{margin-left:auto;cursor:pointer;font-family:var(--mono);font-size:14px;line-height:1;color:var(--text-faint);background:transparent;border:1px solid var(--line);border-radius:4px;width:22px;height:22px;transition:.15s}
+.ol-del:hover{color:var(--high);border-color:var(--high)}
+.ol-sent{margin-top:8px}
+.ol-sent summary{font-family:var(--mono);font-size:11px;color:var(--accent);cursor:pointer}
+.ol-sent-body{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--text);line-height:1.55;margin-top:6px;padding-left:10px;border-left:2px solid var(--line-2)}
+.ol-sent-body.inline{margin-top:8px}
+.ol-notes{font-size:12px;color:var(--text-dim);margin-top:8px;font-style:italic}
+@media (max-width:860px){ .ol-row{grid-template-columns:1fr 1fr} }

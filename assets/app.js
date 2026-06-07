@@ -273,6 +273,7 @@
       const fd = new FormData(form);
       const payload = { date: fd.get("date"), channel: fd.get("channel"), style: fd.get("style"),
         sent: (fd.get("sent") || "").trim(), response: fd.get("response"), notes: (fd.get("notes") || "").trim() };
+      if (!payload.sent) { statusEl.textContent = "add what you sent first"; statusEl.className = "ol-status err"; return; }
       statusEl.textContent = "saving…"; statusEl.className = "ol-status";
       try {
         const res = await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" },

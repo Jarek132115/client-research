@@ -3,14 +3,21 @@
    Setup: Vercel → Project → Settings → Environment Variables → SITE_PASS = your password → redeploy. */
 export const config = { matcher: ["/((?!_next|favicon.ico).*)"] };
 const COOKIE = "pp_auth";
+/* UTF-8-safe base64 so a password with stray bytes (e.g. a BOM picked up from how
+   the env var was set) can never throw in btoa and 500 the whole site. */
+function tokenFor(s) {
+  try { return btoa(unescape(encodeURIComponent(s))).slice(0, 24); }
+  catch (e) { return encodeURIComponent(s).slice(0, 24); }
+}
 export default async function middleware(req) {
-  const PASS = process.env.SITE_PASS;
+  // strip a leading BOM and surrounding whitespace the stored value may carry
+  const PASS = (process.env.SITE_PASS || "").replace(/^﻿/, "").trim();
   if (!PASS) return;
   const url = new URL(req.url);
   if (url.pathname === "/__login" && req.method === "POST") {
     const form = await req.formData();
     if ((form.get("password") || "") === PASS) {
-      const token = btoa(PASS).slice(0, 24);
+      const token = tokenFor(PASS);
       return new Response(null, { status: 302, headers: {
         "Set-Cookie": `${COOKIE}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=2592000`,
         "Location": "/" } });
@@ -18,7 +25,7 @@ export default async function middleware(req) {
     return loginPage("Wrong password. Try again.");
   }
   const cookie = req.headers.get("cookie") || "";
-  if (cookie.includes(`${COOKIE}=${btoa(PASS).slice(0, 24)}`)) return;
+  if (cookie.includes(`${COOKIE}=${tokenFor(PASS)}`)) return;
   return loginPage();
 }
 function loginPage(error) {

@@ -633,9 +633,9 @@
 
   const tt = document.getElementById("theme-toggle");
   if (tt) tt.addEventListener("click", () => {
-    const light = document.documentElement.getAttribute("data-theme") === "light";
-    if (light) { document.documentElement.removeAttribute("data-theme"); try { localStorage.setItem("site-theme", "dark"); } catch (e) {} }
-    else { document.documentElement.setAttribute("data-theme", "light"); try { localStorage.setItem("site-theme", "light"); } catch (e) {} }
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
+    if (dark) { document.documentElement.removeAttribute("data-theme"); try { localStorage.setItem("site-theme", "light"); } catch (e) {} }
+    else { document.documentElement.setAttribute("data-theme", "dark"); try { localStorage.setItem("site-theme", "dark"); } catch (e) {} }
   });
 
   (async function () {

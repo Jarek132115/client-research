@@ -27,6 +27,19 @@ INSIDE this attached repository and publish today's prospects by committing to i
 Follow the shopify-prospect-finder logic. Be honest: never fabricate an email, a
 Lighthouse score, a URL, or a revenue figure.
 
+0. SETUP (MANDATORY, do this FIRST — your 2am run is a fresh clone, not a configured
+   machine). Set the commit identity explicitly before anything else:
+     git config user.name "Jarek132115"
+     git config user.email "160738471+Jarek132115@users.noreply.github.com"
+   This is mandatory - a commit authored as ANY other identity will push successfully but
+   Vercel will SILENTLY refuse to deploy, so the site won't update. Then, if node_modules
+   is absent, run `npm install` so the node scripts have their dependencies; if npm install
+   fails or there is no network for it, still attempt the gate and report - never silently
+   skip the push. Note on the DB: step 1b (build-insights.js) requires POSTGRES_URL in the
+   environment; if it is absent, build-insights.js degrades to empty insights
+   (confidence:"low") and the run continues normally. A missing POSTGRES_URL must NEVER
+   stop the run or block the push - the learning loop simply won't read the DB that night.
+
 1. READ: knowledge/digest.md (house standard, brands already seen — never re-surface),
    knowledge/sources.md (mine top scorers first), knowledge/outcomes.md (bias to what
    works), and recent entries in data/items.js (don't repeat recent brands).
@@ -78,6 +91,11 @@ Lighthouse score, a URL, or a revenue figure.
    A-players beats 10 where 4 are filler. If fewer than ~5 survive, that's fine - publish
    them and note in the commit + changelog that the vertical was thin today. Never pad,
    never skip the rigor to fill the page.
+   ZERO-SURVIVOR DAY: if EXACTLY ZERO prospects survive Phase D, do NOT pad and do NOT push
+   a broken or empty placeholder record. Instead: still run the memory/changelog update
+   noting "0 qualified in <vertical> today", optionally commit just that note, and report
+   the thin result. Never fabricate a prospect to avoid an empty day - an honest zero beats
+   a manufactured lead.
 8. OUTREACH - 3 DISTINCT HUMAN APPROACHES per prospect (so the operator can A/B test and
    the learning loop can see which converts). Tag each with its style. All first-person,
    the operator personally (an independent designer/developer), short, no agency-speak, no
@@ -90,9 +108,21 @@ Lighthouse score, a URL, or a revenue figure.
    - style "demo-first": leads with "I already rebuilt your [page], here's the before/after."
    Leave [demo link], [bestseller], [Your name] as placeholders.
 9. WRITE: prepend one object per qualifying prospect to data/items.js (newest first, exact
-   shape, never overwrite). id = "<today>-<brand-slug>". Every record needs prospect.scrutiny,
-   a caveats line, and operatorTodo (verify email in Apollo, run PageSpeed, pull
-   /products.json, eyeball the PDP).
+   shape, never overwrite). id = "<today>-<brand-slug>". To PASS THE GATE FIRST TIME, every
+   record MUST include these exact fields (this is what scripts/check.js enforces):
+   - TOP-LEVEL: id; date ("YYYY-MM-DD"); title; categories (array, >=1 valid vertical slug
+     from scripts/taxonomy.js); summary (non-empty array of HTML strings); sections
+     (non-empty array of section objects). Prospects must stay sorted newest-date-first.
+   - prospect.*: url; shopifyConfirmed: true; revenue { estimate, confidence (one of
+     low / medium / high), signals (>=2) }; weaknesses (>=3, each with severity EXACTLY one
+     of high / med / low, plus why); contacts (>=1 with name + role; if emailStatus is set
+     it must be EXACTLY one of pattern-guess / verified / unknown); demo { primaryPage
+     EXACTLY one of home / pdp / cart, mechanics (3-5) }; score { revenue, weakness,
+     accessibility, vertical each an INTEGER 1-5, and total = their exact sum }; priority
+     matching the band (16-20 top, 12-15 solid, 8-11 hold, <8 skip); outreach (>=2 drafts,
+     each tagged with style); scrutiny (string, from Phase D); caveats (mandatory, state
+     estimated vs confirmed); operatorTodo (verify email in Apollo, run PageSpeed, pull
+     /products.json, eyeball the PDP). screenshot is optional (leave it off for now).
 10. UPDATE MEMORY same commit: add each brand to digest.md "already seen", advance threads
    + changelog line (note if the vertical was thin), promote/decay sources.md scores.
 11. GATE + PUSH: run `node scripts/check.js <today's-date>` - must pass (it now requires

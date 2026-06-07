@@ -482,6 +482,12 @@
     }).join("");
   }
 
+  // Optional navbar+hero screenshot banner. onerror removes the frame so a failed
+  // image never leaves a broken icon or a gap. Absent field = nothing rendered.
+  function screenshotBanner(src, title) {
+    return `<figure class="shot"><img loading="lazy" decoding="async" src="${esc(src)}" alt="${esc(title)} — store navbar and hero" onerror="this.closest('.shot').remove()"></figure>`;
+  }
+
   async function show(id) {
     current = id; markActive();
     content.innerHTML = `<div class="wrap"><div class="loading">Loading…</div></div>`;
@@ -508,6 +514,7 @@
         ${verticalTags}
         <span class="tag">${esc(r.date)}</span>
       </div>
+      ${p.screenshot ? screenshotBanner(p.screenshot, r.title) : ""}
       ${summary ? `<div class="summary">${summary}</div>` : ""}
       ${sc.total != null ? `<div class="card"><h3>Score breakdown</h3>${bars(sc)}</div>` : ""}
       ${p.revenue ? revenueCard(p.revenue) : ""}

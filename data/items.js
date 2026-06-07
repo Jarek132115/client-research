@@ -36,6 +36,7 @@ window.SITE_ITEMS = [
     sources: "<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">Example Brand — homepage</a>",
     prospect: {
       url: "example.com",
+      screenshot: "assets/screenshots/2025-01-06-example-brand.png",
       vertical: "supplements",
       shopifyConfirmed: true,
       shopifySignal: "meta-shopify-checkout-api-token in homepage HTML",

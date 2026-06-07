@@ -395,6 +395,78 @@
     loadDeal();
   }
 
+  /* ── Research notes (Phase 4: DB-backed, /api/notes kind="note", append-many freeform) ── */
+  const NOTE_TAGS = ["general", "competitor", "demo-idea", "store-observation", "pricing-intel", "contact-intel", "other"];
+  function notesCard(id) {
+    const opt = NOTE_TAGS.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
+    return `<div class="card notes-card">
+      <h3>Research notes</h3>
+      <p class="ol-hint">Anything else worth remembering about this store — observations, competitor intel, demo ideas, links. Saved live.</p>
+      <form class="ol-form" id="nt-form" autocomplete="off">
+        <label class="ol-field"><span>Note</span><textarea name="text" rows="3" placeholder="Type anything you want to remember…"></textarea></label>
+        <div class="nt-controls">
+          <label class="ol-field nt-tagfield"><span>Tag</span><select name="tag">${opt}</select></label>
+          <div class="ol-actions"><button type="submit" class="ol-save">Save note</button><span class="ol-status" id="nt-status"></span></div>
+        </div>
+      </form>
+      <div class="ol-list" id="nt-list"><div class="ol-loading">Loading notes…</div></div>
+    </div>`;
+  }
+  function initNotesPanel(id) {
+    const form = document.getElementById("nt-form");
+    const listEl = document.getElementById("nt-list");
+    const statusEl = document.getElementById("nt-status");
+    if (!form || !listEl) return;
+    function renderList(entries) {
+      if (!entries.length) { listEl.innerHTML = `<div class="ol-empty">No notes yet.</div>`; return; }
+      listEl.innerHTML = entries.map(n => {
+        const p = n.payload || {};
+        return `<div class="ol-entry nt-entry">
+          <div class="ol-entry-head">
+            <span class="ol-date">${esc(p.date || (n.created_at || "").slice(0, 10))}</span>
+            <span class="nt-tag">${esc(p.tag || "general")}</span>
+            <button class="ol-del" data-id="${esc(n.id)}" title="Delete note">×</button>
+          </div>
+          <div class="nt-text">${esc(p.text || "")}</div></div>`;
+      }).join("");
+      listEl.querySelectorAll(".ol-del").forEach(b => b.addEventListener("click", () => delEntry(b.dataset.id)));
+    }
+    async function loadList() {
+      try {
+        const res = await fetch("/api/notes?prospect_id=" + encodeURIComponent(id), { cache: "no-store" });
+        if (!res.ok) throw new Error("http " + res.status);
+        const data = await res.json();
+        if (current !== id) return;
+        renderList((data.notes || []).filter(n => n.kind === "note"));
+      } catch (e) {
+        if (current !== id) return;
+        listEl.innerHTML = `<div class="ol-error">Couldn't load notes (the rest of this page is unaffected). Try reloading.</div>`;
+      }
+    }
+    async function delEntry(rowId) {
+      if (!window.confirm("Delete this note?")) return;
+      try { const res = await fetch("/api/notes?id=" + encodeURIComponent(rowId), { method: "DELETE" }); if (!res.ok) throw new Error("http " + res.status); await loadList(); }
+      catch (e) { statusEl.textContent = "delete failed"; statusEl.className = "ol-status err"; }
+    }
+    form.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const fd = new FormData(form);
+      const text = (fd.get("text") || "").trim();
+      if (!text) { statusEl.textContent = "write something first"; statusEl.className = "ol-status err"; return; }
+      statusEl.textContent = "saving…"; statusEl.className = "ol-status";
+      try {
+        const res = await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prospect_id: id, kind: "note", payload: { text, tag: fd.get("tag"), date: olToday() } }) });
+        if (!res.ok) throw new Error("http " + res.status);
+        statusEl.textContent = "saved ✓"; statusEl.className = "ol-status ok";
+        form.querySelector("[name=text]").value = "";
+        setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 1600);
+        await loadList();
+      } catch (e) { statusEl.textContent = "save failed — your text is still here"; statusEl.className = "ol-status err"; }
+    });
+    loadList();
+  }
+
   function renderSections(sections) {
     return (sections || []).map(s => {
       const blocks = (s.blocks || []).map(b => {
@@ -446,6 +518,7 @@
       ${(p.outreach || []).length ? outreachCard(p.outreach) : ""}
       ${dealCard(id)}
       ${outreachLogCard(id)}
+      ${notesCard(id)}
       ${(p.operatorTodo || []).length ? todoCard(p.operatorTodo) : ""}
       ${p.caveats ? `<div class="card"><h3>Caveats</h3><div class="caveats">${esc(p.caveats)}</div></div>` : ""}
       ${r.sources ? `<div class="sources">Sources: ${r.sources}</div>` : ""}
@@ -462,6 +535,7 @@
     });
     initOutreachLog(id);
     initDealPanel(id);
+    initNotesPanel(id);
     content.scrollTop = 0;
   }
 

@@ -31,7 +31,8 @@ function checkProspect(where,p){ if(!p||typeof p!=="object"){errors.push(where+"
   if(!["top","solid","hold","skip"].includes(p.priority)) errors.push(where+" priority must be top/solid/hold/skip");
   else if(sc.total!=null){ const t=sc.total, band=t>=16?"top":t>=12?"solid":t>=8?"hold":"skip";
     if(p.priority!==band) warnings.push(where+" priority "+p.priority+" doesn't match score "+t+" (expected "+band+")"); }
-  if(!(p.outreach||[]).length) errors.push(where+" needs >=1 outreach draft");
+  if((p.outreach||[]).length<2) errors.push(where+" needs >=2 outreach drafts (multi-approach: warm-human / teardown / demo-first)");
+  if(p.scrutiny!=null && (typeof p.scrutiny!=="string" || !p.scrutiny.trim())) errors.push(where+" scrutiny, if present, must be a non-empty string (the critic's verdict)");
   if(!p.caveats) errors.push(where+" caveats is mandatory (state estimated vs confirmed)"); }
 function fail(list){ list.forEach(e=>console.error("FAIL: "+e)); console.error("\n"+list.length+" error(s). NOT safe to publish."); process.exit(1); }
 const items = loadItems();

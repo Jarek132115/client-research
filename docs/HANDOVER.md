@@ -8,10 +8,27 @@ named weaknesses, a demo plan, two ready outreach drafts, a short operator to-do
 an honest caveats line.
 
 ## The machine
-Claude routine (daily 02:00, repo attached) → reads knowledge/ + recent prospects →
-rotates vertical → discovers → triage → audit → score → draft → writes data/items.js →
-runs node scripts/check.js (gate + rebuild) → git push → Vercel auto-deploys the
-private site. One source of truth: data/items.js; everything else is derived.
+Claude routine (daily 02:00, repo attached) → reads knowledge/ + insights.json + recent
+prospects → rotates vertical → runs a WIDE-FUNNEL pipeline → writes data/items.js → runs
+node scripts/check.js (gate + rebuild) → git push → Vercel auto-deploys the private site.
+One source of truth: data/items.js; everything else is derived.
+
+### Routine v2 — wide funnel + scrutiny (the selection rigor)
+The routine no longer publishes a fixed count. Each night it:
+- **Phase A — wide net:** casts ~100 candidate brands in today's vertical (volume up top).
+- **Phase B — fast triage:** cuts to ~15-20 (kills non-Shopify, redesigned, sub-six-figure,
+  no owner, already-seen).
+- **Phase C — full audit:** revenue/weaknesses/contact/demo/score on the survivors.
+- **Phase D — skeptical scrutiny:** re-attacks its own shortlist as a critic ("would I
+  really build a free demo for this?"), rejects anything that doesn't survive, and records
+  a one-line `prospect.scrutiny` verdict on each that does. This self-criticism is how a
+  single run reaches multi-agent-style rigor.
+- **Phase E — publish what qualifies:** publishes ONLY the survivors — could be 6, could be
+  10. It never pads to a number or lowers the bar; a thin day is published thin and noted.
+Outreach is **3 distinct human approaches** per prospect (`warm-human`, `teardown`,
+`demo-first`), each tagged by `style` so the learning loop tracks which converts. The gate
+requires ≥2 drafts and accepts the optional `scrutiny` field; the real invariants (≥2
+revenue signals, ≥3 weaknesses, mandatory caveats) are unchanged. Full prompt: AUTOMATION.md.
 
 ## Daily use (5 minutes)
 1. Open the site, enter the password. Filter Priority "top".

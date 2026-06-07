@@ -73,13 +73,17 @@ window.SITE_ITEMS = [
       },
       score: { revenue: 3, weakness: 4, accessibility: 5, vertical: 4, total: 16 },
       priority: "top",
+      scrutiny: "Passes the critic: revenue clears six figures on two aligned signals (review velocity + sustained ad spend, not one wishful number), the founder is publicly active and genuinely reachable, and the off-PDP subscribe leak is a real repeat-revenue fix on a daily consumable, not a nitpick. Worth an hour to build the demo.",
       outreach: [
+        { channel: "email", style: "warm-human",
+          subject: "quick thing about your site",
+          body: "Hey Jane,\n\nRandomly ended up on your site the other night (your [bestseller] caught my eye) and went down a bit of a rabbit hole. Really like what you've built.\n\nOne small thing jumped out: the subscribe option is tucked away on its own page, so most people probably never spot it. Felt like an easy win, so I mocked up a version with it right on the product page. No agenda, just thought you might want to see it:\n\n[demo link]\n\nEither way, nice store.\n\n[Your name]" },
         { channel: "email", style: "teardown",
           subject: "your bestseller page",
-          body: "Hi Jane,\n\nI was on your [bestseller] page and noticed the subscribe option isn't on the product page itself — it's a click away, so most people never see it. On a daily-use product that's a big repeat-revenue leak.\n\nI rebuilt the page to show one-time vs subscribe inline with the saving, pulled your reviews up next to the buy button, and added a sticky add-to-cart for mobile. Quick before/after, no charge:\n\n[demo link]\n\nWorth a look?\n\n[Your name]" },
-        { channel: "email", style: "demo-offer",
+          body: "Hi Jane,\n\nI was on your [bestseller] page and noticed the subscribe option isn't on the product page itself, it's a click away, so most people never see it. On a daily-use product that's a big repeat-revenue leak.\n\nI rebuilt the page to show one-time vs subscribe inline with the saving, pulled your reviews up next to the buy button, and added a sticky add-to-cart for mobile. Quick before/after, no charge:\n\n[demo link]\n\nWorth a look?\n\n[Your name]" },
+        { channel: "email", style: "demo-first",
           subject: "rebuilt your product page (free)",
-          body: "Hi Jane,\n\nI rebuilt your [bestseller] page as a free demo — inline subscribe-and-save, reviews by the buy box, sticky mobile cart. Here's the before/after:\n\n[demo link]\n\nIf it's useful, happy to walk through it on a quick call.\n\n[Your name]" }
+          body: "Hi Jane,\n\nI rebuilt your [bestseller] page as a free demo: inline subscribe-and-save, reviews by the buy box, sticky mobile cart. Here's the before/after:\n\n[demo link]\n\nIf it's useful, happy to walk through it on a quick call.\n\n[Your name]" }
       ],
       operatorTodo: [
         "Verify jane@example.com in Apollo before sending (currently a pattern guess).",

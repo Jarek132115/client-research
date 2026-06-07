@@ -28,6 +28,18 @@ module.exports = async (req, res) => {
   try {
     if (req.method === "GET") {
       const prospectId = (req.query && req.query.prospect_id) || "";
+      // Pipeline digest: newest pricing payload per prospect, in one cheap query.
+      // Additive — existing prospect_id reads are unchanged.
+      if (!prospectId && req.query && req.query.digest === "pricing") {
+        const { rows } = await sql`
+          SELECT DISTINCT ON (prospect_id) prospect_id, payload
+          FROM store_notes WHERE kind = 'pricing'
+          ORDER BY prospect_id, created_at DESC, id DESC`;
+        const deals = {};
+        for (const r of rows) deals[r.prospect_id] = r.payload;
+        res.status(200).json({ deals });
+        return;
+      }
       if (!prospectId) { res.status(400).json({ error: "prospect_id required" }); return; }
       const { rows } = await sql`
         SELECT id, prospect_id, kind, payload, created_at, updated_at

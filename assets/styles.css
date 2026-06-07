@@ -186,3 +186,25 @@ main{overflow-y:auto;max-height:calc(100vh - 53px)}
 .ol-sent-body.inline{margin-top:8px}
 .ol-notes{font-size:12px;color:var(--text-dim);margin-top:8px;font-style:italic}
 @media (max-width:860px){ .ol-row{grid-template-columns:1fr 1fr} }
+
+/* ── Deal panel (Phase 3) — reuses existing tokens ── */
+.deal-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.deal-head h3{margin:0}
+.deal-stage-pill{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:4px}
+.deal-updated{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--text-faint)}
+.ds-won{background:color-mix(in srgb,var(--top) 18%,transparent);color:var(--top)}
+.ds-lost{background:color-mix(in srgb,var(--high) 18%,transparent);color:var(--high)}
+.ds-active{background:color-mix(in srgb,var(--hold) 18%,transparent);color:var(--hold)}
+.ds-early{background:var(--panel-2);color:var(--text-dim)}
+.deal-form{display:flex;flex-direction:column;gap:10px}
+.deal-money{display:flex;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);transition:.15s}
+.deal-money:focus-within{border-color:var(--accent-dim);box-shadow:0 0 0 3px var(--accent-ink)}
+.deal-money i{font-family:var(--mono);font-style:normal;font-size:12.5px;color:var(--text-faint);padding:0 2px 0 11px}
+.deal-money input{flex:1;border:0;background:transparent;box-shadow:none;padding-left:4px}
+.deal-money input:focus{box-shadow:none}
+.deal-scopes{display:flex;flex-wrap:wrap;gap:8px}
+.deal-scope{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;color:var(--text-dim);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;transition:.15s}
+.deal-scope input{accent-color:var(--accent);margin:0}
+.deal-scope:has(input:checked){border-color:var(--accent);color:var(--accent)}
+.ni-dealrow{grid-column:1/-1;margin-top:3px}
+.ni-deal{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px}

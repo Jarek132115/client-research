@@ -5,7 +5,7 @@
   const nav = document.getElementById("nav");
   const content = document.getElementById("content");
   const searchEl = document.getElementById("search");
-  let META = [], FACET = [], STATS = null;
+  let META = [], FACET = [], STATS = null, DEALS = {};
   let catFilter = null, priFilter = null, legacy = null, current = null;
   const cache = {};
   const sortFn = (a, b) => (a.date < b.date ? 1 : (a.date > b.date ? -1 : ((b.score || 0) - (a.score || 0))));
@@ -97,10 +97,15 @@
     nav.innerHTML = items.map(r => {
       const pri = r.priority ? `<span class="pri-pill pri-${r.priority}">${r.priority}</span>` : "";
       const rev = r.revenue ? `<span class="ni-rev">${esc(r.revenue)}</span>` : "";
+      const d = DEALS[r.id];
+      const dealRow = (d && d.stage && d.stage !== "not-started")
+        ? `<span class="ni-dealrow"><span class="ni-deal ${dealStageClass(d.stage)}">${esc(d.stage)}${(d.quoted != null && d.quoted !== "") ? " · $" + esc(d.quoted) : ""}</span></span>`
+        : "";
       return `<button class="nav-item" data-id="${esc(r.id)}">
         <span class="ni-title">${esc(r.title)}</span>
         <span class="ni-date">${esc(r.date)}</span>
         <span class="ni-meta">${pri}${rev}<span class="ni-score">${r.score || 0}/20</span></span>
+        ${dealRow}
       </button>`;
     }).join("") || `<div class="empty">No matches</div>`;
     nav.querySelectorAll(".nav-item").forEach(b =>
@@ -282,6 +287,114 @@
     loadList();
   }
 
+  /* ── Deal panel (Phase 3: DB-backed, /api/notes kind="pricing", SINGLE record per prospect) ── */
+  const DEAL_STAGES = ["not-started", "contacted", "replied", "call-booked", "quoted", "negotiating", "won", "lost"];
+  const DEAL_SCOPES = ["theme rebuild", "PDP redesign", "homepage", "CRO audit", "full site", "other"];
+  function dealStageClass(s) {
+    if (s === "won") return "ds-won";
+    if (s === "lost") return "ds-lost";
+    if (s === "quoted" || s === "negotiating") return "ds-active";
+    return "ds-early";
+  }
+  async function loadDeals() {
+    // one cheap call -> newest pricing payload per prospect, for the sidebar pipeline
+    try {
+      const res = await fetch("/api/notes?digest=pricing", { cache: "no-store" });
+      if (!res.ok) throw 0;
+      const data = await res.json();
+      return (data && data.deals) || {};
+    } catch (e) { return {}; }
+  }
+  function dealCard(id) {
+    const stageOpts = DEAL_STAGES.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join("");
+    const scopeBoxes = DEAL_SCOPES.map(s => `<label class="deal-scope"><input type="checkbox" name="scope" value="${esc(s)}"><span>${esc(s)}</span></label>`).join("");
+    return `<div class="card deal-card">
+      <div class="deal-head"><h3>Deal</h3>
+        <span class="deal-stage-pill ds-early" id="deal-pill">not-started</span>
+        <span class="deal-updated" id="deal-updated"></span></div>
+      <p class="ol-hint">The commercial state of this deal — a single record per prospect, saved live. Newest save wins.</p>
+      <form class="deal-form" id="deal-form" autocomplete="off">
+        <div class="ol-row">
+          <label class="ol-field"><span>Stage</span><select name="stage" id="deal-stage">${stageOpts}</select></label>
+          <label class="ol-field"><span>Quoted price</span><div class="deal-money"><i>$</i><input type="number" name="quoted" min="0" step="any" placeholder="0"></div></label>
+          <label class="ol-field"><span>Proposed timeline</span><input type="text" name="timeline" placeholder="e.g. 3 weeks"></label>
+          <label class="ol-field"><span>Close value (when won)</span><div class="deal-money"><i>$</i><input type="number" name="close_value" min="0" step="any" placeholder="0"></div></label>
+        </div>
+        <div class="ol-field"><span>Service scope</span><div class="deal-scopes">${scopeBoxes}</div></div>
+        <div class="ol-row deal-next">
+          <label class="ol-field"><span>Next action</span><input type="text" name="next_action" placeholder="e.g. send revised quote"></label>
+          <label class="ol-field"><span>Next-action date</span><input type="date" name="next_date"></label>
+        </div>
+        <label class="ol-field"><span>Deal notes</span><textarea name="notes" rows="2" placeholder="Context, objections, terms…"></textarea></label>
+        <div class="ol-actions"><button type="submit" class="ol-save">Save deal</button><span class="ol-status" id="deal-status"></span></div>
+      </form>
+    </div>`;
+  }
+  function initDealPanel(id) {
+    const form = document.getElementById("deal-form");
+    const statusEl = document.getElementById("deal-status");
+    const pill = document.getElementById("deal-pill");
+    const updatedEl = document.getElementById("deal-updated");
+    const stageSel = document.getElementById("deal-stage");
+    if (!form) return;
+    let priorIds = []; // existing pricing rows; cleaned up after a new save so exactly one remains
+    function setPill(stage) { pill.textContent = stage || "not-started"; pill.className = "deal-stage-pill " + dealStageClass(stage); }
+    function populate(p) {
+      p = p || {};
+      form.stage.value = DEAL_STAGES.includes(p.stage) ? p.stage : "not-started";
+      form.quoted.value = (p.quoted != null) ? p.quoted : "";
+      form.timeline.value = p.timeline || "";
+      form.close_value.value = (p.close_value != null) ? p.close_value : "";
+      form.next_action.value = p.next_action || "";
+      form.next_date.value = p.next_date || "";
+      form.notes.value = p.notes || "";
+      const scope = Array.isArray(p.scope) ? p.scope : [];
+      form.querySelectorAll("input[name=scope]").forEach(c => { c.checked = scope.includes(c.value); });
+      setPill(form.stage.value);
+    }
+    if (stageSel) stageSel.addEventListener("change", () => setPill(stageSel.value));
+    async function loadDeal() {
+      try {
+        const res = await fetch("/api/notes?prospect_id=" + encodeURIComponent(id), { cache: "no-store" });
+        if (!res.ok) throw new Error("http " + res.status);
+        const data = await res.json();
+        if (current !== id) return;
+        const pricing = (data.notes || []).filter(n => n.kind === "pricing"); // API returns newest-first
+        priorIds = pricing.map(n => n.id);
+        if (pricing.length) { populate(pricing[0].payload); updatedEl.textContent = "updated " + (pricing[0].created_at || "").slice(0, 10); }
+        else { setPill("not-started"); updatedEl.textContent = "no deal yet"; }
+      } catch (e) {
+        if (current !== id) return;
+        statusEl.textContent = "couldn't load deal"; statusEl.className = "ol-status err";
+      }
+    }
+    form.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const fd = new FormData(form);
+      const num = v => { v = (v == null ? "" : String(v)).trim(); return v === "" ? null : Number(v); };
+      const payload = { stage: fd.get("stage"), quoted: num(fd.get("quoted")), timeline: (fd.get("timeline") || "").trim(),
+        close_value: num(fd.get("close_value")), scope: fd.getAll("scope"),
+        next_action: (fd.get("next_action") || "").trim(), next_date: fd.get("next_date") || "", notes: (fd.get("notes") || "").trim() };
+      statusEl.textContent = "saving…"; statusEl.className = "ol-status";
+      try {
+        const res = await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prospect_id: id, kind: "pricing", payload }) });
+        if (!res.ok) throw new Error("http " + res.status);
+        const saved = await res.json();
+        const newId = saved.note && saved.note.id;
+        // newest pricing row wins; best-effort delete the prior ones so there is exactly one
+        for (const oldId of priorIds) { if (oldId !== newId) { try { await fetch("/api/notes?id=" + encodeURIComponent(oldId), { method: "DELETE" }); } catch (e) {} } }
+        statusEl.textContent = "saved ✓"; statusEl.className = "ol-status ok";
+        setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 1600);
+        await loadDeal();
+        DEALS = await loadDeals(); buildNav(); // refresh the sidebar pipeline indicator
+      } catch (e) {
+        statusEl.textContent = "save failed — your input is intact"; statusEl.className = "ol-status err";
+      }
+    });
+    loadDeal();
+  }
+
   function renderSections(sections) {
     return (sections || []).map(s => {
       const blocks = (s.blocks || []).map(b => {
@@ -331,6 +444,7 @@
       ${p.demo ? demoCard(p.demo) : ""}
       ${p.lighthouse ? lighthouseCard(p.lighthouse) : ""}
       ${(p.outreach || []).length ? outreachCard(p.outreach) : ""}
+      ${dealCard(id)}
       ${outreachLogCard(id)}
       ${(p.operatorTodo || []).length ? todoCard(p.operatorTodo) : ""}
       ${p.caveats ? `<div class="card"><h3>Caveats</h3><div class="caveats">${esc(p.caveats)}</div></div>` : ""}
@@ -347,6 +461,7 @@
       });
     });
     initOutreachLog(id);
+    initDealPanel(id);
     content.scrollTop = 0;
   }
 
@@ -396,6 +511,7 @@
       loadJSON("data/stats.json")
     ]);
     renderChips();
+    DEALS = await loadDeals();
     buildNav();
     route();
   })();

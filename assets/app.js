@@ -159,6 +159,14 @@
     }).join("");
     return `<div class="card"><h3>Decision-makers</h3>${rows}</div>`;
   }
+  function demoLibraryCard(p) {
+    const rec = p.mockupRecording, live = p.mockupLive;
+    if (!rec && !live) return "";
+    const btns = [];
+    if (rec) btns.push(`<a class="demo-lib-btn primary" href="${esc(rec)}" target="_blank" rel="noopener"><span class="ico">▶</span>Watch Demo</a>`);
+    if (live) btns.push(`<a class="demo-lib-btn" href="${esc(live)}" target="_blank" rel="noopener"><span class="ico">↗</span>Open Mockup</a>`);
+    return `<div class="card"><h3>Demo</h3><div class="demo-lib">${btns.join("")}</div></div>`;
+  }
   function demoCard(d) {
     const mech = (d.mechanics || []).map((m, i) =>
       `<div class="mech"><span class="n">${String(i + 1).padStart(2, "0")}</span><span class="t">${esc(m)}</span></div>`).join("");
@@ -521,6 +529,7 @@
       ${(p.weaknesses || []).length ? weaknessCard(p.weaknesses) : ""}
       ${renderSections(r.sections)}
       ${(p.contacts || []).length ? contactsCard(p.contacts) : ""}
+      ${demoLibraryCard(p)}
       ${p.demo ? demoCard(p.demo) : ""}
       ${p.lighthouse ? lighthouseCard(p.lighthouse) : ""}
       ${(p.outreach || []).length ? outreachCard(p.outreach) : ""}

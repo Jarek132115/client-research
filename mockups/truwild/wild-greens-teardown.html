@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wild Greens PDP — conversion teardown &amp; rebuild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://truwild.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7f2ed;
+    --brown:#3e110c;
+    --brown-2:#5a2a23;
+    --ink:#1c1c1c;
+    --muted:#7a6e6b;
+    --line:#ead8c5;
+    --line-dim:#e6dccf;
+    --orange:#EB763E;
+    --orange-2:#d65e26;
+    --green:#2d6a4f;
+    --red:#b8453b;
+    --white:#ffffff;
+    --panel:#ffffff;
+    --shadow-soft:0 1px 2px rgba(62,17,12,.04), 0 12px 32px -16px rgba(62,17,12,.18);
+    --shadow-flat:0 1px 1px rgba(62,17,12,.04);
+    --radius:14px;
+    --radius-sm:10px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .heading{font-family:'Bebas Neue','Lato',sans-serif;letter-spacing:.01em;color:var(--brown);font-weight:400}
+
+  /* page header */
+  .page-head{
+    padding:34px 36px 22px;
+    border-bottom:1px solid var(--line);
+    background:var(--cream);
+  }
+  .page-head .row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;max-width:1280px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{height:26px;width:auto;display:block}
+  .brand .name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:var(--brown);line-height:1}
+  .page-head h1{font-family:'Bebas Neue',sans-serif;color:var(--brown);font-size:34px;letter-spacing:.01em;margin:0;line-height:1.05;font-weight:400}
+  .page-head p{margin:6px 0 0;color:var(--muted);font-size:13.5px;letter-spacing:.01em}
+  .page-head .by{font-family:'Lato',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+  /* layout */
+  main{max-width:1280px;margin:0 auto;padding:30px 36px 60px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  @media (max-width:980px){ .cols{grid-template-columns:1fr;gap:22px} main{padding:22px 18px 48px} }
+
+  /* column label */
+  .col-label{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:0 2px}
+  .col-label .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .col-label .dot.bad{background:var(--red)}
+  .col-label .dot.good{background:var(--green)}
+  .col-label .tag{font-family:'Lato',sans-serif;font-size:11px;letter-spacing:.22em;font-weight:900;text-transform:uppercase;color:var(--brown)}
+  .col-label .where{font-size:12.5px;color:var(--muted);margin-left:auto;font-weight:500}
+
+  /* card baseline */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .card.after{box-shadow:var(--shadow-soft)}
+  .card.before{box-shadow:var(--shadow-flat)}
+  .card .inner{padding:22px 22px 24px}
+
+  /* hero image area */
+  .hero{aspect-ratio:1/1;background:var(--cream);display:grid;place-items:center;border-bottom:1px solid var(--line-dim);position:relative;overflow:hidden}
+  .hero.after{background:linear-gradient(180deg,#fbf6ef 0%,#f3ecdf 100%)}
+  .hero img{width:78%;height:auto;display:block;filter:drop-shadow(0 18px 30px rgba(62,17,12,.18))}
+  .hero.before img{width:62%;filter:none}
+  .pill-badge{position:absolute;top:14px;left:14px;font-family:'Lato',sans-serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;background:#fff;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .pill-badge.org{background:#e8f1eb;color:var(--green);border-color:#c6decd}
+
+  /* ============ BEFORE column ============ */
+  .b-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--brown);margin:6px 0 4px;letter-spacing:.01em;line-height:1.05}
+  .b-sub{font-size:12.5px;color:var(--muted);margin:0 0 14px}
+  .b-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px;padding-top:14px;border-top:1px dashed var(--line)}
+  .b-price{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--brown);letter-spacing:.01em;line-height:1}
+  .b-per{font-size:13px;color:var(--ink);opacity:.7}
+  .b-flag{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--red);background:#fbe9e7;border:1px solid #f2c5bf;border-radius:6px;padding:3px 7px;margin-left:auto}
+  .b-flag .x{font-weight:900}
+  .b-sub-row{margin-top:14px;padding:12px 12px;background:#fbf3ea;border:1px solid #ecd9c0;border-radius:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .b-sub-row .lab{font-size:12px;color:var(--brown-2);font-weight:700}
+  .b-sub-row .price-broken{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);letter-spacing:.01em;line-height:1}
+  .b-sub-row .strike{color:var(--muted);text-decoration:line-through;font-size:13px}
+  .b-cta{display:flex;align-items:center;gap:10px;margin-top:18px}
+  .b-qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+  .b-qty button{background:transparent;border:0;width:34px;height:36px;font-size:16px;color:var(--brown);cursor:default}
+  .b-qty span{min-width:30px;text-align:center;font-weight:700;color:var(--ink)}
+  .b-add{flex:1;background:var(--brown);color:#fff;border:0;border-radius:8px;padding:11px 14px;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:.08em;font-size:13px;text-transform:uppercase;cursor:default}
+  .b-trust{margin-top:12px;display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:11.5px}
+  .b-trust span::before{content:"·";margin-right:6px;color:var(--muted)}
+  .b-trust span:first-child::before{content:""}
+  .b-reviews-buried{margin-top:14px;padding:10px 12px;background:#f4ece2;border:1px dashed #d8c6ad;border-radius:8px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .b-reviews-buried .stars{color:#caa55e;letter-spacing:1px}
+  .b-reviews-buried .arrow{margin-left:auto;font-size:14px;color:var(--muted)}
+  .b-benefits{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-dim)}
+  .b-benefits .bh{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--brown);letter-spacing:.05em;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+  .b-benefits .bh .wrong{font-size:9.5px;letter-spacing:.18em;font-weight:900;color:var(--red);background:#fbe9e7;border:1px solid #f2c5bf;padding:2px 6px;border-radius:5px;font-family:'Lato',sans-serif}
+  .b-benefits ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .b-benefits li{font-size:11.5px;color:var(--ink);text-align:center;padding:8px 4px}
+  .b-benefits li b{display:block;font-size:12px;color:var(--brown);margin-bottom:2px;font-weight:900}
+
+  /* ============ AFTER column ============ */
+  .a-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .a-stars{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
+  .a-stars .s{color:#EBB14B;font-size:14px;letter-spacing:1px}
+  .a-stars b{font-weight:900;color:var(--brown)}
+  .a-stars .n{color:var(--muted)}
+  .a-org{font-family:'Lato',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green);background:#e8f1eb;border:1px solid #c6decd;border-radius:999px;padding:4px 10px}
+  .a-title{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--brown);letter-spacing:.01em;line-height:1.02;margin:6px 0 4px;font-weight:400}
+  .a-tag{font-size:13px;color:var(--muted);margin:0 0 18px}
+
+  /* toggle */
+  .a-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+  .a-opt{position:relative;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:3px;cursor:default}
+  .a-opt.active{border-color:var(--orange);background:#fff8f1;box-shadow:0 0 0 3px rgba(235,118,62,.12)}
+  .a-opt .opt-label{font-family:'Lato',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--brown)}
+  .a-opt.active .opt-label{color:var(--orange-2)}
+  .a-opt .opt-price{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--brown);letter-spacing:.01em;line-height:1}
+  .a-opt .opt-strike{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:6px}
+  .a-opt .opt-meta{font-size:11.5px;color:var(--muted)}
+  .a-opt .save-pill{position:absolute;top:-9px;right:12px;background:var(--orange);color:#fff;font-family:'Lato',sans-serif;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:999px;line-height:1.4}
+
+  /* serving card */
+  .a-serv{background:#fff8f1;border:1px solid #f3d8be;border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--brown-2);margin-bottom:18px}
+  .a-serv .leaf{width:18px;height:18px;background:var(--orange);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:900}
+  .a-serv b{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--brown);letter-spacing:.02em;font-weight:400}
+
+  /* CTA */
+  .a-cta{display:flex;align-items:stretch;gap:10px;margin-bottom:14px}
+  .a-qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+  .a-qty button{background:transparent;border:0;width:38px;height:48px;font-size:18px;color:var(--brown);cursor:default}
+  .a-qty span{min-width:30px;text-align:center;font-weight:900;color:var(--brown);font-size:15px}
+  .a-add{flex:1;background:var(--orange);color:#fff;border:0;border-radius:10px;padding:0 18px;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:.1em;font-size:13.5px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:10px;height:48px;transition:.16s}
+  .a-add .price-tag{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:999px;line-height:1.2}
+
+  /* trust row */
+  .a-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+  .a-trust .t{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 10px;text-align:center}
+  .a-trust .t .ic{font-size:14px;color:var(--green);font-weight:900;line-height:1}
+  .a-trust .t .lab{font-size:11px;color:var(--brown-2);margin-top:4px;font-weight:700;letter-spacing:.01em}
+
+  /* benefits AFTER */
+  .a-benefits{padding-top:18px;border-top:1px solid var(--line-dim)}
+  .a-benefits .bh{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--brown);letter-spacing:.04em;margin:0 0 14px;display:flex;align-items:center;gap:10px;font-weight:400}
+  .a-benefits .bh .ok{font-size:9.5px;letter-spacing:.18em;font-weight:900;color:var(--green);background:#e8f1eb;border:1px solid #c6decd;padding:3px 8px;border-radius:5px;font-family:'Lato',sans-serif;text-transform:uppercase}
+  .a-benefits ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .a-benefits li{background:var(--cream);border:1px solid var(--line-dim);border-radius:10px;padding:14px 10px;text-align:center}
+  .a-benefits li .ic{width:36px;height:36px;background:#fff;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;border:1px solid var(--line)}
+  .a-benefits li .ic img{width:22px;height:22px}
+  .a-benefits li b{display:block;font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--brown);letter-spacing:.04em;margin-bottom:3px;font-weight:400}
+  .a-benefits li p{margin:0;font-size:11.5px;color:var(--brown-2);line-height:1.45}
+
+  /* fix-callouts (small annotations) */
+  .annot{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;color:var(--muted);margin-top:10px}
+  .annot .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:6px}
+
+  /* footer */
+  footer{max-width:1280px;margin:0 auto;padding:0 36px 40px;color:var(--muted);font-size:12px}
+  footer .row{border-top:1px solid var(--line);padding-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  footer a{color:var(--brown);text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+  footer .static{margin-left:auto;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <div class="row">
+    <div class="brand">
+      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD" onerror="this.style.display='none'">
+      <span class="name">TRUWILD</span>
+    </div>
+    <div class="by">conversion teardown &amp; rebuild · KONARSTUDIO</div>
+  </div>
+  <div class="row" style="margin-top:14px">
+    <div>
+      <h1>Wild Greens PDP &mdash; before / after</h1>
+      <p>Four fixes on the buy-box that should lift subscribe-conversion and trust at the point of decision.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="cols">
+
+    <!-- ================= BEFORE ================= -->
+    <section>
+      <div class="col-label">
+        <span class="dot bad"></span>
+        <span class="tag">Before</span>
+        <span class="where">currently live on truwild.com/products/wild-greens</span>
+      </div>
+      <article class="card before">
+        <div class="hero before">
+          <img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt="Wild Greens tub">
+        </div>
+        <div class="inner">
+          <h2 class="b-title">USDA Organic Greens Superfood</h2>
+          <p class="b-sub">Wild Greens &mdash; 30 servings</p>
+
+          <div class="b-price-row">
+            <span class="b-price">&pound;25.77</span>
+            <span class="b-per">$0.98 / serving</span>
+            <span class="b-flag"><span class="x">!</span> Mixed currency</span>
+          </div>
+
+          <div class="b-sub-row">
+            <span class="lab">Subscribe &amp; Save 15%</span>
+            <span class="price-broken">$0.00</span>
+            <span style="font-size:12px;color:var(--brown-2)">/ Serving</span>
+            <span class="b-flag" style="margin-left:auto"><span class="x">!</span> Broken price</span>
+          </div>
+
+          <div class="b-cta">
+            <div class="b-qty"><button>&minus;</button><span>1</span><button>+</button></div>
+            <button class="b-add">Add to Bag</button>
+          </div>
+          <div class="b-trust">
+            <span>Free shipping on subscription</span>
+            <span>30-day money-back</span>
+          </div>
+
+          <div class="b-reviews-buried">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span>4.8 &middot; 293 reviews</span>
+            <span class="arrow">&darr; buried further down the page</span>
+          </div>
+
+          <div class="b-benefits">
+            <div class="bh">
+              Why You&rsquo;ll Love HYDRATE
+              <span class="wrong">wrong product</span>
+            </div>
+            <ul>
+              <li><b>Micronutrients</b>Energize cells</li>
+              <li><b>Cleanse &amp; Detox</b>Gut support</li>
+              <li><b>Immune support</b>Vitamin C, zinc</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ================= AFTER ================= -->
+    <section>
+      <div class="col-label">
+        <span class="dot good"></span>
+        <span class="tag">After</span>
+        <span class="where">rebuilt for conversion &mdash; brand intact</span>
+      </div>
+      <article class="card after">
+        <div class="hero after">
+          <span class="pill-badge org">USDA Organic</span>
+          <span class="pill-badge" style="left:auto;right:14px">30 Servings</span>
+          <img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt="Wild Greens tub">
+        </div>
+        <div class="inner">
+          <div class="a-top">
+            <span class="a-stars">
+              <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <b>4.8</b><span class="n">&middot; 293 reviews</span>
+            </span>
+            <span class="a-org">USDA Organic</span>
+          </div>
+          <h2 class="a-title">USDA Organic Greens Superfood</h2>
+          <p class="a-tag">Raw fiber, mixed greens, adaptogens &mdash; 30 servings per tub.</p>
+
+          <div class="a-toggle">
+            <div class="a-opt">
+              <span class="opt-label">One-time</span>
+              <div><span class="opt-price">$34.00</span></div>
+              <span class="opt-meta">$1.13 / serving</span>
+            </div>
+            <div class="a-opt active">
+              <span class="save-pill">Save 15%</span>
+              <span class="opt-label">Subscribe &amp; Save</span>
+              <div><span class="opt-price">$28.90</span><span class="opt-strike">$34.00</span></div>
+              <span class="opt-meta">Just $0.96 / serving &middot; free shipping</span>
+            </div>
+          </div>
+
+          <div class="a-serv">
+            <span class="leaf">$</span>
+            <span>You pay <b>$28.90</b> every 30 days &mdash; skip or cancel anytime.</span>
+          </div>
+
+          <div class="a-cta">
+            <div class="a-qty"><button>&minus;</button><span>1</span><button>+</button></div>
+            <button class="a-add">Add to Cart <span class="price-tag">$28.90</span></button>
+          </div>
+
+          <div class="a-trust">
+            <div class="t"><div class="ic">&#10003;</div><div class="lab">USDA Organic</div></div>
+            <div class="t"><div class="ic">&#10003;</div><div class="lab">30-Day Money-Back</div></div>
+            <div class="t"><div class="ic">&#10003;</div><div class="lab">Free Shipping on Subscribe</div></div>
+          </div>
+
+          <div class="a-benefits">
+            <div class="bh">
+              Why You&rsquo;ll Love Wild Greens
+              <span class="ok">fixed</span>
+            </div>
+            <ul>
+              <li>
+                <div class="ic"><img src="https://truwild.com/cdn/shop/files/Group.png?v=1732084466" alt="" onerror="this.style.display='none'"></div>
+                <b>Micronutrients</b>
+                <p>Vitamins and minerals that energize brain, gut, and immune cells.</p>
+              </li>
+              <li>
+                <div class="ic"><img src="https://truwild.com/cdn/shop/files/yoga-posture_1.png?v=1732086901" alt="" onerror="this.style.display='none'"></div>
+                <b>Cleanse &amp; Detox</b>
+                <p>Soothing, easy-to-absorb ingredients that boost digestion and ease bloating.</p>
+              </li>
+              <li>
+                <div class="ic"><img src="https://truwild.com/cdn/shop/files/Group_1.png?v=1732086965" alt="" onerror="this.style.display='none'"></div>
+                <b>Everyday Immunity</b>
+                <p>Vitamin C, zinc, and functional mushrooms for daily defense against stress.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <div class="annot">
+        <span class="dot"></span>
+        <span>Four fixes: real Subscribe &amp; Save price &middot; one consistent currency (USD) &middot; correct Wild Greens benefits header &middot; 4.8&#9733; / 293 reviews surfaced next to the CTA.</span>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="row">
+    <span>Reference: <a href="https://truwild.com/products/wild-greens" target="_blank" rel="noopener">truwild.com/products/wild-greens</a></span>
+    <span class="static">Static teardown mockup &middot; no live cart</span>
+  </div>
+</footer>
+
+</body>
+</html>

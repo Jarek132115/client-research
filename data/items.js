@@ -404,7 +404,7 @@ window.SITE_ITEMS = [
         "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
       ],
       "caveats": "Revenue is a LOW-confidence estimate from a Crunchbase under-$10M band plus multi-channel distribution and press signals, not filed accounts (US brand, no Companies House); six-figure/mo is likely at the midpoint but not certain. Email zac@truwild.com is a PATTERN GUESS, not verified (Apollo people-match is unavailable on the current free plan). Lighthouse not yet run. Weaknesses were observed live on the Wild Greens PDP on 2026-06-10 in a UK-localized browser session, so the GBP currency display may differ for US visitors (the $0.00 subscribe price and the wrong-product header are not location-dependent).",
-      "mockupLive": "/mockups/truwild/wild-greens-teardown.html"
+      "mockupLive": "/mockups/truwild/wild-greens-fixed.html"
     }
   },
   {

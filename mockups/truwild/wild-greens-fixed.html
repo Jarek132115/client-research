@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wild Greens — Organic Greens Superfood | TRUWILD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://truwild.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7f2ed;
+    --cream-2:#f3ecdf;
+    --brown:#3e110c;
+    --brown-2:#5a2a23;
+    --ink:#1c1c1c;
+    --muted:#7a6e6b;
+    --line:#ead8c5;
+    --line-dim:#efe4d4;
+    --orange:#EB763E;
+    --orange-2:#d65e26;
+    --orange-3:#fff8f1;
+    --green:#2d6a4f;
+    --gold:#EBB14B;
+    --white:#ffffff;
+    --shadow-sm:0 1px 2px rgba(62,17,12,.05);
+    --shadow-md:0 1px 2px rgba(62,17,12,.04), 0 18px 40px -22px rgba(62,17,12,.22);
+    --shadow-card:0 1px 1px rgba(62,17,12,.04), 0 8px 20px -12px rgba(62,17,12,.16);
+    --radius:14px;
+    --radius-sm:10px;
+    --max:1240px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .heading{font-family:'Bebas Neue','Lato',sans-serif;letter-spacing:.02em;color:var(--brown);font-weight:400}
+
+  /* announcement bar */
+  .anno{background:var(--brown);color:#fff;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;text-align:center;padding:10px 14px;font-family:'Lato',sans-serif}
+  .anno span{opacity:.65;margin:0 14px}
+
+  /* header */
+  header.site{background:var(--cream);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:saturate(120%) blur(6px)}
+  .nav{max-width:var(--max);margin:0 auto;padding:18px 30px;display:flex;align-items:center;gap:24px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:28px;width:auto}
+  .nav-logo .name{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--brown);letter-spacing:.06em;line-height:1;font-weight:400}
+  .nav-links{display:flex;align-items:center;gap:26px;margin-left:38px}
+  .nav-links a{font-family:'Lato',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--brown);transition:.16s}
+  .nav-links a:hover{color:var(--orange-2)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:18px}
+  .nav-right a{font-family:'Lato',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--brown)}
+  .nav-cart{display:inline-flex;align-items:center;gap:7px;background:var(--brown);color:#fff !important;border-radius:999px;padding:7px 13px}
+  .nav-cart .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);display:inline-block}
+
+  /* layout helpers */
+  .container{max-width:var(--max);margin:0 auto;padding:0 30px}
+  section{padding:64px 0}
+  section.tight{padding:46px 0}
+
+  /* breadcrumbs */
+  .crumbs{font-size:12px;color:var(--muted);letter-spacing:.04em;padding:20px 0 0}
+  .crumbs a{color:var(--muted)}
+  .crumbs .sep{margin:0 7px;opacity:.5}
+  .crumbs b{color:var(--brown);font-weight:700}
+
+  /* HERO + BUY BOX */
+  .hero-wrap{padding-top:30px;padding-bottom:24px}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:30px} }
+
+  /* hero image */
+  .hero-img{position:relative;background:linear-gradient(180deg,#fbf6ef 0%,#efe6d4 100%);border:1px solid var(--line-dim);border-radius:22px;padding:34px;display:grid;place-items:center;min-height:540px;box-shadow:var(--shadow-md);overflow:hidden}
+  .hero-img::before{content:"";position:absolute;inset:auto -40px -40px auto;width:340px;height:340px;background:radial-gradient(circle,rgba(235,118,62,.15),transparent 70%);pointer-events:none}
+  .hero-img img{width:78%;height:auto;filter:drop-shadow(0 30px 38px rgba(62,17,12,.20))}
+  .pill{position:absolute;font-family:'Lato',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;background:#fff;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:7px 13px;box-shadow:var(--shadow-sm)}
+  .pill.org{background:#e8f1eb;color:var(--green);border-color:#c6decd}
+  .pill.tl{top:20px;left:20px}
+  .pill.tr{top:20px;right:20px}
+  .pill.bl{bottom:20px;left:20px}
+  .thumbs{position:absolute;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px}
+  .thumbs .t{width:54px;height:54px;border-radius:10px;background:#fff;border:1.5px solid var(--line);overflow:hidden;padding:6px;box-shadow:var(--shadow-sm)}
+  .thumbs .t.active{border-color:var(--orange)}
+  .thumbs .t img{width:100%;height:100%;object-fit:contain}
+
+  /* BUY BOX */
+  .buy{display:flex;flex-direction:column;gap:0}
+  .buy-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .stars{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink)}
+  .stars .s{color:var(--gold);font-size:15px;letter-spacing:1.5px;line-height:1}
+  .stars b{color:var(--brown);font-weight:900}
+  .stars .n{color:var(--muted)}
+  .stars a{color:var(--muted);border-bottom:1px solid var(--line);font-weight:500}
+  .org-tag{font-family:'Lato',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green);background:#e8f1eb;border:1px solid #c6decd;border-radius:999px;padding:5px 11px}
+
+  .buy h1{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:var(--brown);letter-spacing:.01em;margin:8px 0 6px;font-weight:400}
+  .buy .lede{font-size:15px;color:var(--brown-2);margin:0 0 6px;max-width:46ch}
+  .buy .tag{font-size:13.5px;color:var(--muted);margin:0 0 22px}
+
+  /* purchase toggle */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+  .opt{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px 14px;cursor:default;transition:.16s}
+  .opt.active{border-color:var(--orange);background:var(--orange-3);box-shadow:0 0 0 4px rgba(235,118,62,.10)}
+  .opt .lbl{font-family:'Lato',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--brown);display:block;margin-bottom:8px}
+  .opt.active .lbl{color:var(--orange-2)}
+  .opt .price{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--brown);letter-spacing:.01em;line-height:1;font-weight:400}
+  .opt .strike{font-size:13.5px;color:var(--muted);text-decoration:line-through;margin-left:8px;vertical-align:middle}
+  .opt .meta{font-size:12.5px;color:var(--brown-2);margin-top:6px}
+  .opt .save{position:absolute;top:-10px;right:14px;background:var(--orange);color:#fff;font-family:'Lato',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;padding:4px 10px;border-radius:999px;line-height:1.4}
+
+  /* sub strip */
+  .sub-strip{background:var(--orange-3);border:1px solid #f3d8be;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--brown-2);margin-bottom:18px}
+  .sub-strip .dot{width:20px;height:20px;background:var(--orange);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;flex-shrink:0}
+  .sub-strip b{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--brown);letter-spacing:.02em;font-weight:400}
+
+  /* CTA row */
+  .cta-row{display:flex;align-items:stretch;gap:12px;margin-bottom:16px}
+  .qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+  .qty button{background:transparent;border:0;width:44px;height:54px;font-size:20px;color:var(--brown);cursor:default}
+  .qty span{min-width:36px;text-align:center;font-weight:900;color:var(--brown);font-size:16px}
+  .add{flex:1;background:var(--orange);color:#fff;border:0;border-radius:12px;padding:0 22px;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:.12em;font-size:14px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:12px;height:54px;box-shadow:0 1px 2px rgba(214,94,38,.20),0 12px 24px -10px rgba(214,94,38,.45)}
+  .add .tag{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;line-height:1.2;font-weight:400}
+
+  /* trust row */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .trust .t{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 10px;text-align:center;transition:.16s}
+  .trust .t .ic{font-size:15px;color:var(--green);font-weight:900;line-height:1;margin-bottom:5px}
+  .trust .t .lab{font-size:11.5px;color:var(--brown-2);font-weight:700;letter-spacing:.02em}
+
+  /* ============ Benefits section ============ */
+  .section-head{text-align:center;max-width:640px;margin:0 auto 38px}
+  .section-head .eyebrow{font-family:'Lato',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:900;color:var(--orange-2);margin-bottom:10px}
+  .section-head h2{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--brown);letter-spacing:.02em;margin:0 0 10px;line-height:1.02;font-weight:400}
+  .section-head p{font-size:15.5px;color:var(--brown-2);margin:0}
+
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .benefit{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:var(--shadow-card)}
+  .benefit .ic{width:74px;height:74px;background:var(--cream);border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;border:1px solid var(--line)}
+  .benefit .ic img{width:38px;height:38px}
+  .benefit h3{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--brown);letter-spacing:.04em;margin:0 0 8px;font-weight:400}
+  .benefit p{margin:0;font-size:14px;color:var(--brown-2);line-height:1.55}
+
+  @media (max-width:780px){ .benefits{grid-template-columns:1fr} .opts{grid-template-columns:1fr} .trust{grid-template-columns:1fr 1fr} }
+
+  /* ============ Trust strip ============ */
+  .strip{background:var(--brown);color:#fff;padding:42px 0;position:relative;overflow:hidden}
+  .strip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(235,118,62,.18),transparent 60%)}
+  .strip-inner{max-width:var(--max);margin:0 auto;padding:0 30px;position:relative;display:flex;align-items:center;gap:30px;justify-content:space-between;flex-wrap:wrap}
+  .strip-head{display:flex;align-items:center;gap:18px}
+  .strip-head .big{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:.02em;line-height:1;color:#fff;font-weight:400}
+  .strip-head .lab{font-family:'Lato',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:rgba(255,255,255,.65)}
+  .strip-pills{display:flex;gap:10px;flex-wrap:wrap}
+  .strip-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-family:'Lato',sans-serif;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#fff}
+  .strip-pill .ic{color:var(--orange);font-size:13px;line-height:1}
+
+  /* ============ Reviews ============ */
+  .rev-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+  .rev-summary{display:flex;align-items:center;gap:20px}
+  .rev-avg{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--brown);line-height:.9;letter-spacing:.01em;font-weight:400}
+  .rev-meta{display:flex;flex-direction:column;gap:4px}
+  .rev-meta .stars-big{color:var(--gold);font-size:22px;letter-spacing:2px;line-height:1}
+  .rev-meta .count{font-size:13.5px;color:var(--muted)}
+  .rev-meta .count b{color:var(--brown);font-weight:900}
+  .rev-cta{font-family:'Lato',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--brown);border:1.5px solid var(--brown);padding:11px 20px;border-radius:999px;background:transparent}
+
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-card)}
+  .review .head{display:flex;align-items:center;gap:12px}
+  .review .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#f3ecdf,#ead8c5);color:var(--brown);display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;font-weight:400}
+  .review .who{display:flex;flex-direction:column;line-height:1.2}
+  .review .who b{color:var(--brown);font-weight:900;font-size:14px}
+  .review .who .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .review .v{display:inline-flex;align-items:center;gap:6px;background:#e8f1eb;color:var(--green);border-radius:999px;padding:3px 9px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;align-self:flex-start}
+  .review .stars-r{color:var(--gold);font-size:14px;letter-spacing:1.5px;line-height:1}
+  .review h4{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--brown);letter-spacing:.02em;margin:0;line-height:1.15;font-weight:400}
+  .review p{margin:0;font-size:14px;color:var(--brown-2);line-height:1.55}
+  @media (max-width:980px){ .reviews{grid-template-columns:1fr} }
+
+  /* ============ footer ============ */
+  footer.site{background:var(--brown);color:rgba(255,255,255,.7);padding:38px 0 28px}
+  footer .row{max-width:var(--max);margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:.02em}
+  footer .name{display:inline-flex;align-items:center;gap:10px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;font-weight:400}
+  footer .name img{height:22px;width:auto;filter:brightness(0) invert(1)}
+  footer .links{display:flex;gap:22px;font-family:'Lato',sans-serif;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
+  footer .copy{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+  /* responsive */
+  @media (max-width:780px){
+    .nav-links{display:none}
+    .nav-right .acc-link{display:none}
+    .buy h1{font-size:42px}
+    .section-head h2{font-size:38px}
+    section{padding:48px 0}
+    .strip-head .big{font-size:34px}
+    .rev-avg{font-size:60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="anno">Free shipping on subscribe orders <span>·</span> 30-day money-back guarantee <span>·</span> US-formulated</div>
+
+<header class="site">
+  <div class="nav">
+    <a class="nav-logo" href="#">
+      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD" onerror="this.style.display='none'">
+      <span class="name">TRUWILD</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">Our Story</a>
+      <a href="#">Journal</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a class="acc-link" href="#">Account</a>
+      <a class="nav-cart" href="#"><span class="dot"></span>Bag · 0</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="crumbs"><a href="#">Shop</a><span class="sep">/</span><a href="#">Daily Greens</a><span class="sep">/</span><b>Wild Greens</b></div>
+</div>
+
+<!-- HERO + BUY BOX -->
+<div class="container hero-wrap">
+  <div class="hero">
+    <!-- hero image -->
+    <div class="hero-img">
+      <span class="pill org tl">USDA Organic</span>
+      <span class="pill tr">30 Servings</span>
+      <span class="pill bl">Non-GMO · Vegan</span>
+      <img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt="TRUWILD Wild Greens — organic greens superfood tub">
+      <div class="thumbs">
+        <div class="t active"><img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt=""></div>
+        <div class="t"><img src="https://truwild.com/cdn/shop/files/Group.png?v=1732084466" alt=""></div>
+        <div class="t"><img src="https://truwild.com/cdn/shop/files/Group_1.png?v=1732086965" alt=""></div>
+      </div>
+    </div>
+
+    <!-- buy box -->
+    <div class="buy">
+      <div class="buy-top">
+        <span class="stars">
+          <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <b>4.8</b><span class="n">·</span><a href="#reviews">293 reviews</a>
+        </span>
+        <span class="org-tag">USDA Organic</span>
+      </div>
+
+      <h1>USDA Organic Greens Superfood</h1>
+      <p class="lede">Raw fiber, organic greens, algae, and adaptogens in one daily scoop &mdash; built for outdoor athletes who train hard and recover well.</p>
+      <p class="tag">Wild Greens &mdash; 30 servings per tub</p>
+
+      <div class="opts">
+        <div class="opt">
+          <span class="lbl">One-time</span>
+          <div><span class="price">$34.00</span></div>
+          <div class="meta">$1.13 / serving</div>
+        </div>
+        <div class="opt active">
+          <span class="save">Save 15%</span>
+          <span class="lbl">Subscribe &amp; Save</span>
+          <div><span class="price">$28.90</span><span class="strike">$34.00</span></div>
+          <div class="meta">Just $0.96 / serving &middot; free shipping</div>
+        </div>
+      </div>
+
+      <div class="sub-strip">
+        <span class="dot">$</span>
+        <span>You pay <b>$28.90</b> every 30 days. Skip, swap, or cancel anytime &mdash; no fees.</span>
+      </div>
+
+      <div class="cta-row">
+        <div class="qty"><button aria-label="decrement">&minus;</button><span>1</span><button aria-label="increment">+</button></div>
+        <button class="add">Add to Cart <span class="tag">$28.90</span></button>
+      </div>
+
+      <div class="trust">
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">USDA Organic</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">30-Day Money-Back</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">Free Shipping on Subscribe</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY YOU'LL LOVE WILD GREENS -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why You&rsquo;ll Love It</div>
+      <h2>Why You&rsquo;ll Love Wild Greens</h2>
+      <p>One clean scoop. Real organic micronutrients, fiber, and adaptogens to help you energize, digest, and recover &mdash; every day.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="ic"><img src="https://truwild.com/cdn/shop/files/Group.png?v=1732084466" alt=""></div>
+        <h3>Micronutrients</h3>
+        <p>Vitamins and minerals from organic greens that energize and support brain, gut, and immune cells &mdash; without the crash of caffeine.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic"><img src="https://truwild.com/cdn/shop/files/yoga-posture_1.png?v=1732086901" alt=""></div>
+        <h3>Cleanse &amp; Detox</h3>
+        <p>Soothing fiber, chlorella, and easy-to-absorb plants that support cellular detox, boost digestion, and ease bloating after a long day.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic"><img src="https://truwild.com/cdn/shop/files/Group_1.png?v=1732086965" alt=""></div>
+        <h3>Everyday Immunity</h3>
+        <p>Vitamin C, zinc, and functional mushrooms team up to build your antioxidant reserves and help your body bounce back from real-world stress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="strip tight">
+  <div class="strip-inner">
+    <div class="strip-head">
+      <div class="big">50,000+</div>
+      <div class="lab">outdoor athletes<br>trust TRUWILD</div>
+    </div>
+    <div class="strip-pills">
+      <span class="strip-pill"><span class="ic">&#10003;</span>USDA Organic</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Vegan</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>No Fillers</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Made in USA</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:28px">
+      <div class="eyebrow">Real Reviews</div>
+      <h2>From outdoor athletes who actually drink it</h2>
+    </div>
+    <div class="rev-top">
+      <div class="rev-summary">
+        <div class="rev-avg">4.8</div>
+        <div class="rev-meta">
+          <span class="stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="count">Based on <b>293 verified reviews</b></span>
+          <span class="count">90% gave it 5 stars</span>
+        </div>
+      </div>
+      <a class="rev-cta" href="#">Write a review</a>
+    </div>
+
+    <div class="reviews">
+      <article class="review">
+        <div class="head">
+          <div class="ava">SK</div>
+          <div class="who"><b>Sarah K.</b><span class="meta">Verified buyer &middot; 3 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Finally a greens powder I actually drink</h4>
+        <p>I've tried four other brands and most taste like wet grass. This one blends clean into a smoothie and I notice less bloating by week two. Energy is steady through long trail runs.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">MR</div>
+          <div class="who"><b>Mike R.</b><span class="meta">Verified buyer &middot; 6 weeks ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Part of my pre-hike routine now</h4>
+        <p>Mixing a scoop with cold water before a sunrise climb is my favorite ritual. Doesn't sit heavy, no jitters, and my stomach is in a better place. Subscribe price is fair for what's in it.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">JT</div>
+          <div class="who"><b>Jenna T.</b><span class="meta">Verified buyer &middot; 4 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Six months in and I feel the difference</h4>
+        <p>My gut, my skin, even my recovery on rest days &mdash; all better since I made this a daily habit. The taste is mild, the ingredient list is clean, and customer service has been great when I needed to skip a month.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="row">
+    <span class="name">
+      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD" onerror="this.style.display='none'">
+      TRUWILD
+    </span>
+    <span class="links"><a href="#">Shop</a><a href="#">Our Story</a><a href="#">FAQ</a><a href="#">Contact</a></span>
+    <span class="copy">&copy; TRUWILD &middot; All Rights Reserved</span>
+  </div>
+</footer>
+
+</body>
+</html>

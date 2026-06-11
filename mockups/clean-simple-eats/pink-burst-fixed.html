@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pink Burst Clear Protein Powder | Clean Simple Eats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cleansimpleeats.com" crossorigin>
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF5E9;
+    --cream-2:#F5EEE7;
+    --pink:#f5dbe7;
+    --pink-2:#fbeaf0;
+    --pink-3:#FDF1F5;
+    --dark:#1E1E1E;
+    --dark-2:#3a3a3a;
+    --muted:#787878;
+    --line:#E4D9CE;
+    --line-dim:#EFE6D6;
+    --red:#BA0C24;
+    --red-2:#9a0a1d;
+    --green:#3E6B45;
+    --gold:#D9A248;
+    --white:#FFFFFF;
+    --shadow-sm:0 1px 2px rgba(30,30,30,.05);
+    --shadow-md:0 1px 2px rgba(30,30,30,.04), 0 18px 40px -22px rgba(30,30,30,.22);
+    --shadow-card:0 1px 1px rgba(30,30,30,.04), 0 8px 20px -12px rgba(30,30,30,.16);
+    --radius:14px;
+    --radius-lg:22px;
+    --max:1240px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--dark-2);
+    font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .display{font-family:'Anton','Figtree',sans-serif;font-weight:400;letter-spacing:.01em;color:var(--dark)}
+
+  /* announcement bar */
+  .anno{background:var(--dark);color:#fff;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-align:center;padding:10px 14px}
+  .anno span{opacity:.55;margin:0 12px}
+
+  /* sticky header */
+  header.site{background:var(--cream);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:saturate(120%) blur(6px)}
+  .nav{max-width:var(--max);margin:0 auto;padding:18px 30px;display:flex;align-items:center;gap:24px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:24px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:22px;margin-left:36px}
+  .nav-links a{font-size:12.5px;letter-spacing:.02em;font-weight:700;color:var(--dark);transition:.16s;text-transform:uppercase}
+  .nav-links a:hover{color:var(--red)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-right a.acc{font-size:12.5px;font-weight:700;color:var(--dark);text-transform:uppercase}
+  .nav-cart{display:inline-flex;align-items:center;gap:7px;background:var(--dark);color:#fff !important;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .nav-cart .dot{width:6px;height:6px;border-radius:50%;background:var(--pink);display:inline-block}
+
+  /* layout */
+  .container{max-width:var(--max);margin:0 auto;padding:0 30px}
+  section{padding:60px 0}
+  section.tight{padding:42px 0}
+
+  /* breadcrumbs */
+  .crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.04em;padding:18px 0 0;text-transform:uppercase;font-weight:600}
+  .crumbs a{color:var(--muted)}
+  .crumbs .sep{margin:0 7px;opacity:.5}
+  .crumbs b{color:var(--dark);font-weight:800}
+
+  /* HERO + BUY BOX */
+  .hero-wrap{padding-top:26px;padding-bottom:20px}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:30px} }
+
+  /* hero image */
+  .hero-img{position:relative;background:linear-gradient(180deg,#FBEAF0 0%,#F5DBE7 100%);border:1px solid var(--line-dim);border-radius:var(--radius-lg);padding:34px;display:grid;place-items:center;min-height:540px;box-shadow:var(--shadow-md);overflow:hidden}
+  .hero-img::before{content:"";position:absolute;inset:auto -50px -50px auto;width:360px;height:360px;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 70%);pointer-events:none}
+  .hero-img img{width:80%;height:auto;filter:drop-shadow(0 28px 38px rgba(30,30,30,.20))}
+  .pill{position:absolute;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;background:#fff;color:var(--dark);border:1px solid var(--line);border-radius:999px;padding:7px 13px;box-shadow:var(--shadow-sm)}
+  .pill.dark{background:var(--dark);color:#fff;border-color:var(--dark)}
+  .pill.tl{top:20px;left:20px}
+  .pill.tr{top:20px;right:20px}
+  .pill.bl{bottom:20px;left:20px}
+
+  /* BUY BOX */
+  .buy{display:flex;flex-direction:column;gap:0}
+  .buy-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .stars{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--dark-2)}
+  .stars .s{color:var(--gold);font-size:15px;letter-spacing:1.5px;line-height:1}
+  .stars b{color:var(--dark);font-weight:800}
+  .stars a{color:var(--muted);border-bottom:1px solid var(--line);font-weight:500}
+  .crave-tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red);background:var(--pink-3);border:1px solid #F0BFCD;border-radius:999px;padding:5px 11px}
+
+  .buy h1{font-family:'Anton','Figtree',sans-serif;font-size:52px;line-height:1.02;color:var(--dark);letter-spacing:.01em;margin:8px 0 6px;font-weight:400}
+  .buy .lede{font-size:15.5px;color:var(--dark-2);margin:0 0 6px;max-width:48ch}
+  .buy .tag{font-size:13px;color:var(--muted);margin:0 0 18px;letter-spacing:.02em}
+
+  /* flavor selector */
+  .flavor-head{display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--dark);margin-bottom:10px}
+  .flavor-head span.opt{color:var(--muted);font-weight:700}
+  .flavors{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  .flv{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 10px 9px;cursor:default;text-align:center;transition:.16s}
+  .flv.active{border-color:var(--red);background:var(--pink-3);box-shadow:0 0 0 4px rgba(186,12,36,.08)}
+  .flv.sold{opacity:.96}
+  .flv .swatch{width:30px;height:30px;border-radius:50%;margin:0 auto 5px;border:1.5px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .flv .nm{font-size:11.5px;font-weight:800;color:var(--dark);letter-spacing:-.005em}
+  .flv .so{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:3px 9px;border-radius:999px;line-height:1.4;white-space:nowrap}
+
+  /* SOLD OUT + BACK IN STOCK panel (the hero fix) */
+  .bis{background:#fff;border:1.5px solid var(--red);border-radius:14px;padding:18px 18px 20px;margin-bottom:18px;box-shadow:0 0 0 4px rgba(186,12,36,.08)}
+  .bis-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .bis-head .badge{background:var(--red);color:#fff;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:4px 10px;border-radius:999px;line-height:1.3}
+  .bis-head .title{font-family:'Anton','Figtree',sans-serif;font-size:24px;letter-spacing:.02em;color:var(--dark);font-weight:400;line-height:1}
+  .bis p.note{margin:0 0 12px;font-size:13.5px;color:var(--dark-2)}
+  .bis-form{display:flex;gap:8px}
+  .bis-form input{flex:1;background:var(--cream-2);border:1.5px solid var(--line);border-radius:10px;padding:0 14px;height:48px;font-family:inherit;font-size:14px;color:var(--dark);outline:none;letter-spacing:.01em}
+  .bis-form input::placeholder{color:var(--muted)}
+  .bis-form input:focus{border-color:var(--red)}
+  .bis-form button{background:var(--red);color:#fff;border:0;border-radius:10px;padding:0 22px;height:48px;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.1em;cursor:default;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+  .bis-toggle{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:12px;color:var(--muted)}
+  .bis-toggle input{width:14px;height:14px;accent-color:var(--red)}
+
+  /* When-it's-back pricing preview */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+  .opt{position:relative;background:var(--cream-2);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px 12px;cursor:default;transition:.16s}
+  .opt.active{border-color:var(--red);background:#fff}
+  .opt .lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--dark);display:block;margin-bottom:6px}
+  .opt.active .lbl{color:var(--red-2)}
+  .opt .price{font-family:'Anton','Figtree',sans-serif;font-size:28px;color:var(--dark);letter-spacing:.01em;line-height:1;font-weight:400}
+  .opt .strike{font-size:12.5px;color:var(--muted);text-decoration:line-through;margin-left:7px;vertical-align:middle;font-weight:600}
+  .opt .meta{font-size:12px;color:var(--dark-2);margin-top:5px}
+  .opt .save-pill{position:absolute;top:-10px;right:14px;background:var(--red);color:#fff;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:3px 9px;border-radius:999px;line-height:1.4}
+
+  /* trust row */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .trust .t{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 10px;text-align:center}
+  .trust .t .ic{font-size:15px;color:var(--green);font-weight:800;line-height:1;margin-bottom:5px}
+  .trust .t .lab{font-size:11.5px;color:var(--dark-2);font-weight:700;letter-spacing:.02em}
+
+  /* ============ Sections ============ */
+  .section-head{text-align:center;max-width:680px;margin:0 auto 38px}
+  .section-head .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--red);margin-bottom:10px}
+  .section-head h2{font-family:'Anton','Figtree',sans-serif;font-size:48px;color:var(--dark);letter-spacing:.02em;margin:0 0 10px;line-height:1.05;font-weight:400}
+  .section-head p{font-size:15.5px;color:var(--dark-2);margin:0}
+
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .benefit{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:var(--shadow-card)}
+  .benefit .ic{width:74px;height:74px;background:var(--pink-3);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;border:1px solid var(--line);font-size:28px}
+  .benefit h3{font-family:'Anton','Figtree',sans-serif;font-size:22px;color:var(--dark);letter-spacing:.02em;margin:0 0 8px;font-weight:400}
+  .benefit p{margin:0;font-size:14px;color:var(--dark-2);line-height:1.55}
+  @media (max-width:780px){ .benefits{grid-template-columns:1fr} .opts{grid-template-columns:1fr} .trust{grid-template-columns:1fr 1fr} .flavors{grid-template-columns:repeat(2,1fr)} }
+
+  /* What's Inside */
+  .specs{background:var(--pink-3);padding:60px 0;border-top:1px solid var(--line-dim);border-bottom:1px solid var(--line-dim)}
+  .spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:920px;margin:0 auto}
+  .spec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 16px;text-align:center;box-shadow:var(--shadow-sm)}
+  .spec .big{font-family:'Anton','Figtree',sans-serif;font-size:36px;color:var(--red);letter-spacing:.01em;line-height:1;margin-bottom:6px;font-weight:400}
+  .spec .lab{font-size:11.5px;color:var(--dark);font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+  @media (max-width:780px){ .spec-grid{grid-template-columns:repeat(2,1fr)} }
+
+  /* ============ Trust strip ============ */
+  .strip{background:var(--dark);color:#fff;padding:42px 0;position:relative;overflow:hidden}
+  .strip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(245,219,231,.18),transparent 60%)}
+  .strip-inner{max-width:var(--max);margin:0 auto;padding:0 30px;position:relative;display:flex;align-items:center;gap:30px;justify-content:space-between;flex-wrap:wrap}
+  .strip-head{display:flex;align-items:center;gap:18px}
+  .strip-head .big{font-family:'Anton','Figtree',sans-serif;font-size:46px;letter-spacing:.02em;line-height:1;color:#fff;font-weight:400}
+  .strip-head .lab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.65);line-height:1.4}
+  .strip-pills{display:flex;gap:10px;flex-wrap:wrap}
+  .strip-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#fff}
+  .strip-pill .ic{color:var(--pink);font-size:13px;line-height:1}
+
+  /* ============ Reviews ============ */
+  .rev-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+  .rev-summary{display:flex;align-items:center;gap:20px}
+  .rev-avg{font-family:'Anton','Figtree',sans-serif;font-size:78px;color:var(--dark);line-height:.9;letter-spacing:.01em;font-weight:400}
+  .rev-meta{display:flex;flex-direction:column;gap:4px}
+  .rev-meta .stars-big{color:var(--gold);font-size:22px;letter-spacing:2px;line-height:1}
+  .rev-meta .count{font-size:13.5px;color:var(--muted)}
+  .rev-meta .count b{color:var(--dark);font-weight:800}
+  .rev-cta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--dark);border:1.5px solid var(--dark);padding:11px 20px;border-radius:999px;background:transparent}
+
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-card)}
+  .review .head{display:flex;align-items:center;gap:12px}
+  .review .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--pink),#f3b3c8);color:var(--dark);display:grid;place-items:center;font-size:14px;font-weight:800;letter-spacing:.04em}
+  .review .who{display:flex;flex-direction:column;line-height:1.2}
+  .review .who b{color:var(--dark);font-weight:800;font-size:14px}
+  .review .who .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .review .v{display:inline-flex;align-items:center;gap:6px;background:#EBF1EC;color:var(--green);border-radius:999px;padding:3px 9px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;align-self:flex-start}
+  .review .stars-r{color:var(--gold);font-size:14px;letter-spacing:1.5px;line-height:1}
+  .review h4{font-family:'Anton','Figtree',sans-serif;font-size:18px;color:var(--dark);letter-spacing:.02em;margin:0;line-height:1.2;font-weight:400}
+  .review p{margin:0;font-size:14px;color:var(--dark-2);line-height:1.55}
+  @media (max-width:980px){ .reviews{grid-template-columns:1fr} }
+
+  /* ============ footer ============ */
+  footer.site{background:var(--dark);color:rgba(255,255,255,.7);padding:38px 0 28px}
+  footer .row{max-width:var(--max);margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:.02em}
+  footer .name{display:inline-flex;align-items:center;gap:10px;color:#fff}
+  footer .name img{height:22px;width:auto;filter:brightness(0) invert(1)}
+  footer .links{display:flex;gap:22px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+  footer .copy{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+  /* responsive */
+  @media (max-width:780px){
+    .nav-links{display:none}
+    .nav-right a.acc{display:none}
+    .buy h1{font-size:36px}
+    .section-head h2{font-size:32px}
+    section,.specs{padding:48px 0}
+    .strip-head .big{font-size:32px}
+    .rev-avg{font-size:54px}
+  }
+</style>
+</head>
+<body>
+
+<div class="anno">Free shipping over $59 <span>·</span> 30-day money-back guarantee <span>·</span> Subscribe &amp; save 15%</div>
+
+<header class="site">
+  <div class="nav">
+    <a class="nav-logo" href="#" aria-label="Clean Simple Eats home">
+      <img src="https://cleansimpleeats.com/cdn/shop/files/CSE_LongLogo_Black_2025.svg" alt="Clean Simple Eats">
+    </a>
+    <nav class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">Protein</a>
+      <a href="#">Recipes</a>
+      <a href="#">App</a>
+      <a href="#">Our Story</a>
+    </nav>
+    <div class="nav-right">
+      <a class="acc" href="#">Account</a>
+      <a class="nav-cart" href="#"><span class="dot"></span>Cart · 0</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="crumbs"><a href="#">Shop</a><span class="sep">/</span><a href="#">Clear Protein</a><span class="sep">/</span><b>Pink Burst</b></div>
+</div>
+
+<!-- HERO + BUY BOX -->
+<div class="container hero-wrap">
+  <div class="hero">
+    <!-- hero image -->
+    <div class="hero-img">
+      <span class="pill tl">20g Protein</span>
+      <span class="pill tr">8 Stick Packs</span>
+      <span class="pill dark bl">Grass-Fed Whey Isolate</span>
+      <img src="https://cdn.shopify.com/s/files/1/0258/0384/9806/files/1508PBC1NP-BOX-1_FT.png?v=1779149362" alt="Clean Simple Eats Pink Burst Clear Protein Powder — 8 single-serving stick packs">
+    </div>
+
+    <!-- buy box -->
+    <div class="buy">
+      <div class="buy-top">
+        <span class="stars">
+          <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <b>4.9</b><span style="color:var(--muted)">·</span><a href="#reviews">527 verified reviews</a>
+        </span>
+        <span class="crave-tag">Bestseller</span>
+      </div>
+
+      <h1>Pink Burst Clear Protein</h1>
+      <p class="lede">Irresistibly smooth with a burst of juicy sweetness &mdash; 20g of grass-fed whey protein isolate in every stick. Undeniably clean, 100% delicious, made to enjoy every day.</p>
+      <p class="tag">8 single-serving stick packs &middot; 20g protein per stick &middot; 0g added sugar</p>
+
+      <div class="flavor-head"><span>Flavor</span><span class="opt"><b style="color:var(--dark);font-weight:800">Pink Burst</b></span></div>
+      <div class="flavors">
+        <div class="flv"><div class="swatch" style="background:#FDF1F5;border-color:#fff"></div><div class="nm">Vanilla</div></div>
+        <div class="flv"><div class="swatch" style="background:#E9D7C4"></div><div class="nm">Salted Caramel</div></div>
+        <div class="flv active sold"><span class="so">Sold Out</span><div class="swatch" style="background:#F4B6CB"></div><div class="nm">Pink Burst</div></div>
+        <div class="flv"><div class="swatch" style="background:#C6E1D3"></div><div class="nm">Lime Twist</div></div>
+      </div>
+
+      <!-- SOLD OUT + BACK IN STOCK (the hero fix) -->
+      <div class="bis">
+        <div class="bis-head">
+          <span class="badge">Currently Sold Out</span>
+          <span class="title">Get notified when it&rsquo;s back</span>
+        </div>
+        <p class="note">Pink Burst is a fan favorite and sells out fast. Drop your email and we&rsquo;ll ping you the second it restocks &mdash; no spam, just the heads-up.</p>
+        <form class="bis-form" onsubmit="return false;">
+          <input type="email" placeholder="your@email.com" aria-label="Email for back-in-stock notification">
+          <button type="submit">Notify Me &rarr;</button>
+        </form>
+        <label class="bis-toggle"><input type="checkbox"> Also text me when it&rsquo;s back (optional)</label>
+      </div>
+
+      <!-- Pricing preview for when restocked -->
+      <div class="opts">
+        <div class="opt">
+          <span class="lbl">One-time (when back)</span>
+          <div><span class="price">$29.99</span></div>
+          <div class="meta">$3.75 per stick</div>
+        </div>
+        <div class="opt active">
+          <span class="save-pill">Save 15%</span>
+          <span class="lbl">Subscribe &amp; Save</span>
+          <div><span class="price">$25.49</span><span class="strike">$29.99</span></div>
+          <div class="meta">$3.19 per stick &middot; ships every 4 weeks</div>
+        </div>
+      </div>
+
+      <div class="trust">
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">20g Grass-Fed Whey</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">30-Day Money-Back</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">Made in the USA</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY YOU'LL LOVE IT -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why You&rsquo;ll Love It</div>
+      <h2>Clean protein, no compromises</h2>
+      <p>20 grams of grass-fed whey protein isolate per stick &mdash; smooth in cold water, no chalk, no after-taste, and 0g of added sugar.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="ic">&#128170;</div>
+        <h3>20g Protein, 0g Added Sugar</h3>
+        <p>Grass-fed whey isolate as the first and only protein source. None of the usual fillers, no sugar bombs, no muddy chocolate-milk finish.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#127814;</div>
+        <h3>Mixes Crystal Clear</h3>
+        <p>Stirs into cold water in seconds and stays light, sweet, and refreshing &mdash; not a milkshake. Drink it like a juice between workouts and meetings.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#9889;</div>
+        <h3>8 Stick Packs to Go</h3>
+        <p>Single-serve sticks that fit a gym bag, a glovebox, or a desk drawer. Same recipe as the tub, in a format that travels with your day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="specs">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:30px">
+      <div class="eyebrow">What&rsquo;s Inside</div>
+      <h2 style="color:var(--dark)">Per stick, per box</h2>
+    </div>
+    <div class="spec-grid">
+      <div class="spec"><div class="big">20g</div><div class="lab">Grass-Fed<br>Whey Protein</div></div>
+      <div class="spec"><div class="big">0g</div><div class="lab">Added Sugar</div></div>
+      <div class="spec"><div class="big">90</div><div class="lab">Calories per Stick</div></div>
+      <div class="spec"><div class="big">8</div><div class="lab">Single-Serve Sticks</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="strip tight">
+  <div class="strip-inner">
+    <div class="strip-head">
+      <div class="big">Bootstrapped.</div>
+      <div class="lab">Built by Erika &amp; JJ Peterson<br>since 2014</div>
+    </div>
+    <div class="strip-pills">
+      <span class="strip-pill"><span class="ic">&#10003;</span>Grass-Fed Whey</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>No Artificial Sweeteners</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Gluten Free</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Made in the USA</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:28px">
+      <div class="eyebrow">Verified Reviews</div>
+      <h2>From people who never go back to chalky protein</h2>
+    </div>
+    <div class="rev-top">
+      <div class="rev-summary">
+        <div class="rev-avg">4.9</div>
+        <div class="rev-meta">
+          <span class="stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="count">Based on <b>527 verified reviews</b></span>
+          <span class="count">91% gave it 5 stars</span>
+        </div>
+      </div>
+      <a class="rev-cta" href="#">Write a review</a>
+    </div>
+
+    <div class="reviews">
+      <article class="review">
+        <div class="head">
+          <div class="ava">AH</div>
+          <div class="who"><b>Allie H.</b><span class="meta">Posted 5 weeks ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Pink Burst tastes like summer</h4>
+        <p>Genuinely the only protein I crave between meals. I take a stick to spin class and sip it through cool down. Restocks sell out fast &mdash; please get a waitlist!</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">MJ</div>
+          <div class="who"><b>Maya J.</b><span class="meta">Posted 2 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Finally a protein my kids and I both love</h4>
+        <p>I split a stick with my 7-year-old after preschool snack &mdash; he calls it &ldquo;pink juice.&rdquo; Subscribe at 15% off makes the price work for our family.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">CD</div>
+          <div class="who"><b>Casey D.</b><span class="meta">Posted 3 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>I bring sticks to every work trip</h4>
+        <p>Two sticks in the carry-on, a hotel water bottle, and that&rsquo;s breakfast. No chalky after-taste, no measuring scoops, no mess. Brought me back to whey protein after years away.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="row">
+    <span class="name">
+      <img src="https://cleansimpleeats.com/cdn/shop/files/CSE_LongLogo_Black_2025.svg" alt="Clean Simple Eats">
+    </span>
+    <span class="links"><a href="#">Shop</a><a href="#">Recipes</a><a href="#">Our Story</a><a href="#">FAQ</a><a href="#">Contact</a></span>
+    <span class="copy">&copy; Clean Simple Eats &middot; Lehi, UT</span>
+  </div>
+</footer>
+
+</body>
+</html>

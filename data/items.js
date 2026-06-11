@@ -269,7 +269,9 @@ window.SITE_ITEMS = [
         "Pull biohmhealth.com/products/probiotic-supplement.json for exact variants to build the demo.",
         "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
       ],
-      "caveats": "Revenue ~$5-6M is a third-party aggregator estimate (Growjo / ZoomInfo / PitchBook), not filed accounts (US brand). Email afif@biohmhealth.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. The reviews-absence weakness should be confirmed live (a JS widget may load). Observed 2026-06-10."
+      "caveats": "Revenue ~$5-6M is a third-party aggregator estimate (Growjo / ZoomInfo / PitchBook), not filed accounts (US brand). Email afif@biohmhealth.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. The reviews-absence weakness should be confirmed live (a JS widget may load). Observed 2026-06-10.",
+      "mockupLive": "/mockups/biohm-health/probiotic-supplement-fixed.html",
+      "mockupStatus": "draft"
     }
   },
   {
@@ -542,7 +544,9 @@ window.SITE_ITEMS = [
         "Run PageSpeed Insights on a bestseller PDP (mobile + desktop).",
         "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
       ],
-      "caveats": "Revenue ~$21.6M is a third-party aggregator estimate (Growjo / ZoomInfo-class), not filed accounts (US brand, no Companies House). Email erika@cleansimpleeats.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the current free plan). Lighthouse not yet run. The subscribe-prominence weakness is inferred from products.json plus the PDP view and should be eyeballed live. Observed 2026-06-10."
+      "caveats": "Revenue ~$21.6M is a third-party aggregator estimate (Growjo / ZoomInfo-class), not filed accounts (US brand, no Companies House). Email erika@cleansimpleeats.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the current free plan). Lighthouse not yet run. The subscribe-prominence weakness is inferred from products.json plus the PDP view and should be eyeballed live. Observed 2026-06-10.",
+      "mockupLive": "/mockups/clean-simple-eats/pink-burst-fixed.html",
+      "mockupStatus": "draft"
     }
   }
 ];

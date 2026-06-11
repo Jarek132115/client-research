@@ -125,6 +125,17 @@ Lighthouse score, a URL, or a revenue figure.
      /products.json, eyeball the PDP). screenshot is optional (leave it off for now).
 10. UPDATE MEMORY same commit: add each brand to digest.md "already seen", advance threads
    + changelog line (note if the vertical was thin), promote/decay sources.md scores.
+10b. MOCKUP DRAFTS (additive, non-blocking): for each prospect published in step 9,
+    generate a draft fixed-page mockup by following docs/MOCKUP-RECIPE.md as the
+    executable spec. Set prospect.mockupLive to the generated file path and
+    prospect.mockupStatus to EXACTLY "draft" (never "ready" - that is reserved for
+    Jarek's manual polish pass and nothing auto-sends). Include the per-prospect
+    mockup report (bugs verified live, verified-vs-assumed pricing, font substitutions,
+    synthetic content the operator must replace) in the run summary. If generation
+    fails or the brand cannot be cleanly extracted, publish the prospect WITHOUT
+    a mockup and flag in the summary as "Mockup skipped for <id>: <reason>" - a
+    failed mockup must NEVER block publishing and must NEVER weaken the check.js
+    invariants. mockupLive / mockupStatus / mockupRecording remain OPTIONAL fields.
 11. GATE + PUSH: run `node scripts/check.js <today's-date>` - must pass (it now requires
     >=2 outreach drafts and accepts the prospect.scrutiny field). Fix failures. Then
     git add -A, commit "prospects: <date> <vertical> (<n> brands)", git push origin main.

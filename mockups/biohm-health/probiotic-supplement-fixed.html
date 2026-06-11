@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Total Gut Probiotic | BIOHM Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://biohmhealth.com" crossorigin>
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7FAFB;
+    --surface:#FFFFFF;
+    --surface-2:#EEF4F6;
+    --navy:#013651;
+    --slate:#4A555E;
+    --ink:#252A2E;
+    --ink-2:#4F4F4F;
+    --muted:#7C8893;
+    --line:#DAE3E8;
+    --line-dim:#E8EEF1;
+    --teal:#75B6C6;
+    --teal-2:#75C6C3;
+    --teal-3:#E5F2F5;
+    --teal-4:#5F9CAD;
+    --yellow:#FDBF00;
+    --green:#2E7D5B;
+    --gold:#D9A248;
+    --shadow-sm:0 1px 2px rgba(1,54,81,.06);
+    --shadow-md:0 1px 2px rgba(1,54,81,.05), 0 18px 40px -22px rgba(1,54,81,.20);
+    --shadow-card:0 1px 1px rgba(1,54,81,.04), 0 8px 20px -12px rgba(1,54,81,.16);
+    --radius:14px;
+    --radius-lg:22px;
+    --max:1240px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink-2);
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* announcement bar */
+  .anno{background:var(--navy);color:#fff;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-align:center;padding:10px 14px}
+  .anno span{opacity:.6;margin:0 12px}
+
+  /* sticky header */
+  header.site{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:saturate(120%) blur(6px)}
+  .nav{max-width:var(--max);margin:0 auto;padding:18px 30px;display:flex;align-items:center;gap:24px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:32px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:24px;margin-left:36px}
+  .nav-links a{font-size:13px;letter-spacing:.01em;font-weight:600;color:var(--navy);transition:.16s}
+  .nav-links a:hover{color:var(--teal-4)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-right a.acc{font-size:13px;font-weight:600;color:var(--navy)}
+  .nav-cart{display:inline-flex;align-items:center;gap:7px;background:var(--navy);color:#fff !important;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+  .nav-cart .dot{width:6px;height:6px;border-radius:50%;background:var(--teal-2);display:inline-block}
+
+  /* layout */
+  .container{max-width:var(--max);margin:0 auto;padding:0 30px}
+  section{padding:64px 0}
+  section.tight{padding:46px 0}
+
+  /* breadcrumbs */
+  .crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.02em;padding:18px 0 0}
+  .crumbs a{color:var(--muted)}
+  .crumbs .sep{margin:0 7px;opacity:.5}
+  .crumbs b{color:var(--navy);font-weight:700}
+
+  /* HERO + BUY BOX */
+  .hero-wrap{padding-top:26px;padding-bottom:20px}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:30px} }
+
+  /* hero image */
+  .hero-img{position:relative;background:linear-gradient(180deg,#F2FAFC 0%,#DEEDF1 100%);border:1px solid var(--line-dim);border-radius:var(--radius-lg);padding:34px;display:grid;place-items:center;min-height:540px;box-shadow:var(--shadow-md);overflow:hidden}
+  .hero-img::before{content:"";position:absolute;inset:auto -50px -50px auto;width:360px;height:360px;background:radial-gradient(circle,rgba(117,182,198,.22),transparent 70%);pointer-events:none}
+  .hero-img img{width:78%;height:auto;filter:drop-shadow(0 28px 38px rgba(1,54,81,.20))}
+  .pill{position:absolute;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:999px;padding:7px 13px;box-shadow:var(--shadow-sm)}
+  .pill.clin{background:var(--teal-3);color:var(--teal-4);border-color:#C7DDE3}
+  .pill.tl{top:20px;left:20px}
+  .pill.tr{top:20px;right:20px}
+  .pill.bl{bottom:20px;left:20px}
+
+  /* BUY BOX */
+  .buy{display:flex;flex-direction:column;gap:0}
+  .buy-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .stars{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}
+  .stars .s{color:var(--gold);font-size:15px;letter-spacing:1.5px;line-height:1}
+  .stars b{color:var(--navy);font-weight:800}
+  .stars a{color:var(--muted);border-bottom:1px solid var(--line);font-weight:500}
+  .clin-tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--teal-4);background:var(--teal-3);border:1px solid #C7DDE3;border-radius:999px;padding:5px 11px}
+
+  .buy h1{font-size:42px;line-height:1.05;color:var(--navy);letter-spacing:-.02em;margin:8px 0 8px;font-weight:800;font-family:'Inter',sans-serif}
+  .buy .lede{font-size:15.5px;color:var(--ink-2);margin:0 0 6px;max-width:48ch}
+  .buy .tag{font-size:13px;color:var(--muted);margin:0 0 18px;letter-spacing:.01em}
+
+  /* clinical proof strip */
+  .proof{background:var(--teal-3);border:1px solid #C7DDE3;border-radius:12px;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
+  .proof .ic{width:24px;height:24px;background:var(--teal-4);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;flex-shrink:0;line-height:1}
+  .proof p{margin:0;font-size:12.5px;color:var(--navy);line-height:1.5}
+  .proof p b{font-weight:800}
+
+  /* purchase toggle */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+  .opt{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px 14px;cursor:default;transition:.16s}
+  .opt.active{border-color:var(--teal-4);background:#F2FAFC;box-shadow:0 0 0 4px rgba(95,156,173,.10)}
+  .opt .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--navy);display:block;margin-bottom:8px}
+  .opt.active .lbl{color:var(--teal-4)}
+  .opt .price{font-size:28px;color:var(--navy);letter-spacing:-.02em;line-height:1;font-weight:800}
+  .opt .strike{font-size:13px;color:var(--muted);text-decoration:line-through;margin-left:7px;vertical-align:middle;font-weight:600}
+  .opt .meta{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+  .opt .save-pill{position:absolute;top:-10px;right:14px;background:var(--teal-4);color:#fff;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:4px 10px;border-radius:999px;line-height:1.4}
+
+  /* delivery cadence (visible on subscribe) */
+  .cadence{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:16px;font-size:12.5px;color:var(--ink-2)}
+  .cadence .lbl{font-weight:800;color:var(--navy);text-transform:uppercase;font-size:10.5px;letter-spacing:.14em;margin-right:4px}
+  .cadence .chip{font-size:11.5px;font-weight:700;color:var(--navy);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:default}
+  .cadence .chip.active{background:var(--teal-4);color:#fff;border-color:var(--teal-4)}
+
+  /* CTA row */
+  .cta-row{display:flex;align-items:stretch;gap:12px;margin-bottom:16px}
+  .qty-step{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+  .qty-step button{background:transparent;border:0;width:44px;height:54px;font-size:20px;color:var(--navy);cursor:default}
+  .qty-step span{min-width:36px;text-align:center;font-weight:800;color:var(--navy);font-size:16px}
+  .add{flex:1;background:var(--navy);color:#fff;border:0;border-radius:12px;padding:0 22px;font-weight:800;letter-spacing:.06em;font-size:14px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:10px;height:54px;box-shadow:0 1px 2px rgba(1,54,81,.20),0 12px 24px -10px rgba(1,54,81,.45)}
+  .add .sep{opacity:.55;font-weight:400}
+
+  /* trust row */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .trust .t{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 10px;text-align:center}
+  .trust .t .ic{font-size:15px;color:var(--green);font-weight:800;line-height:1;margin-bottom:5px}
+  .trust .t .lab{font-size:11.5px;color:var(--ink-2);font-weight:700;letter-spacing:.02em}
+
+  /* ============ Sections ============ */
+  .section-head{text-align:center;max-width:680px;margin:0 auto 38px}
+  .section-head .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--teal-4);margin-bottom:10px}
+  .section-head h2{font-size:42px;color:var(--navy);letter-spacing:-.02em;margin:0 0 10px;line-height:1.05;font-weight:800}
+  .section-head p{font-size:15.5px;color:var(--ink-2);margin:0}
+
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .benefit{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:var(--shadow-card)}
+  .benefit .ic{width:74px;height:74px;background:var(--teal-3);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;border:1px solid #C7DDE3;font-size:28px}
+  .benefit h3{font-size:20px;color:var(--navy);letter-spacing:-.01em;margin:0 0 8px;font-weight:800}
+  .benefit p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
+  @media (max-width:780px){ .benefits{grid-template-columns:1fr} .opts{grid-template-columns:1fr} .trust{grid-template-columns:1fr 1fr} }
+
+  /* Clinical study callout */
+  .study{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--teal-4);border-radius:18px;padding:36px;display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:center;box-shadow:var(--shadow-card)}
+  .study .stat{text-align:center}
+  .study .stat .big{font-size:68px;color:var(--navy);font-weight:800;letter-spacing:-.03em;line-height:.95}
+  .study .stat .lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--teal-4);margin-top:6px}
+  .study .text h3{font-size:24px;color:var(--navy);letter-spacing:-.01em;margin:0 0 10px;font-weight:800;line-height:1.2}
+  .study .text p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .study .text .cite{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+  @media (max-width:780px){ .study{grid-template-columns:1fr;padding:24px} }
+
+  /* ============ Trust strip ============ */
+  .strip{background:var(--navy);color:#fff;padding:42px 0;position:relative;overflow:hidden}
+  .strip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(117,182,198,.22),transparent 60%)}
+  .strip-inner{max-width:var(--max);margin:0 auto;padding:0 30px;position:relative;display:flex;align-items:center;gap:30px;justify-content:space-between;flex-wrap:wrap}
+  .strip-head{display:flex;align-items:center;gap:18px}
+  .strip-head .big{font-size:42px;letter-spacing:-.02em;line-height:1;color:#fff;font-weight:800}
+  .strip-head .lab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.65);line-height:1.4}
+  .strip-pills{display:flex;gap:10px;flex-wrap:wrap}
+  .strip-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#fff}
+  .strip-pill .ic{color:var(--teal-2);font-size:13px;line-height:1}
+
+  /* ============ Reviews ============ */
+  .rev-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+  .rev-summary{display:flex;align-items:center;gap:20px}
+  .rev-avg{font-size:74px;color:var(--navy);line-height:.9;letter-spacing:-.03em;font-weight:800}
+  .rev-meta{display:flex;flex-direction:column;gap:4px}
+  .rev-meta .stars-big{color:var(--gold);font-size:22px;letter-spacing:2px;line-height:1}
+  .rev-meta .count{font-size:13.5px;color:var(--muted)}
+  .rev-meta .count b{color:var(--navy);font-weight:800}
+  .rev-cta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--navy);border:1.5px solid var(--navy);padding:11px 20px;border-radius:999px;background:transparent}
+
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-card)}
+  .review .head{display:flex;align-items:center;gap:12px}
+  .review .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--teal-3),#A9D0DB);color:var(--navy);display:grid;place-items:center;font-size:14px;font-weight:800;letter-spacing:.04em}
+  .review .who{display:flex;flex-direction:column;line-height:1.2}
+  .review .who b{color:var(--navy);font-weight:800;font-size:14px}
+  .review .who .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .review .v{display:inline-flex;align-items:center;gap:6px;background:#E6F2EB;color:var(--green);border-radius:999px;padding:3px 9px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;align-self:flex-start}
+  .review .stars-r{color:var(--gold);font-size:14px;letter-spacing:1.5px;line-height:1}
+  .review h4{font-size:16px;color:var(--navy);letter-spacing:-.01em;margin:0;line-height:1.2;font-weight:800}
+  .review p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
+  @media (max-width:980px){ .reviews{grid-template-columns:1fr} }
+
+  /* ============ footer ============ */
+  footer.site{background:var(--navy);color:rgba(255,255,255,.7);padding:38px 0 28px}
+  footer .row{max-width:var(--max);margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:.02em}
+  footer .name{display:inline-flex;align-items:center;gap:10px;color:#fff}
+  footer .name img{height:28px;width:auto;filter:brightness(0) invert(1)}
+  footer .links{display:flex;gap:22px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+  footer .copy{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+  /* responsive */
+  @media (max-width:780px){
+    .nav-links{display:none}
+    .nav-right a.acc{display:none}
+    .buy h1{font-size:30px}
+    .section-head h2{font-size:30px}
+    section{padding:48px 0}
+    .strip-head .big{font-size:30px}
+    .rev-avg{font-size:54px}
+    .study .stat .big{font-size:52px}
+  }
+</style>
+</head>
+<body>
+
+<div class="anno">Free shipping on subscribe orders <span>·</span> 30-day money-back guarantee <span>·</span> Clinically studied probiotic</div>
+
+<header class="site">
+  <div class="nav">
+    <a class="nav-logo" href="#" aria-label="BIOHM Health home">
+      <img src="https://biohmhealth.com/cdn/shop/files/BIOHMLogo-Blue_1_1.png" alt="BIOHM Health">
+    </a>
+    <nav class="nav-links">
+      <a href="#">Probiotics</a>
+      <a href="#">Gut Test</a>
+      <a href="#">Regimens</a>
+      <a href="#">The Science</a>
+      <a href="#">Dr. Ghannoum</a>
+    </nav>
+    <div class="nav-right">
+      <a class="acc" href="#">Account</a>
+      <a class="nav-cart" href="#"><span class="dot"></span>Cart · 0</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="crumbs"><a href="#">Shop</a><span class="sep">/</span><a href="#">Probiotics</a><span class="sep">/</span><b>Total Gut Probiotic</b></div>
+</div>
+
+<!-- HERO + BUY BOX -->
+<div class="container hero-wrap">
+  <div class="hero">
+    <!-- hero image -->
+    <div class="hero-img">
+      <span class="pill clin tl">Clinically Studied</span>
+      <span class="pill tr">30 Capsules</span>
+      <span class="pill bl">Good Bacteria + Good Fungi</span>
+      <img src="https://cdn.shopify.com/s/files/1/1713/4291/files/TotalPro_Update2024_3Total-Gut-Pro.png?v=1718718405" alt="BIOHM Total Gut Probiotic Supplement bottle">
+    </div>
+
+    <!-- buy box -->
+    <div class="buy">
+      <div class="buy-top">
+        <span class="stars">
+          <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <b>4.7</b><span style="color:var(--muted)">·</span><a href="#reviews">812 reviews</a>
+        </span>
+        <span class="clin-tag">Clinically Studied</span>
+      </div>
+
+      <h1>Total Gut Probiotic</h1>
+      <p class="lede">The first probiotic to combine good bacteria, good fungi, and a powerful enzyme to break down digestive plaque and restore total gut balance.</p>
+      <p class="tag">30 vegetarian capsules &middot; 30-day supply &middot; designed by Dr. Mahmoud Ghannoum</p>
+
+      <div class="proof">
+        <span class="ic">&#10003;</span>
+        <p><b>Clinically studied.</b> In a randomized, placebo-controlled study (60 healthy adults, 6 weeks), BIOHM significantly improved self-reported gut function, mild bloating and abdominal discomfort vs. placebo (P&lt;0.05).</p>
+      </div>
+
+      <div class="opts">
+        <div class="opt">
+          <span class="lbl">One-time</span>
+          <div><span class="price">$34.99</span></div>
+          <div class="meta">$1.17 per capsule</div>
+        </div>
+        <div class="opt active">
+          <span class="save-pill">Save 15%</span>
+          <span class="lbl">Subscribe &amp; Save</span>
+          <div><span class="price">$29.74</span><span class="strike">$34.99</span></div>
+          <div class="meta">$0.99 per capsule &middot; free shipping</div>
+        </div>
+      </div>
+
+      <div class="cadence">
+        <span class="lbl">Deliver every:</span>
+        <span class="chip active">4 weeks</span>
+        <span class="chip">8 weeks</span>
+        <span class="chip">12 weeks</span>
+      </div>
+
+      <div class="cta-row">
+        <div class="qty-step"><button aria-label="decrement">&minus;</button><span>1</span><button aria-label="increment">+</button></div>
+        <button class="add">Add to Cart <span class="sep">·</span> $29.74</button>
+      </div>
+
+      <div class="trust">
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">Vegetarian Capsules</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">30-Day Money-Back</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">Free Shipping on Subscribe</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY YOU'LL LOVE IT -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why You&rsquo;ll Love It</div>
+      <h2>The probiotic your gut actually needed</h2>
+      <p>Most probiotics deliver bacteria alone. BIOHM was built by a leading mycobiome scientist to balance bacteria and fungi together &mdash; the way a healthy gut actually works.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="ic">&#129516;</div>
+        <h3>Bacteria + Fungi</h3>
+        <p>30 billion CFUs of bacteria PLUS Saccharomyces boulardii &mdash; the first to balance both kingdoms in one capsule.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#129504;</div>
+        <h3>Breaks Down Plaque</h3>
+        <p>Includes amylase to break down digestive plaque so your gut microbiome can actually rebalance &mdash; not just get re-flooded.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#129366;</div>
+        <h3>Designed by a Scientist</h3>
+        <p>Formulated by Dr. Mahmoud Ghannoum, the researcher who coined the term &ldquo;mycobiome.&rdquo; Backed by clinical study, not vibes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Clinical Study callout -->
+<section class="tight">
+  <div class="container">
+    <div class="study">
+      <div class="stat">
+        <div class="big">P&lt;0.05</div>
+        <div class="lab">Randomized<br>placebo-controlled</div>
+      </div>
+      <div class="text">
+        <h3>Significantly better gut function vs. placebo</h3>
+        <p>60 healthy adults, 6-week double-blind study. BIOHM significantly improved self-reported ratings of gut function, mild bloating and abdominal discomfort compared to placebo.</p>
+        <p class="cite">BIOHM FX clinical study, 2020. Independent placebo-controlled trial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="strip tight">
+  <div class="strip-inner">
+    <div class="strip-head">
+      <div class="big">First.</div>
+      <div class="lab">Probiotic to combine<br>good bacteria + good fungi</div>
+    </div>
+    <div class="strip-pills">
+      <span class="strip-pill"><span class="ic">&#10003;</span>Clinically Studied</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Vegetarian</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Gluten Free</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Designed by a Scientist</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:28px">
+      <div class="eyebrow">Verified Reviews</div>
+      <h2>From people who tried everything else first</h2>
+    </div>
+    <div class="rev-top">
+      <div class="rev-summary">
+        <div class="rev-avg">4.7</div>
+        <div class="rev-meta">
+          <span class="stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="count">Based on <b>812 verified reviews</b></span>
+          <span class="count">88% gave it 5 stars</span>
+        </div>
+      </div>
+      <a class="rev-cta" href="#">Write a review</a>
+    </div>
+
+    <div class="reviews">
+      <article class="review">
+        <div class="head">
+          <div class="ava">LR</div>
+          <div class="who"><b>Lauren R.</b><span class="meta">Posted 6 weeks ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Two weeks in and the bloating is gone</h4>
+        <p>I had given up on probiotics after trying four different brands. The bacteria-plus-fungi angle is what convinced me to try BIOHM. Two weeks in, the daily after-dinner bloating is just&hellip; gone.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">TG</div>
+          <div class="who"><b>Tom G.</b><span class="meta">Posted 2 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>The clinical study is what sold me</h4>
+        <p>I&rsquo;m a doctor and I read the actual study before recommending things to family. P&lt;0.05 vs. placebo on a 60-person trial is not nothing for a probiotic. My wife is on month four and is staying on it.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">PN</div>
+          <div class="who"><b>Priya N.</b><span class="meta">Posted 4 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Best probiotic I&rsquo;ve been on, full stop</h4>
+        <p>I went on Total Gut after a course of antibiotics knocked me out. Within a month my digestion was the most regular it&rsquo;s been in years. Subscribe-and-save is genuinely useful, and shipping has never been late.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="row">
+    <span class="name">
+      <img src="https://biohmhealth.com/cdn/shop/files/BIOHMLogo-Blue_1_1.png" alt="BIOHM Health">
+    </span>
+    <span class="links"><a href="#">Probiotics</a><a href="#">The Science</a><a href="#">Dr. Ghannoum</a><a href="#">FAQ</a><a href="#">Contact</a></span>
+    <span class="copy">&copy; BIOHM Health &middot; Cleveland, OH</span>
+  </div>
+</footer>
+
+</body>
+</html>

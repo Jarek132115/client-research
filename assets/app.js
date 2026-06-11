@@ -161,11 +161,14 @@
   }
   function demoLibraryCard(p) {
     const rec = p.mockupRecording, live = p.mockupLive;
-    if (!rec && !live) return "";
+    const ready = !!(rec || live);
+    const status = ready
+      ? `<span class="demo-status ready"><span class="ico">✓</span>Mockup ready</span>`
+      : `<span class="demo-status pending"><span class="ico">○</span>Mockup not built yet</span>`;
     const btns = [];
     if (rec) btns.push(`<a class="demo-lib-btn primary" href="${esc(rec)}" target="_blank" rel="noopener"><span class="ico">▶</span>Watch Demo</a>`);
     if (live) btns.push(`<a class="demo-lib-btn" href="${esc(live)}" target="_blank" rel="noopener"><span class="ico">↗</span>Open Mockup</a>`);
-    return `<div class="card"><h3>Demo</h3><div class="demo-lib">${btns.join("")}</div></div>`;
+    return `<div class="card"><h3>Demo</h3><div class="demo-lib">${status}${btns.join("")}</div></div>`;
   }
   function demoCard(d) {
     const mech = (d.mechanics || []).map((m, i) =>

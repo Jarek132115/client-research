@@ -161,12 +161,16 @@
   }
   function demoLibraryCard(p) {
     const rec = p.mockupRecording, live = p.mockupLive;
-    const ready = !!(rec || live);
-    const status = ready
-      ? `<span class="demo-status ready"><span class="ico">✓</span>Mockup ready</span>`
-      : `<span class="demo-status pending"><span class="ico">○</span>Mockup not built yet</span>`;
+    // Three states: no mockup / draft (needs polish) / ready
+    // mockupLive present without mockupStatus defaults to "draft" — understate rather than overstate.
+    let state = "none";
+    if (live || rec) state = (p.mockupStatus === "ready") ? "ready" : "draft";
+    let status;
+    if (state === "ready")      status = `<span class="demo-status ready"><span class="ico">✓</span>Mockup ready</span>`;
+    else if (state === "draft") status = `<span class="demo-status draft"><span class="ico">◐</span>Draft ready — needs polish</span>`;
+    else                        status = `<span class="demo-status pending"><span class="ico">○</span>Mockup not built yet</span>`;
     const btns = [];
-    if (rec) btns.push(`<a class="demo-lib-btn primary" href="${esc(rec)}" target="_blank" rel="noopener"><span class="ico">▶</span>Watch Demo</a>`);
+    if (rec)  btns.push(`<a class="demo-lib-btn primary" href="${esc(rec)}" target="_blank" rel="noopener"><span class="ico">▶</span>Watch Demo</a>`);
     if (live) btns.push(`<a class="demo-lib-btn" href="${esc(live)}" target="_blank" rel="noopener"><span class="ico">↗</span>Open Mockup</a>`);
     return `<div class="card"><h3>Demo</h3><div class="demo-lib">${status}${btns.join("")}</div></div>`;
   }

@@ -36,6 +36,7 @@ function checkProspect(where,p){ if(!p||typeof p!=="object"){errors.push(where+"
   if(p.screenshot!=null && (typeof p.screenshot!=="string" || !p.screenshot.trim())) errors.push(where+" screenshot, if present, must be a non-empty string (URL or repo path)");
   if(p.mockupRecording!=null && (typeof p.mockupRecording!=="string" || !p.mockupRecording.trim())) errors.push(where+" mockupRecording, if present, must be a non-empty URL string");
   if(p.mockupLive!=null && (typeof p.mockupLive!=="string" || !p.mockupLive.trim())) errors.push(where+" mockupLive, if present, must be a non-empty path string");
+  if(p.mockupStatus!=null && !["draft","ready"].includes(p.mockupStatus)) errors.push(where+" mockupStatus, if present, must be 'draft' or 'ready'");
   if(!p.caveats) errors.push(where+" caveats is mandatory (state estimated vs confirmed)"); }
 function fail(list){ list.forEach(e=>console.error("FAIL: "+e)); console.error("\n"+list.length+" error(s). NOT safe to publish."); process.exit(1); }
 const items = loadItems();

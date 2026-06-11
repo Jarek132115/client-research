@@ -132,7 +132,9 @@ window.SITE_ITEMS = [
         "Run PageSpeed Insights on the Daily 10 PDP (mobile + desktop).",
         "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
       ],
-      "caveats": "Revenue is a LOW-confidence inference from operational-scale signals (own organic cordyceps farm, national media, multi-format catalog, eight years operating); there is no third-party dollar figure, so six-figures/mo is likely but UNCONFIRMED - verify before investing. Not filed accounts (US brand). Email alex@mushroomrevival.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. Weaknesses observed live on the Daily 10 PDP on 2026-06-10."
+      "caveats": "Revenue is a LOW-confidence inference from operational-scale signals (own organic cordyceps farm, national media, multi-format catalog, eight years operating); there is no third-party dollar figure, so six-figures/mo is likely but UNCONFIRMED - verify before investing. Not filed accounts (US brand). Email alex@mushroomrevival.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. Weaknesses observed live on the Daily 10 PDP on 2026-06-10.",
+      "mockupLive": "/mockups/mushroom-revival/daily-10-fixed.html",
+      "mockupStatus": "draft"
     }
   },
   {
@@ -404,7 +406,8 @@ window.SITE_ITEMS = [
         "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
       ],
       "caveats": "Revenue is a LOW-confidence estimate from a Crunchbase under-$10M band plus multi-channel distribution and press signals, not filed accounts (US brand, no Companies House); six-figure/mo is likely at the midpoint but not certain. Email zac@truwild.com is a PATTERN GUESS, not verified (Apollo people-match is unavailable on the current free plan). Lighthouse not yet run. Weaknesses were observed live on the Wild Greens PDP on 2026-06-10 in a UK-localized browser session, so the GBP currency display may differ for US visitors (the $0.00 subscribe price and the wrong-product header are not location-dependent).",
-      "mockupLive": "/mockups/truwild/wild-greens-fixed.html"
+      "mockupLive": "/mockups/truwild/wild-greens-fixed.html",
+      "mockupStatus": "ready"
     }
   },
   {

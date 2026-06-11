@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily 10 Mix Mushroom Capsules | Mushroom Revival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.mushroomrevival.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F9F8F4;
+    --cream-2:#F2E5D7;
+    --cream-3:#F6EEDF;
+    --dark:#352F2D;
+    --dark-2:#4D4D4D;
+    --muted:#7A716D;
+    --line:#E8DCC9;
+    --line-dim:#EFE6D6;
+    --coral:#D25A57;
+    --coral-2:#B94642;
+    --coral-3:#FBEDEC;
+    --tan:#BA8057;
+    --tan-2:#9C6743;
+    --green:#3E6B45;
+    --gold:#D9A248;
+    --white:#FFFFFF;
+    --shadow-sm:0 1px 2px rgba(53,47,45,.05);
+    --shadow-md:0 1px 2px rgba(53,47,45,.04), 0 18px 40px -22px rgba(53,47,45,.22);
+    --shadow-card:0 1px 1px rgba(53,47,45,.04), 0 8px 20px -12px rgba(53,47,45,.16);
+    --radius:14px;
+    --radius-lg:22px;
+    --max:1240px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--dark-2);
+    font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* announcement bar */
+  .anno{background:var(--coral);color:#fff;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-align:center;padding:10px 14px}
+  .anno span{opacity:.7;margin:0 12px}
+
+  /* sticky header */
+  header.site{background:var(--cream);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:saturate(120%) blur(6px)}
+  .nav{max-width:var(--max);margin:0 auto;padding:18px 30px;display:flex;align-items:center;gap:24px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:34px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:24px;margin-left:34px}
+  .nav-links a{font-size:13px;letter-spacing:.02em;font-weight:600;color:var(--dark);transition:.16s}
+  .nav-links a:hover{color:var(--coral)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-right a.acc{font-size:13px;font-weight:600;color:var(--dark)}
+  .nav-cart{display:inline-flex;align-items:center;gap:7px;background:var(--dark);color:#fff !important;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+  .nav-cart .dot{width:6px;height:6px;border-radius:50%;background:var(--coral);display:inline-block}
+
+  /* layout */
+  .container{max-width:var(--max);margin:0 auto;padding:0 30px}
+  section{padding:64px 0}
+  section.tight{padding:46px 0}
+
+  /* breadcrumbs */
+  .crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.02em;padding:18px 0 0}
+  .crumbs a{color:var(--muted)}
+  .crumbs .sep{margin:0 7px;opacity:.5}
+  .crumbs b{color:var(--dark);font-weight:700}
+
+  /* HERO + BUY BOX */
+  .hero-wrap{padding-top:26px;padding-bottom:20px}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr;gap:30px} }
+
+  /* hero image */
+  .hero-img{position:relative;background:linear-gradient(180deg,#FBF6EC 0%,#F2E5D7 100%);border:1px solid var(--line-dim);border-radius:var(--radius-lg);padding:34px;display:grid;place-items:center;min-height:540px;box-shadow:var(--shadow-md);overflow:hidden}
+  .hero-img::before{content:"";position:absolute;inset:auto -40px -40px auto;width:340px;height:340px;background:radial-gradient(circle,rgba(210,90,87,.14),transparent 70%);pointer-events:none}
+  .hero-img img{width:80%;height:auto;filter:drop-shadow(0 30px 38px rgba(53,47,45,.20))}
+  .pill{position:absolute;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;background:#fff;color:var(--dark);border:1px solid var(--line);border-radius:999px;padding:7px 13px;box-shadow:var(--shadow-sm)}
+  .pill.org{background:#EBF1EC;color:var(--green);border-color:#C9DACC}
+  .pill.tl{top:20px;left:20px}
+  .pill.tr{top:20px;right:20px}
+  .pill.bl{bottom:20px;left:20px}
+
+  /* BUY BOX */
+  .buy{display:flex;flex-direction:column;gap:0}
+  .buy-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .stars{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--dark-2)}
+  .stars .s{color:var(--gold);font-size:15px;letter-spacing:1.5px;line-height:1}
+  .stars b{color:var(--dark);font-weight:800}
+  .stars a{color:var(--muted);border-bottom:1px solid var(--line);font-weight:500}
+  .org-tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green);background:#EBF1EC;border:1px solid #C9DACC;border-radius:999px;padding:5px 11px}
+
+  .buy h1{font-size:46px;line-height:1.04;color:var(--dark);letter-spacing:-.02em;margin:8px 0 8px;font-weight:800;font-family:'Figtree',sans-serif}
+  .buy .lede{font-size:15.5px;color:var(--dark-2);margin:0 0 6px;max-width:48ch}
+  .buy .tag{font-size:13.5px;color:var(--muted);margin:0 0 22px;letter-spacing:.02em}
+
+  /* pack selector */
+  .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+  .pack{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 12px 12px;text-align:center;cursor:default;transition:.16s}
+  .pack.active{border-color:var(--coral);background:var(--coral-3);box-shadow:0 0 0 4px rgba(210,90,87,.10)}
+  .pack .lbl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--dark);display:block;margin-bottom:6px}
+  .pack.active .lbl{color:var(--coral-2)}
+  .pack .qty{font-size:24px;font-weight:800;color:var(--dark);line-height:1;letter-spacing:-.01em}
+  .pack .desc{font-size:11.5px;color:var(--muted);margin-top:5px}
+  .pack .save{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:3px 9px;border-radius:999px;line-height:1.4;white-space:nowrap}
+
+  /* purchase toggle */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+  .opt{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px 14px;cursor:default;transition:.16s}
+  .opt.active{border-color:var(--coral);background:var(--coral-3);box-shadow:0 0 0 4px rgba(210,90,87,.10)}
+  .opt .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--dark);display:block;margin-bottom:8px}
+  .opt.active .lbl{color:var(--coral-2)}
+  .opt .price{font-size:30px;color:var(--dark);letter-spacing:-.02em;line-height:1;font-weight:800}
+  .opt .strike{font-size:13.5px;color:var(--muted);text-decoration:line-through;margin-left:8px;vertical-align:middle;font-weight:600}
+  .opt .meta{font-size:12.5px;color:var(--dark-2);margin-top:6px}
+  .opt .save-pill{position:absolute;top:-10px;right:14px;background:var(--coral);color:#fff;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;padding:4px 10px;border-radius:999px;line-height:1.4}
+
+  /* sub strip */
+  .sub-strip{background:var(--coral-3);border:1px solid #F1C9C7;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dark-2);margin-bottom:18px}
+  .sub-strip .dot{width:20px;height:20px;background:var(--coral);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}
+  .sub-strip b{font-size:14px;color:var(--dark);font-weight:800}
+
+  /* CTA row */
+  .cta-row{display:flex;align-items:stretch;gap:12px;margin-bottom:16px}
+  .qty-step{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+  .qty-step button{background:transparent;border:0;width:44px;height:54px;font-size:20px;color:var(--dark);cursor:default}
+  .qty-step span{min-width:36px;text-align:center;font-weight:800;color:var(--dark);font-size:16px}
+  .add{flex:1;background:var(--coral);color:#fff;border:0;border-radius:12px;padding:0 22px;font-weight:800;letter-spacing:.06em;font-size:14px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:10px;height:54px;box-shadow:0 1px 2px rgba(185,70,66,.20),0 12px 24px -10px rgba(185,70,66,.45)}
+  .add .sep{opacity:.55;font-weight:400}
+
+  /* trust row */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .trust .t{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 10px;text-align:center}
+  .trust .t .ic{font-size:15px;color:var(--green);font-weight:800;line-height:1;margin-bottom:5px}
+  .trust .t .lab{font-size:11.5px;color:var(--dark-2);font-weight:700;letter-spacing:.02em}
+
+  /* ============ Sections ============ */
+  .section-head{text-align:center;max-width:680px;margin:0 auto 38px}
+  .section-head .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--coral);margin-bottom:10px}
+  .section-head h2{font-size:42px;color:var(--dark);letter-spacing:-.02em;margin:0 0 10px;line-height:1.05;font-weight:800}
+  .section-head p{font-size:15.5px;color:var(--dark-2);margin:0}
+
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .benefit{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:var(--shadow-card)}
+  .benefit .ic{width:74px;height:74px;background:var(--cream-3);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;border:1px solid var(--line);font-size:28px}
+  .benefit h3{font-size:20px;color:var(--dark);letter-spacing:-.01em;margin:0 0 8px;font-weight:800}
+  .benefit p{margin:0;font-size:14px;color:var(--dark-2);line-height:1.55}
+  @media (max-width:780px){ .benefits{grid-template-columns:1fr} .opts{grid-template-columns:1fr} .trust{grid-template-columns:1fr 1fr} .packs{grid-template-columns:1fr} }
+
+  /* What's Inside (10 mushrooms) */
+  .blend{background:var(--cream-3);padding:64px 0}
+  .blend .head{text-align:center;max-width:680px;margin:0 auto 30px}
+  .mushrooms{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .mush{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;transition:.16s;box-shadow:var(--shadow-sm)}
+  .mush:hover{border-color:var(--coral);transform:translateY(-2px)}
+  .mush .em{font-size:30px;line-height:1;margin-bottom:8px}
+  .mush h4{font-size:14px;color:var(--dark);margin:0 0 3px;font-weight:800;letter-spacing:-.01em}
+  .mush p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.4}
+  .blend-foot{text-align:center;margin-top:24px;font-size:13.5px;color:var(--dark-2)}
+  .blend-foot b{color:var(--dark);font-weight:800}
+  @media (max-width:780px){ .mushrooms{grid-template-columns:repeat(2,1fr)} }
+
+  /* ============ Trust strip ============ */
+  .strip{background:var(--dark);color:#fff;padding:42px 0;position:relative;overflow:hidden}
+  .strip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(210,90,87,.18),transparent 60%)}
+  .strip-inner{max-width:var(--max);margin:0 auto;padding:0 30px;position:relative;display:flex;align-items:center;gap:30px;justify-content:space-between;flex-wrap:wrap}
+  .strip-head{display:flex;align-items:center;gap:18px}
+  .strip-head .big{font-size:42px;letter-spacing:-.02em;line-height:1;color:#fff;font-weight:800}
+  .strip-head .lab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.65);line-height:1.4}
+  .strip-pills{display:flex;gap:10px;flex-wrap:wrap}
+  .strip-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#fff}
+  .strip-pill .ic{color:var(--coral);font-size:13px;line-height:1}
+
+  /* ============ Reviews ============ */
+  .rev-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+  .rev-summary{display:flex;align-items:center;gap:20px}
+  .rev-avg{font-size:74px;color:var(--dark);line-height:.9;letter-spacing:-.03em;font-weight:800}
+  .rev-meta{display:flex;flex-direction:column;gap:4px}
+  .rev-meta .stars-big{color:var(--gold);font-size:22px;letter-spacing:2px;line-height:1}
+  .rev-meta .count{font-size:13.5px;color:var(--muted)}
+  .rev-meta .count b{color:var(--dark);font-weight:800}
+  .rev-cta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--dark);border:1.5px solid var(--dark);padding:11px 20px;border-radius:999px;background:transparent}
+  .rev-bars{flex:1;min-width:240px;max-width:380px;display:flex;flex-direction:column;gap:6px}
+  .rev-bar{display:grid;grid-template-columns:30px 1fr 28px;gap:10px;align-items:center;font-size:12px;color:var(--muted)}
+  .rev-bar .bar{background:var(--line-dim);border-radius:99px;height:6px;overflow:hidden}
+  .rev-bar .bar i{display:block;height:100%;background:var(--gold);border-radius:99px}
+  .rev-bar .pct{text-align:right;font-weight:700;color:var(--dark)}
+
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-card)}
+  .review .head{display:flex;align-items:center;gap:12px}
+  .review .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F2E5D7,#E0CDAE);color:var(--tan-2);display:grid;place-items:center;font-size:14px;font-weight:800;letter-spacing:.04em}
+  .review .who{display:flex;flex-direction:column;line-height:1.2}
+  .review .who b{color:var(--dark);font-weight:800;font-size:14px}
+  .review .who .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .review .v{display:inline-flex;align-items:center;gap:6px;background:#EBF1EC;color:var(--green);border-radius:999px;padding:3px 9px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;align-self:flex-start}
+  .review .stars-r{color:var(--gold);font-size:14px;letter-spacing:1.5px;line-height:1}
+  .review h4{font-size:16px;color:var(--dark);letter-spacing:-.01em;margin:0;line-height:1.2;font-weight:800}
+  .review p{margin:0;font-size:14px;color:var(--dark-2);line-height:1.55}
+  @media (max-width:980px){ .reviews{grid-template-columns:1fr} }
+
+  /* ============ footer ============ */
+  footer.site{background:var(--dark);color:rgba(255,255,255,.7);padding:38px 0 28px}
+  footer .row{max-width:var(--max);margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:.02em}
+  footer .name{display:inline-flex;align-items:center;gap:10px;color:#fff}
+  footer .name img{height:28px;width:auto;filter:brightness(0) invert(1)}
+  footer .links{display:flex;gap:22px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+  footer .copy{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+  /* responsive */
+  @media (max-width:780px){
+    .nav-links{display:none}
+    .nav-right a.acc{display:none}
+    .buy h1{font-size:34px}
+    .section-head h2{font-size:30px}
+    section,.blend{padding:48px 0}
+    .strip-head .big{font-size:32px}
+    .rev-avg{font-size:56px}
+  }
+</style>
+</head>
+<body>
+
+<div class="anno">Free shipping on autoship orders <span>·</span> Subscribe &amp; save up to 28% <span>·</span> First USDA-organic mushroom capsules</div>
+
+<header class="site">
+  <div class="nav">
+    <a class="nav-logo" href="#" aria-label="Mushroom Revival home">
+      <img src="https://www.mushroomrevival.com/cdn/shop/files/new-logo_250x.png?v=1660524645" alt="Mushroom Revival">
+    </a>
+    <nav class="nav-links">
+      <a href="#">Capsules</a>
+      <a href="#">Tinctures</a>
+      <a href="#">Gummies</a>
+      <a href="#">Powders</a>
+      <a href="#">Our Farm</a>
+      <a href="#">Podcast</a>
+    </nav>
+    <div class="nav-right">
+      <a class="acc" href="#">Account</a>
+      <a class="nav-cart" href="#"><span class="dot"></span>Cart · 0</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="crumbs"><a href="#">Shop</a><span class="sep">/</span><a href="#">Capsules</a><span class="sep">/</span><b>Daily 10 Mix Mushroom Capsules</b></div>
+</div>
+
+<!-- HERO + BUY BOX -->
+<div class="container hero-wrap">
+  <div class="hero">
+    <!-- hero image -->
+    <div class="hero-img">
+      <span class="pill org tl">USDA Organic</span>
+      <span class="pill tr">100% Vegan</span>
+      <span class="pill bl">Non-GMO · 10 Mushrooms</span>
+      <img src="https://www.mushroomrevival.com/cdn/shop/files/Packx3-v1_10.png?v=1716843592" alt="Mushroom Revival Daily 10 Mix Mushroom Capsules — 3-Pack">
+    </div>
+
+    <!-- buy box -->
+    <div class="buy">
+      <div class="buy-top">
+        <span class="stars">
+          <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <b>4.7</b><span style="color:var(--muted)">·</span><a href="#reviews">23 verified reviews</a>
+        </span>
+        <span class="org-tag">USDA Organic</span>
+      </div>
+
+      <h1>Daily 10 Mix Mushroom Capsules</h1>
+      <p class="lede">The world&rsquo;s first USDA-certified-organic mushroom capsules &mdash; 10 functional mushrooms in one daily blend, grown on our own farm and made for everyday calm, focus, and immune support.</p>
+      <p class="tag">60 capsules per bottle &middot; 2,526 mg mushroom blend per serving</p>
+
+      <div class="packs">
+        <div class="pack">
+          <span class="lbl">1-Pack</span>
+          <div class="qty">1 bottle</div>
+          <div class="desc">Try it</div>
+        </div>
+        <div class="pack">
+          <span class="lbl">2-Pack</span>
+          <div class="qty">2 bottles</div>
+          <div class="desc">Morning routine</div>
+        </div>
+        <div class="pack active">
+          <span class="save">Most Popular</span>
+          <span class="lbl">3-Pack</span>
+          <div class="qty">3 bottles</div>
+          <div class="desc">3 months supply</div>
+        </div>
+      </div>
+
+      <div class="opts">
+        <div class="opt">
+          <span class="lbl">One-time</span>
+          <div><span class="price">$113.85</span></div>
+          <div class="meta">$37.95 per bottle</div>
+        </div>
+        <div class="opt active">
+          <span class="save-pill">Save 28%</span>
+          <span class="lbl">Autoship &amp; Save</span>
+          <div><span class="price">$81.97</span><span class="strike">$113.85</span></div>
+          <div class="meta">$27.32 per bottle &middot; free shipping</div>
+        </div>
+      </div>
+
+      <div class="sub-strip">
+        <span class="dot">$</span>
+        <span>You pay <b>$81.97</b> every 3 months. Skip, swap, or cancel anytime &mdash; no fees.</span>
+      </div>
+
+      <div class="cta-row">
+        <div class="qty-step"><button aria-label="decrement">&minus;</button><span>1</span><button aria-label="increment">+</button></div>
+        <button class="add">Add to Cart <span class="sep">·</span> $81.97</button>
+      </div>
+
+      <div class="trust">
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">USDA Organic</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">30-Day Money-Back</div></div>
+        <div class="t"><div class="ic">&#10003;</div><div class="lab">Free Shipping on Autoship</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY YOU'LL LOVE DAILY 10 -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why You&rsquo;ll Love It</div>
+      <h2>Ten mushrooms, one daily capsule</h2>
+      <p>A clean USDA-organic blend formulated to support immunity, focus, and steady energy &mdash; no caffeine, no fillers, no mycelium-on-grain shortcuts.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="ic">&#127757;</div>
+        <h3>Everyday Immunity</h3>
+        <p>Turkey tail, chaga, and reishi pull antioxidant and beta-glucan support into your daily routine &mdash; not just when you feel a sniffle coming on.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#129504;</div>
+        <h3>Calm Focus</h3>
+        <p>Lion&rsquo;s mane and reishi help support cognition and steady, balanced energy &mdash; the &ldquo;keep your zen with seven kids and four plates spinning&rdquo; kind.</p>
+      </div>
+      <div class="benefit">
+        <div class="ic">&#9889;</div>
+        <h3>Clean Daily Energy</h3>
+        <p>Cordyceps and shiitake support cellular energy and adaptability &mdash; no jitters, no crash, no caffeine. Just steady fuel for a long day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE: the 10 mushrooms -->
+<section class="blend">
+  <div class="container">
+    <div class="head">
+      <div class="eyebrow" style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--coral);margin-bottom:10px">What&rsquo;s Inside</div>
+      <h2 style="font-size:42px;color:var(--dark);letter-spacing:-.02em;margin:0 0 10px;line-height:1.05;font-weight:800">The Daily 10 blend</h2>
+      <p style="font-size:15.5px;color:var(--dark-2);margin:0">Ten famous functional mushrooms, fruiting-body only &mdash; never mycelium-on-grain.</p>
+    </div>
+    <div class="mushrooms">
+      <div class="mush"><div class="em">&#127812;</div><h4>Cordyceps</h4><p>Energy &amp; stamina</p></div>
+      <div class="mush"><div class="em">&#129396;</div><h4>Lion&rsquo;s Mane</h4><p>Focus &amp; cognition</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Reishi</h4><p>Calm &amp; sleep</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Turkey Tail</h4><p>Immune support</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Chaga</h4><p>Antioxidants</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Shiitake</h4><p>Daily wellness</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Tremella</h4><p>Skin &amp; hydration</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Meshima</h4><p>Immune resilience</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Maitake</h4><p>Metabolic balance</p></div>
+      <div class="mush"><div class="em">&#127812;</div><h4>Poria</h4><p>Calm digestion</p></div>
+    </div>
+    <p class="blend-foot"><b>2,526 mg</b> mushroom blend per serving &middot; <b>76,950 mg</b> per bottle &middot; fruiting bodies only</p>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="strip tight">
+  <div class="strip-inner">
+    <div class="strip-head">
+      <div class="big">First.</div>
+      <div class="lab">USDA-certified-organic<br>mushroom capsules in the world</div>
+    </div>
+    <div class="strip-pills">
+      <span class="strip-pill"><span class="ic">&#10003;</span>USDA Organic</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>100% Vegan</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Non-GMO Verified</span>
+      <span class="strip-pill"><span class="ic">&#10003;</span>Grown on our farm</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:28px">
+      <div class="eyebrow">Verified Reviews</div>
+      <h2>From people who actually take them</h2>
+    </div>
+    <div class="rev-top">
+      <div class="rev-summary">
+        <div class="rev-avg">4.7</div>
+        <div class="rev-meta">
+          <span class="stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="count">Based on <b>23 verified reviews</b></span>
+          <span class="count">87% gave it 5 stars</span>
+        </div>
+      </div>
+      <div class="rev-bars">
+        <div class="rev-bar"><span>5&#9733;</span><span class="bar"><i style="width:87%"></i></span><span class="pct">87%</span></div>
+        <div class="rev-bar"><span>4&#9733;</span><span class="bar"><i style="width:9%"></i></span><span class="pct">9%</span></div>
+        <div class="rev-bar"><span>3&#9733;</span><span class="bar"><i style="width:0%"></i></span><span class="pct">0%</span></div>
+        <div class="rev-bar"><span>2&#9733;</span><span class="bar"><i style="width:0%"></i></span><span class="pct">0%</span></div>
+        <div class="rev-bar"><span>1&#9733;</span><span class="bar"><i style="width:4%"></i></span><span class="pct">4%</span></div>
+      </div>
+      <a class="rev-cta" href="#">Write a review</a>
+    </div>
+
+    <div class="reviews">
+      <article class="review">
+        <div class="head">
+          <div class="ava">EC</div>
+          <div class="who"><b>Emma C.</b><span class="meta">Posted 2 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>The calm I&rsquo;ve been looking for</h4>
+        <p>I&rsquo;ve been on these for about ten weeks. The afternoon energy crash I used to get around three is just&hellip; gone. Bonus: my sleep is deeper. Worth the autoship price.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">DM</div>
+          <div class="who"><b>Derek M.</b><span class="meta">Posted 6 weeks ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Finally tried fruiting-body-only mushrooms</h4>
+        <p>Switched from a brand that uses mycelium-on-grain &mdash; the difference in clarity within two weeks was noticeable. Love that they grow their own cordyceps. Easy capsule, no aftertaste.</p>
+      </article>
+      <article class="review">
+        <div class="head">
+          <div class="ava">RP</div>
+          <div class="who"><b>Rita P.</b><span class="meta">Posted 4 months ago</span></div>
+        </div>
+        <span class="v">Verified buyer</span>
+        <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <h4>Four months in and recommending to friends</h4>
+        <p>My immune system through this winter has been a different person&rsquo;s. I take two with breakfast, that&rsquo;s the whole routine. The autoship lands right on time every 90 days.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="row">
+    <span class="name">
+      <img src="https://www.mushroomrevival.com/cdn/shop/files/new-logo_250x.png?v=1660524645" alt="Mushroom Revival">
+    </span>
+    <span class="links"><a href="#">Shop</a><a href="#">Our Farm</a><a href="#">Podcast</a><a href="#">FAQ</a><a href="#">Contact</a></span>
+    <span class="copy">&copy; Mushroom Revival &middot; Austin, TX</span>
+  </div>
+</footer>
+
+</body>
+</html>

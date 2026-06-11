@@ -128,8 +128,8 @@
   .qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
   .qty button{background:transparent;border:0;width:44px;height:54px;font-size:20px;color:var(--brown);cursor:default}
   .qty span{min-width:36px;text-align:center;font-weight:900;color:var(--brown);font-size:16px}
-  .add{flex:1;background:var(--orange);color:#fff;border:0;border-radius:12px;padding:0 22px;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:.12em;font-size:14px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:12px;height:54px;box-shadow:0 1px 2px rgba(214,94,38,.20),0 12px 24px -10px rgba(214,94,38,.45)}
-  .add .tag{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;line-height:1.2;font-weight:400}
+  .add{flex:1;background:var(--orange);color:#fff;border:0;border-radius:12px;padding:0 22px;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:.12em;font-size:14px;text-transform:uppercase;cursor:default;display:flex;align-items:center;justify-content:center;gap:10px;height:54px;box-shadow:0 1px 2px rgba(214,94,38,.20),0 12px 24px -10px rgba(214,94,38,.45)}
+  .add .sep{opacity:.55;font-weight:400}
 
   /* trust row */
   .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -212,9 +212,8 @@
 
 <header class="site">
   <div class="nav">
-    <a class="nav-logo" href="#">
-      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD" onerror="this.style.display='none'">
-      <span class="name">TRUWILD</span>
+    <a class="nav-logo" href="#" aria-label="TRUWILD home">
+      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD">
     </a>
     <nav class="nav-links">
       <a href="#">Shop</a>
@@ -242,11 +241,6 @@
       <span class="pill tr">30 Servings</span>
       <span class="pill bl">Non-GMO · Vegan</span>
       <img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt="TRUWILD Wild Greens — organic greens superfood tub">
-      <div class="thumbs">
-        <div class="t active"><img src="https://truwild.com/cdn/shop/t/84/assets/GREENS%20TUB.png?v=111331221219306920381716320085" alt=""></div>
-        <div class="t"><img src="https://truwild.com/cdn/shop/files/Group.png?v=1732084466" alt=""></div>
-        <div class="t"><img src="https://truwild.com/cdn/shop/files/Group_1.png?v=1732086965" alt=""></div>
-      </div>
     </div>
 
     <!-- buy box -->
@@ -284,7 +278,7 @@
 
       <div class="cta-row">
         <div class="qty"><button aria-label="decrement">&minus;</button><span>1</span><button aria-label="increment">+</button></div>
-        <button class="add">Add to Cart <span class="tag">$28.90</span></button>
+        <button class="add">Add to Cart <span class="sep">·</span> $28.90</button>
       </div>
 
       <div class="trust">
@@ -363,7 +357,7 @@
       <article class="review">
         <div class="head">
           <div class="ava">SK</div>
-          <div class="who"><b>Sarah K.</b><span class="meta">Verified buyer &middot; 3 months ago</span></div>
+          <div class="who"><b>Sarah K.</b><span class="meta">Posted 3 months ago</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -373,7 +367,7 @@
       <article class="review">
         <div class="head">
           <div class="ava">MR</div>
-          <div class="who"><b>Mike R.</b><span class="meta">Verified buyer &middot; 6 weeks ago</span></div>
+          <div class="who"><b>Mike R.</b><span class="meta">Posted 6 weeks ago</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -383,7 +377,7 @@
       <article class="review">
         <div class="head">
           <div class="ava">JT</div>
-          <div class="who"><b>Jenna T.</b><span class="meta">Verified buyer &middot; 4 months ago</span></div>
+          <div class="who"><b>Jenna T.</b><span class="meta">Posted 4 months ago</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -397,8 +391,7 @@
 <footer class="site">
   <div class="row">
     <span class="name">
-      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD" onerror="this.style.display='none'">
-      TRUWILD
+      <img src="https://truwild.com/cdn/shop/files/Layer_1_300x300.svg?v=1723101395" alt="TRUWILD">
     </span>
     <span class="links"><a href="#">Shop</a><a href="#">Our Story</a><a href="#">FAQ</a><a href="#">Contact</a></span>
     <span class="copy">&copy; TRUWILD &middot; All Rights Reserved</span>

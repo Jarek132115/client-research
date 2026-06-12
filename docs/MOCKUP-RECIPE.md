@@ -40,6 +40,38 @@ If any input is missing, **stop and flag for manual generation**. Do not guess a
 - **Self-contained file.** No JS. No Shopify scripts. No carousels. No third-party
   widgets. No cookie banners. No embeds. Fonts via Google Fonts `<link>` or system
   stacks. Brand assets hotlinked from the prospect's own public CDN.
+- **Never use real, identifiable customer photos.** Faces scraped from the
+  prospect's CDN or video wall must NOT appear in the mockup — the owner will
+  recognize their own customers and it reads as invasive. For any customer / UGC /
+  testimonial row, use styled initial-avatars (a circle in the brand accent color
+  with the person's initials) plus their real first name and real quote text.
+  Real names and real quote TEXT are fine; real face PHOTOS are not.
+- **Never use a hero/product image with promotional text or graphic overlays
+  baked in.** Avoid images with "Immunity / Detox" badges, sale flags, sparkle or
+  icon decorations, or other marketing graphics carried over from the brand's
+  promo assets. Use a clean product render or clean composition with no embedded
+  promo graphics. If only an overlaid image is available on their CDN, prefer a
+  plain clean bottle/product render instead — a clean render beats a busy
+  overlaid one.
+- **Never use emoji as icons anywhere in a mockup.** Not for benefits,
+  ingredients, features, decoration, or testimonial avatars — anywhere. Always
+  use consistent inline SVG line-icons in the brand's accent color (same stroke
+  weight, same viewBox, same medallion frame across the set). Emoji read as
+  unfinished / AI-generated and undercut premium and clinical brands especially.
+  If a specific icon can't be designed cleanly, use the SAME placeholder SVG on
+  every card before mixing in emoji.
+- **Always use the brand's REAL review count and star rating from their live
+  page.** Pull from `aggregateRating`, `ratingValue`, `reviewCount`, the
+  Stamped / Yotpo / Judge.me widget markup, or `products.json`. Never invent or
+  approximate review counts, star averages, or star distributions. If the count
+  or distribution cannot be read live, leave a `TODO: confirm live` for the
+  operator instead of fabricating — a credibility-blowing fabricated number is
+  worse than an obviously placeholder one.
+- **Never state a specific clinical/study date or statistic that cannot be
+  verified from the brand's live page.** No year, no "n=", no p-value, no
+  percentage that isn't in their own copy. Omit or generalize ("recent
+  placebo-controlled trial," "their published study") instead of inventing.
+  Clinical brands recognize and refuse fake citations on sight.
 
 ---
 
@@ -92,14 +124,23 @@ From the live HTML:
   one-off error reds (`#EB001B`) and Shopify chrome (`#006FCF`).
 - **Logo.** Search for `cdn/shop/files/*logo*.svg` or `*.png` — hotlink the URL.
 - **Hero product image.** Use the image URL from the selected variant in
-  products.json (`product.images[0]` or the variant-specific image).
+  products.json (`product.images[0]` or the variant-specific image). Apply the
+  **no-baked-overlays hard rule** here: if the candidate image has promotional
+  text, sale flags, or marketing graphics rendered into it, fall back to a plain
+  clean product render instead.
 - **Real product copy.** Use the `body_html` text from products.json — at minimum
   the lede sentence, supports list, and ingredient list. Stripped of HTML, it's a
   ready-to-paste fragment.
-- **Review meta.** Grep for `ratingValue`, `reviewCount`, `stamped-summary`, or
-  `aggregateRating`. If present, use those numbers verbatim. If a review widget
-  loads dynamically and you can't see counts, note in the report and use realistic
-  illustrative numbers.
+- **Review meta.** Grep for `ratingValue`, `reviewCount`, `stamped-summary`,
+  `aggregateRating`, or the Yotpo / Judge.me equivalents (e.g.
+  `yotpo-reviews-overall-rating` JSON-LD). Apply the **real-review-numbers hard
+  rule** here: use the live numbers verbatim. If the widget loads dynamically and
+  the counts cannot be read, leave a `TODO: confirm live rating + count` for the
+  operator — never substitute an "illustrative" number.
+- **Customer / UGC content.** Real first names and real quote TEXT can be pulled
+  from the prospect's review widget or video wall. Apply the
+  **no-real-customer-photos hard rule** here: never hotlink the customer's face
+  thumbnail — render a styled initial-avatar in the brand accent color instead.
 
 ### 5. Build a single self-contained HTML file
 Path: `mockups/<prospect-id>/<product-handle>-fixed.html`
@@ -120,14 +161,21 @@ Structure (mirror the gold standard exactly):
      strip → quantity + accent CTA button → 3 trust badges.
    - **The buy-box pricing fix is the hero.** It should be impossible to miss.
 5. **Why You'll Love It** — 3 benefit cards with icon medallions and brand-voice
-   copy.
+   copy. Apply the **no-emoji-icons hard rule** here: every medallion is an inline
+   SVG line-icon in the brand accent color, identical stroke weight and viewBox
+   across the set. If you cannot design a clean per-card icon, use the same
+   placeholder SVG on every card. Never substitute an emoji.
 6. **Ingredient / feature section** — uses real ingredient names from
-   products.json. Skip if the product has no meaningful ingredient story (e.g. a
-   single-SKU snack).
-7. **Trust strip** — dark band with a big claim + 3–4 pills.
-8. **Reviews** — big rating + bar histogram + 3 illustrative review cards.
-   Reviews are the most likely place for synthetic content — flag in the report
-   that the operator must swap in real review excerpts before sending.
+   products.json. Same icon rule applies: SVG line-icons only, never emoji
+   (especially never the same 🍄 / 💊 / 🧬 placeholder repeated across cards).
+   Skip the section if the product has no meaningful ingredient story.
+7. **Trust strip** — dark band with a big claim + 3–4 pills. If the claim names a
+   stat or a date, apply the **no-unverified-clinical-claims hard rule** — only
+   numbers that appear on the live page may appear here.
+8. **Reviews** — big rating + bar histogram + 3 real verified-buyer review cards
+   pulled from the live widget (see Step 4 Review meta). Reviewer names, titles,
+   and bodies all verbatim from the live page. Never fabricate reviews; leave a
+   `TODO: confirm live reviews` instead if the widget can't be read.
 9. **Footer** — single logo, nav links, copyright.
 
 Premium polish requirements:

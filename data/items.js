@@ -1,6 +1,276 @@
 /* Shopify Prospector - prospect data (SOURCE OF TRUTH). Prepend newest-first; never overwrite older prospects. Gate-validated JS. */
 window.SITE_ITEMS = [
   {
+    "id": "2026-06-12-tactipup",
+    "date": "2026-06-12",
+    "title": "Tactipup",
+    "categories": [
+      "pet"
+    ],
+    "summary": [
+      "<b>USA-made, made-to-order tactical dog gear (collars, leashes, harnesses).</b> The bestseller collar PDP (4,157 reviews) configures a visually-customized product through five plain text dropdowns with NO clickable swatches - buyers cannot see the camo + thread-color combo they are building.",
+      "Owner Paul Haynes (law-enforcement family-owned, Largo FL, since 2017) is reachable. The leak is on the PDP, and the mockup rebuilds that PDP with visual swatches."
+    ],
+    "sections": [
+      {
+        "h": "Why this is a good lead",
+        "blocks": [
+          {
+            "p": "Tactipup hand-embroiders tactical dog collars and leashes to order in Largo, Florida. The bestseller 1.5in collar alone has 4,157 reviews and the brand runs a 1-2 week made-to-order backlog.",
+            "why": "A clean, specific, visible PDP leak (visual product sold via text dropdowns), a reachable family owner, and a function-over-form category - exactly the profile that converts better after a swatch-based rebuild."
+          }
+        ]
+      }
+    ],
+    "sources": "<a href='https://www.tactipup.com/products/personalized-1-5-basic-tactical-dog-collar' target='_blank' rel='noopener'>Bestseller collar PDP</a> &middot; <a href='https://www.tactipup.com/pages/about-us' target='_blank' rel='noopener'>About / owner</a> &middot; <a href='https://www.zoominfo.com/p/Paul-Haynes/-1663818537' target='_blank' rel='noopener'>Owner (ZoomInfo)</a>",
+    "prospect": {
+      "url": "tactipup.com",
+      "vertical": "pet",
+      "shopifyConfirmed": true,
+      "shopifySignal": "products.json store 1717/9379, vendor Tactipup; bestseller is a single Default-Title variant with options bolted on via the Bold Product Options app",
+      "revenue": {
+        "estimate": "Est. low-to-mid seven figures/yr (six-figures/mo, inferred - no public figure)",
+        "confidence": "low",
+        "signals": [
+          {
+            "method": "Operational scale",
+            "detail": "Bestseller 1.5in collar has 4,157 reviews (Extreme collar +1,694); made-to-order USA workshop with a 1-2 week backlog; nine years operating (since 2017); featured in press",
+            "source": "Live site / press"
+          },
+          {
+            "method": "Catalog + tenure",
+            "detail": "Broad personalized catalog (collars, leashes, harnesses, patches), perpetual demand, established 2017",
+            "source": "Site + products.json"
+          }
+        ]
+      },
+      "contacts": [
+        {
+          "name": "Paul Haynes",
+          "role": "Owner",
+          "linkedin": "https://www.tactipup.com/pages/about-us",
+          "email": "paul@tactipup.com",
+          "emailStatus": "pattern-guess",
+          "publiclyActive": true,
+          "notes": "Law-enforcement family-owned business, Clearwater/Largo FL. ZoomInfo lists the owner email beginning with p (consistent with paul@). Reachable small-business owner."
+        }
+      ],
+      "lighthouse": {
+        "mobile": null,
+        "desktop": null
+      },
+      "weaknesses": [
+        {
+          "issue": "PDP leak: the bestseller collar is a visually-customized product (camo pattern, embroidery thread color, size) configured through five required plain text dropdowns via Bold Options (Camo Pattern/Color, Neck Size, Custom Text, Font Color, Add flag Patch) with no clickable swatches; the real colors exist only as a static Color Menu reference image in the gallery",
+          "area": "pdp",
+          "severity": "high",
+          "why": "Buyers cannot see the camo and thread combo they are building and must cross-reference a gallery image against dropdown text - high friction on a product sold entirely on its look."
+        },
+        {
+          "issue": "Add-to-Cart is buried below all five stacked required option fields; nothing actionable sits above the fold on the buy side",
+          "area": "pdp",
+          "severity": "med",
+          "why": "Every extra required step before a visible Add-to-Cart sheds conversions, especially on mobile."
+        },
+        {
+          "issue": "Perpetual Sale: every product shows a struck compare-at price (e.g. $34.95 / $39.95) sitewide and on the homepage",
+          "area": "home",
+          "severity": "med",
+          "why": "Always-on fake discounting trains buyers to discount the brand and weakens real promotions."
+        },
+        {
+          "issue": "Slow-loading hero: the homepage hero renders as a blank black void for roughly three seconds before the photo appears (verified - it does load)",
+          "area": "home",
+          "severity": "med",
+          "why": "Cold traffic can hit an empty above-the-fold for several seconds, a real LCP and bounce risk (confirm with PageSpeed)."
+        }
+      ],
+      "demo": {
+        "primaryPage": "pdp",
+        "rationale": "Rebuild the bestseller collar PDP so a visually-customized product is configured visually: swatch tiles for camo, thread-color dots, size buttons, and a clear preview above one Add-to-Cart.",
+        "mechanics": [
+          "Replace the camo/color text dropdown with clickable swatch tiles that update the preview",
+          "Replace the font-color dropdown with thread-color dots",
+          "Turn neck size into buttons with the inch ranges inline",
+          "Surface one clear Add-to-Cart with the live price directly under the selectors"
+        ],
+        "bestseller": "Personalized 1.5in Basic Tactical Dog Collar - tactipup.com/products/personalized-1-5-basic-tactical-dog-collar"
+      },
+      "score": {
+        "revenue": 2,
+        "weakness": 4,
+        "accessibility": 4,
+        "vertical": 4,
+        "total": 14
+      },
+      "priority": "solid",
+      "scrutiny": "Passes as a solid and is the cleanest leak of the day. A $35 collar whose entire appeal is the look is sold through five plain text dropdowns with no visual swatches (Bold Options bolted onto a single-variant product), and the Add-to-Cart sits below all of them. That is specific, visible, and exactly what a swatch-based PDP rebuild fixes - the leak-matched mockup is built. Revenue is the soft spot (no public figure, only 4,157+ reviews and a made-to-order backlog as scale signals), so treat six-figures/mo as likely but unconfirmed. Owner is reachable. Worth an hour.",
+      "outreach": [
+        {
+          "channel": "email",
+          "style": "warm-human",
+          "subject": "building a collar on your site",
+          "body": "Hey Paul, went to build a collar for my dog on your site and realized I was picking the camo and the thread color from plain dropdown menus, so I could not actually see the combo I was making until I cross-referenced your color chart image. The collars themselves look awesome. I rebuilt your bestseller page with clickable camo and color swatches plus a live preview so people can see what they are buying: [demo link]. No agenda, just thought you would want to see it. [Your name]"
+        },
+        {
+          "channel": "email",
+          "style": "teardown",
+          "subject": "your collar page is sold on looks but picked by dropdowns",
+          "body": "Hi Paul, your [bestseller] is a visual product but it is configured through five text dropdowns (camo, size, text, font color, flag) with the real colors hidden in a gallery image, and the Add to Cart sits below all five. For a $35 collar people buy for the look, that is friction. I rebuilt the PDP with visual camo and thread swatches, size buttons, a preview, and one clear Add to Cart. Quick before/after, no charge: [demo link]. Worth a look? [Your name]"
+        },
+        {
+          "channel": "email",
+          "style": "demo-first",
+          "subject": "rebuilt your bestseller collar page (free)",
+          "body": "Hi Paul, I rebuilt your [bestseller] page as a free demo: the camo and thread-color dropdowns are now clickable swatches, neck size is buttons, and there is a live preview above one clear Add to Cart. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]"
+        }
+      ],
+      "operatorTodo": [
+        "Verify paul@tactipup.com before sending - pattern guess; ZoomInfo shows owner email starts with p; Apollo match needs a paid plan.",
+        "Confirm the swatch-vs-dropdown finding and the buried Add-to-Cart on mobile (browser mobile-emulation was unavailable this run).",
+        "Run PageSpeed on the homepage (slow hero) and the collar PDP.",
+        "Swap the mockup swatch stand-in colors for the real crops from their Color Menu image before sending."
+      ],
+      "caveats": "Revenue is a LOW-confidence inference (no third-party dollar figure; 4,157+ reviews, nine years operating, and a made-to-order backlog as scale signals), not filed accounts. Email paul@tactipup.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan; ZoomInfo shows the owner email begins with p). Mobile not verified live (browser mobile-emulation unavailable this run). Lighthouse not yet run. The PDP leak was observed live on 2026-06-12. Mockup is a DRAFT - swatch colors are brand-color stand-ins pending the real Color Menu crops.",
+      "mockupLive": "/mockups/2026-06-12-tactipup/basic-tactical-collar-fixed.html",
+      "mockupStatus": "draft"
+    }
+  },
+  {
+    "id": "2026-06-12-pup-labs",
+    "date": "2026-06-12",
+    "title": "Pup Labs",
+    "categories": [
+      "pet"
+    ],
+    "summary": [
+      "<b>~$2-3M vet-formulated dog supplement brand (dental, joint, gut, ear).</b> Aggressively optimized funnel, but with one objective, pointable leak: the SAME product (ProDenta) shows 2,946 reviews on the homepage card but only 99 on its own PDP, and the hero claims 25,000 reviews while the trust bar says 15,000+.",
+      "Founder Peter Tzemis is a public DTC operator. The fix is a data/merchandising cleanup, not a theme overhaul - so we lead with the review-count contradiction and keep expectations honest."
+    ],
+    "sections": [
+      {
+        "h": "Why this is a good lead",
+        "blocks": [
+          {
+            "p": "Pup Labs sells vet-formulated dog supplements DTC on Shopify (ProDenta, Freedom Joint Drops, K9 Belly Bliss, K9 EarClear), reportedly $2-3M as of mid-2024, with an aggressive subscribe-and-save funnel.",
+            "why": "A real, screenshot-able social-proof contradiction across the funnel on an otherwise high-converting store, plus a reachable founder - a credibility fix worth an hour, framed honestly rather than as a broken-site rebuild."
+          }
+        ]
+      }
+    ],
+    "sources": "<a href='https://puplabs.com/products/prodenta' target='_blank' rel='noopener'>ProDenta PDP</a> &middot; <a href='https://puplabs.com/' target='_blank' rel='noopener'>Homepage (review counts)</a> &middot; <a href='https://businessabc.net/direct-to-consumer-disruption-in-the-pet-industry-lessons-from-this-dog-supplement-brand' target='_blank' rel='noopener'>Revenue mention</a>",
+    "prospect": {
+      "url": "puplabs.com",
+      "vertical": "pet",
+      "shopifyConfirmed": true,
+      "shopifySignal": "products.json store 0627/1234/8910, vendor puplabsco; assets on cdn.shopify.com",
+      "revenue": {
+        "estimate": "~$2-3M/yr (reported mid-2024)",
+        "confidence": "medium",
+        "signals": [
+          {
+            "method": "Reported revenue",
+            "detail": "Reported annual revenue of $2-3M as of mid-2024 (trade write-up)",
+            "source": "businessabc / trade press"
+          },
+          {
+            "method": "Operational scale",
+            "detail": "Claims 100,000+ customers and 25,000 reviews; broad vet-formulated catalog; named lead vet consultant; founder is a known DTC operator",
+            "source": "Live site"
+          }
+        ]
+      },
+      "contacts": [
+        {
+          "name": "Peter Tzemis",
+          "role": "Founder",
+          "linkedin": "https://www.linkedin.com/in/petertzemis",
+          "email": "peter@puplabs.com",
+          "emailStatus": "pattern-guess",
+          "publiclyActive": true,
+          "notes": "Founder and biologist; a well-known direct-response/DTC marketer, publicly active. Dr. Randy Aronson is the named lead vet consultant (not the decision-maker)."
+        }
+      ],
+      "lighthouse": {
+        "mobile": null,
+        "desktop": null
+      },
+      "weaknesses": [
+        {
+          "issue": "Social-proof contradiction: the ProDenta product shows 2,946 reviews on the homepage bestseller card but only 99 reviews on its own PDP; the homepage hero claims 25,000 reviews sitewide while the trust bar says 15,000+",
+          "area": "pdp",
+          "severity": "high",
+          "why": "A shopper who notices the same product flip from ~2,900 to 99 reviews at the buy box loses trust; inflated or contradictory social proof reads as fake and depresses conversion on an otherwise high-intent page."
+        },
+        {
+          "issue": "Manufactured today-only urgency: the PDP frames a standing subscribe discount as Todays Price plus an Order By Jun 12th deadline that is always the current day",
+          "area": "pdp",
+          "severity": "med",
+          "why": "Date-stamped fake urgency erodes credibility with returning visitors who keep seeing the same today deadline."
+        },
+        {
+          "issue": "Promo-overlay hero image: the ProDenta hero is a marketing graphic with 20% OFF Subscription, Free dog treats, and a FREE GIFT badge baked into the product image rather than a clean product render",
+          "area": "pdp",
+          "severity": "med",
+          "why": "Baked-in promo graphics date quickly, cannot be A/B tested, and look busy and templated at the decision point."
+        },
+        {
+          "issue": "Lowest-risk entry option out of stock: on Tummy Essentials the single 1 Pouch is sold out, pushing the entry price to a $100 two-pack",
+          "area": "pdp",
+          "severity": "med",
+          "why": "Removing the low-risk trial size raises the first-purchase barrier in a trust-driven category."
+        }
+      ],
+      "demo": {
+        "primaryPage": "pdp",
+        "rationale": "Rebuild the ProDenta PDP with one honest review number from a single source of truth, a clean product render, and a standing (not fake-dated) offer.",
+        "mechanics": [
+          "Unify the review count from one source so the homepage card, hero, and PDP all show the same honest number",
+          "Replace the promo-overlay hero with a clean product render and move the offer into the buy box",
+          "Drop the date-stamped fake urgency for a standing, honest subscribe offer",
+          "Restore a low-risk single-unit entry option or a clear trial"
+        ],
+        "bestseller": "ProDenta Dog Dental Powder - puplabs.com/products/prodenta"
+      },
+      "score": {
+        "revenue": 3,
+        "weakness": 3,
+        "accessibility": 4,
+        "vertical": 4,
+        "total": 14
+      },
+      "priority": "solid",
+      "scrutiny": "Passes as a solid, with eyes open. Pup Labs is an aggressively-optimized CRO funnel, so this is NOT a weak-theme rebuild - the honest, pointable leak is a social-proof contradiction (ProDenta shows ~2,946 reviews on the homepage but 99 on its PDP; hero says 25,000, trust bar says 15,000+). That objective inconsistency is a real trust-tax at the buy box, but it is a data/merchandising fix more than a theme overhaul - lead with the review-count contradiction, keep expectations honest, and do not oversell a broken site it is not. Founder is reachable.",
+      "outreach": [
+        {
+          "channel": "email",
+          "style": "warm-human",
+          "subject": "quick thing on your ProDenta page",
+          "body": "Hi Peter, big respect for the funnel you have built at Pup Labs. One thing jumped out: your homepage card says ProDenta has about 2,946 reviews, but the ProDenta page itself shows 99, and the hero says 25,000 reviews while the badge strip says 15,000-plus. Sharp buyers notice that and it dents trust right at the buy box. I mocked up a cleaned-up version with one honest number throughout: [demo link]. No agenda, just thought you would want to know. [Your name]"
+        },
+        {
+          "channel": "email",
+          "style": "teardown",
+          "subject": "your review counts contradict each other",
+          "body": "Hi Peter, on ProDenta your numbers disagree across the funnel: 2,946 reviews on the homepage card, 99 on the PDP, 25,000 in the hero, 15,000-plus in the trust bar. On a trust-driven supplement that contradiction costs conversions. I rebuilt the PDP pulling one honest review number from a single source, with a clean product render and a standing offer instead of the always-today deadline. Quick before/after: [demo link]. Worth a look? [Your name]"
+        },
+        {
+          "channel": "email",
+          "style": "demo-first",
+          "subject": "tightened up your ProDenta page (free)",
+          "body": "Hi Peter, I rebuilt your ProDenta page as a free demo: one consistent honest review count, a clean product render instead of the promo-overlay image, and a standing subscribe offer instead of the always-today deadline. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]"
+        }
+      ],
+      "operatorTodo": [
+        "Verify peter@puplabs.com before sending - pattern guess; Apollo match needs a paid plan.",
+        "Confirm the ProDenta review-count discrepancy is still live and not a widget-loading artifact - screenshot the homepage card and the PDP side by side.",
+        "Run PageSpeed on the ProDenta PDP; pull a clean ProDenta product render for any demo.",
+        "MOCKUP SKIPPED - flagged for manual generation: the leak is a cross-page data inconsistency (awkward to demo as a single-page rebuild) and the only ProDenta hero on their CDN is a promo-overlay image the recipe says to avoid. Generate by hand with a clean render."
+      ],
+      "caveats": "Revenue ~$2-3M is a reported mid-2024 third-party figure, not filed accounts (US brand). Email peter@puplabs.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Mobile not verified live (browser mobile-emulation unavailable this run). Lighthouse not yet run. The review-count numbers were read live on 2026-06-12; confirm they are not a review-widget loading artifact before sending. No mockup generated - flagged for manual generation (see operatorTodo)."
+    }
+  },
+  {
     "id": "2026-06-10-mushroom-revival",
     "date": "2026-06-10",
     "title": "Mushroom Revival",
@@ -410,143 +680,6 @@ window.SITE_ITEMS = [
       "caveats": "Revenue is a LOW-confidence estimate from a Crunchbase under-$10M band plus multi-channel distribution and press signals, not filed accounts (US brand, no Companies House); six-figure/mo is likely at the midpoint but not certain. Email zac@truwild.com is a PATTERN GUESS, not verified (Apollo people-match is unavailable on the current free plan). Lighthouse not yet run. Weaknesses were observed live on the Wild Greens PDP on 2026-06-10 in a UK-localized browser session, so the GBP currency display may differ for US visitors (the $0.00 subscribe price and the wrong-product header are not location-dependent).",
       "mockupLive": "/mockups/truwild/wild-greens-fixed.html",
       "mockupStatus": "ready"
-    }
-  },
-  {
-    "id": "2026-06-10-clean-simple-eats",
-    "date": "2026-06-10",
-    "title": "Clean Simple Eats",
-    "categories": [
-      "supplements"
-    ],
-    "summary": [
-      "<b>~$21.6M/yr protein &amp; nutrition brand, bootstrapped and founder-led.</b> Functional but dated theme with a clear money leak: bestseller flavors are sold out and the back-in-stock capture looks paused, so proven demand bounces with no waitlist.",
-      "Strong revenue and reachable founders (Erika &amp; JJ Peterson); the highest-leverage fix is demand capture on sold-out hero SKUs."
-    ],
-    "sections": [
-      {
-        "h": "Why this is a good lead",
-        "blocks": [
-          {
-            "p": "Clean Simple Eats sells protein powders, hydration and wellness products DTC plus retail and a branded CSE+ app. Bootstrapped from personal debt to an estimated eight figures, founded ~2014.",
-            "why": "Revenue clears six figures/mo comfortably, the founders are public and reachable, and there is a concrete, fixable win (capture demand on sold-out bestsellers) rather than only cosmetic theme gripes."
-          }
-        ]
-      }
-    ],
-    "sources": "<a href='https://cleansimpleeats.com/products/pink-burst-clear-protein-powder-packets' target='_blank' rel='noopener'>Clear Protein PDP (sold out)</a> &middot; <a href='https://growjo.com/company/Clean_Simple_Eats' target='_blank' rel='noopener'>Growjo revenue estimate</a> &middot; <a href='https://www.utahbusiness.com/entrepreneurship/2024/07/11/how-erika-peterson-co-founded-clean-simple-eats/' target='_blank' rel='noopener'>Utah Business, founder profile</a>",
-    "prospect": {
-      "url": "cleansimpleeats.com",
-      "vertical": "supplements",
-      "shopifyConfirmed": true,
-      "shopifySignal": "products.json returns a full Shopify catalog (store 0258/0384/9806); assets on cdn.shopify.com",
-      "revenue": {
-        "estimate": "~$21.6M/yr (estimate)",
-        "confidence": "medium",
-        "signals": [
-          {
-            "method": "Third-party revenue estimate",
-            "detail": "Growjo / ZoomInfo-class aggregators put annual revenue at ~$21.6M",
-            "source": "Growjo / ZoomInfo"
-          },
-          {
-            "method": "Operational scale",
-            "detail": "Established ~2014, omni-channel (DTC + retail locations + a branded CSE+ subscription app), broad catalog with many bestseller SKUs",
-            "source": "Site + products.json"
-          }
-        ]
-      },
-      "contacts": [
-        {
-          "name": "Erika Peterson",
-          "role": "Co-Founder",
-          "linkedin": "https://www.linkedin.com/company/cleansimpleeats",
-          "email": "erika@cleansimpleeats.com",
-          "emailStatus": "pattern-guess",
-          "publiclyActive": true,
-          "notes": "Front-facing co-founder (Utah Business feature, podcasts). Co-founded with JJ Peterson; bootstrapped from personal debt to eight figures."
-        }
-      ],
-      "lighthouse": {
-        "mobile": null,
-        "desktop": null
-      },
-      "weaknesses": [
-        {
-          "issue": "Bestseller flavors are sold out (the PDP shows This flavor sold out fast) and back-in-stock capture appears paused (products.json shows bis-paused tags)",
-          "area": "pdp",
-          "severity": "high",
-          "why": "Proven demand on hero SKUs bounces with no waitlist/email capture, losing both sales and first-party data on a high-revenue consumable."
-        },
-        {
-          "issue": "Subscribe-and-save is not surfaced at the buy box on the consumable PDP (subscription exists per products.json tags but is not prominent above the fold)",
-          "area": "pdp",
-          "severity": "med",
-          "why": "Under-monetizes recurring revenue on daily-use products; subscription is the main LTV lever for supplements."
-        },
-        {
-          "issue": "Heavy distressed/grunge display type across headers reduces legibility and scannability, especially on mobile",
-          "area": "mobile",
-          "severity": "med",
-          "why": "Readability friction on the primary conversion path."
-        },
-        {
-          "issue": "Logo lockup renders the EATS wordmark inside a black block that reads as an unpolished/placeholder treatment",
-          "area": "home",
-          "severity": "low",
-          "why": "Minor first-impression/brand-polish issue at the top of every page."
-        }
-      ],
-      "demo": {
-        "primaryPage": "pdp",
-        "rationale": "A high-revenue consumables brand losing demand on sold-out hero SKUs; rebuild a bestseller PDP that captures the demand and surfaces subscribe.",
-        "mechanics": [
-          "Add a back-in-stock email/SMS waitlist on sold-out hero flavors so demand is captured, not bounced",
-          "Surface subscribe-and-save inline at the buy box with the per-order saving shown",
-          "Tighten header typography for legibility, especially on mobile",
-          "Pull the 527-review social proof up beside the buy box"
-        ],
-        "bestseller": "Clear Protein Powder - cleansimpleeats.com/products/pink-burst-clear-protein-powder-packets (note: this flavor currently sold out)"
-      },
-      "score": {
-        "revenue": 4,
-        "weakness": 3,
-        "accessibility": 3,
-        "vertical": 4,
-        "total": 14
-      },
-      "priority": "solid",
-      "scrutiny": "Passes, but as a solid not a top. Unlike a broken theme, CSE's site is functional, so the honest hook is one concrete money leak: bestseller flavors are sold out with back-in-stock capture paused, so proven demand bounces with no waitlist on a $20M+ consumables brand. That is a real, fixable win worth a demo, not a nitpick. The dated/grunge type and logo treatment are softer, more subjective points I am holding lightly. Founders are public but less overtly outreach-open than TruWild's. Revenue is the strongest part, weaknesses the weakest. Worth an hour, but lead with the back-in-stock leak, not theme aesthetics.",
-      "outreach": [
-        {
-          "channel": "email",
-          "style": "warm-human",
-          "subject": "your sold-out flavors",
-          "body": "Hey Erika, I was poking around your site to grab a protein (the clear protein looks great) and a couple of the flavors I wanted were sold out, with no way to get a heads-up when they are back. I build Shopify pages for a living, so I could not help mocking up a version that grabs an email/text on sold-out flavors and pings people the moment they restock: [demo link]. No agenda, just thought you would want it. Love what you and JJ have built. [Your name]"
-        },
-        {
-          "channel": "email",
-          "style": "teardown",
-          "subject": "sold-out bestsellers are leaking demand",
-          "body": "Hi Erika, on your [bestseller] page the flavor was sold out and there was no back-in-stock signup, so that demand (and the email/text) just bounces. On a brand your size that adds up fast. I rebuilt the page with a back-in-stock waitlist, subscribe-and-save surfaced at the buy box, and reviews pulled up next to it. Quick before/after, no charge: [demo link]. Worth a look? [Your name]"
-        },
-        {
-          "channel": "email",
-          "style": "demo-first",
-          "subject": "rebuilt one of your protein pages (free)",
-          "body": "Hi Erika, I rebuilt one of your [bestseller] pages as a free demo: a back-in-stock waitlist on sold-out flavors, subscribe-and-save at the buy box, and reviews moved up next to it. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]"
-        }
-      ],
-      "operatorTodo": [
-        "Verify erika@cleansimpleeats.com (and/or JJ Peterson) before sending - pattern guess; Apollo match needs a paid plan.",
-        "Confirm the back-in-stock app status and whether sold-out heroes currently capture emails.",
-        "Check subscribe-and-save prominence on a live protein PDP (mobile).",
-        "Run PageSpeed Insights on a bestseller PDP (mobile + desktop).",
-        "Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."
-      ],
-      "caveats": "Revenue ~$21.6M is a third-party aggregator estimate (Growjo / ZoomInfo-class), not filed accounts (US brand, no Companies House). Email erika@cleansimpleeats.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the current free plan). Lighthouse not yet run. The subscribe-prominence weakness is inferred from products.json plus the PDP view and should be eyeballed live. Observed 2026-06-10.",
-      "mockupLive": "/mockups/clean-simple-eats/pink-burst-fixed.html",
-      "mockupStatus": "draft"
     }
   }
 ];

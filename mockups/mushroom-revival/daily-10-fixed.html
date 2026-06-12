@@ -159,14 +159,30 @@
   .blend{background:var(--cream-3);padding:64px 0}
   .blend .head{text-align:center;max-width:680px;margin:0 auto 30px}
   .mushrooms{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-  .mush{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;transition:.16s;box-shadow:var(--shadow-sm)}
-  .mush:hover{border-color:var(--coral);transform:translateY(-2px)}
-  .mush .em{font-size:30px;line-height:1;margin-bottom:8px}
+  .mush{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 14px 18px;text-align:center;box-shadow:var(--shadow-sm)}
+  .mush .ico-wrap{width:44px;height:44px;background:var(--cream-3);border:1px solid var(--line-dim);border-radius:50%;margin:0 auto 10px;display:grid;place-items:center}
+  .mush .ico-wrap svg{width:26px;height:26px;display:block}
   .mush h4{font-size:14px;color:var(--dark);margin:0 0 3px;font-weight:800;letter-spacing:-.01em}
   .mush p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.4}
   .blend-foot{text-align:center;margin-top:24px;font-size:13.5px;color:var(--dark-2)}
   .blend-foot b{color:var(--dark);font-weight:800}
   @media (max-width:780px){ .mushrooms{grid-template-columns:repeat(2,1fr)} }
+
+  /* ============ UGC row ============ */
+  .ugc{padding:60px 0;background:var(--cream)}
+  .ugc-head{text-align:center;max-width:680px;margin:0 auto 32px}
+  .ugc-head .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--coral);margin-bottom:10px}
+  .ugc-head h2{font-size:38px;color:var(--dark);letter-spacing:-.02em;margin:0 0 8px;line-height:1.05;font-weight:800}
+  .ugc-head p{font-size:14.5px;color:var(--muted);margin:0}
+  .ugc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .ugc-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 18px;text-align:center;box-shadow:var(--shadow-card);display:flex;flex-direction:column;align-items:center;gap:10px}
+  .ugc-card .photo{width:84px;height:84px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:800;letter-spacing:.02em;line-height:1;box-shadow:0 0 0 4px #fff, 0 0 0 5px var(--line-dim)}
+  .ugc-card .nm{font-size:15px;color:var(--dark);font-weight:800;letter-spacing:-.005em;margin-top:4px}
+  .ugc-card .stars-u{color:var(--gold);font-size:13px;letter-spacing:1.5px;line-height:1}
+  .ugc-card blockquote{margin:6px 0 0;font-size:13.5px;color:var(--dark-2);line-height:1.5;font-style:italic;quotes:"\201C" "\201D";max-width:24ch}
+  .ugc-card blockquote::before{content:open-quote;color:var(--coral);font-weight:800;font-style:normal;margin-right:2px}
+  .ugc-card blockquote::after{content:close-quote;color:var(--coral);font-weight:800;font-style:normal;margin-left:2px}
+  @media (max-width:780px){ .ugc-grid{grid-template-columns:1fr 1fr} }
 
   /* ============ Trust strip ============ */
   .strip{background:var(--dark);color:#fff;padding:42px 0;position:relative;overflow:hidden}
@@ -261,8 +277,8 @@
     <!-- hero image -->
     <div class="hero-img">
       <span class="pill org tl">USDA Organic</span>
-      <span class="pill tr">100% Vegan</span>
-      <span class="pill bl">Non-GMO · 10 Mushrooms</span>
+      <span class="pill tr">10 Mushrooms</span>
+      <span class="pill bl">Non-GMO &middot; Vegan</span>
       <img src="https://www.mushroomrevival.com/cdn/shop/files/Packx3-v1_10.png?v=1716843592" alt="Mushroom Revival Daily 10 Mix Mushroom Capsules — 3-Pack">
     </div>
 
@@ -302,8 +318,8 @@
       <div class="opts">
         <div class="opt">
           <span class="lbl">One-time</span>
-          <div><span class="price">$113.85</span></div>
-          <div class="meta">$37.95 per bottle</div>
+          <div><span class="price">$102.47</span><span class="strike">$113.85</span></div>
+          <div class="meta">$34.16 per bottle</div>
         </div>
         <div class="opt active">
           <span class="save-pill">Save 28%</span>
@@ -369,18 +385,55 @@
       <p style="font-size:15.5px;color:var(--dark-2);margin:0">Ten famous functional mushrooms, fruiting-body only &mdash; never mycelium-on-grain.</p>
     </div>
     <div class="mushrooms">
-      <div class="mush"><div class="em">&#127812;</div><h4>Cordyceps</h4><p>Energy &amp; stamina</p></div>
-      <div class="mush"><div class="em">&#129396;</div><h4>Lion&rsquo;s Mane</h4><p>Focus &amp; cognition</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Reishi</h4><p>Calm &amp; sleep</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Turkey Tail</h4><p>Immune support</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Chaga</h4><p>Antioxidants</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Shiitake</h4><p>Daily wellness</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Tremella</h4><p>Skin &amp; hydration</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Meshima</h4><p>Immune resilience</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Maitake</h4><p>Metabolic balance</p></div>
-      <div class="mush"><div class="em">&#127812;</div><h4>Poria</h4><p>Calm digestion</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Cordyceps</h4><p>Energy &amp; stamina</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Lion&rsquo;s Mane</h4><p>Focus &amp; cognition</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Reishi</h4><p>Calm &amp; sleep</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Turkey Tail</h4><p>Immune support</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Chaga</h4><p>Antioxidants</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Shiitake</h4><p>Daily wellness</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Tremella</h4><p>Skin &amp; hydration</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Meshima</h4><p>Immune resilience</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Maitake</h4><p>Metabolic balance</p></div>
+      <div class="mush"><div class="ico-wrap"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 4C9.4 4 5 9 5 14.5C5 16.4 6.4 17.5 8 17.5H24C25.6 17.5 27 16.4 27 14.5C27 9 22.6 4 16 4Z" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 17.5V25C12.5 26.9 14 28.2 16 28.2C18 28.2 19.5 26.9 19.5 25V17.5" stroke="#D25A57" stroke-width="2" stroke-linejoin="round"/><circle cx="11.5" cy="11.5" r="1.2" fill="#D25A57"/><circle cx="17.5" cy="9.5" r="1.2" fill="#D25A57"/><circle cx="21" cy="13" r="1.2" fill="#D25A57"/></svg></div><h4>Poria</h4><p>Calm digestion</p></div>
     </div>
     <p class="blend-foot"><b>2,526 mg</b> mushroom blend per serving &middot; <b>76,950 mg</b> per bottle &middot; fruiting bodies only</p>
+  </div>
+</section>
+
+<!-- UGC ROW -->
+<section class="ugc">
+  <div class="container">
+    <div class="ugc-head">
+      <div class="eyebrow">Real People, Real Routines</div>
+      <h2>People love us</h2>
+      <p>Real customers, their own words &mdash; pulled straight from the Mushroom Revival video wall.</p>
+    </div>
+    <div class="ugc-grid">
+      <div class="ugc-card">
+        <div class="photo" aria-hidden="true">A</div>
+        <div class="nm">Aisha</div>
+        <div class="stars-u">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>Products are all certified organic made with 100% mushroom fruiting bodies&hellip; It&rsquo;s worth checking out.</blockquote>
+      </div>
+      <div class="ugc-card">
+        <div class="photo" aria-hidden="true">M</div>
+        <div class="nm">Martin</div>
+        <div class="stars-u">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>You guys have got to check out this organic supplement founded by expert mycologist Alex Dorr.</blockquote>
+      </div>
+      <div class="ugc-card">
+        <div class="photo" aria-hidden="true">P</div>
+        <div class="nm">Paulina</div>
+        <div class="stars-u">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>When you have to get crap done, Mushroom Revival is perfect.</blockquote>
+      </div>
+      <div class="ugc-card">
+        <div class="photo" aria-hidden="true">A</div>
+        <div class="nm">Alexis</div>
+        <div class="stars-u">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>A great way to dive into the wonderful world of functional mushrooms.</blockquote>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -388,8 +441,8 @@
 <section class="strip tight">
   <div class="strip-inner">
     <div class="strip-head">
-      <div class="big">First.</div>
-      <div class="lab">USDA-certified-organic<br>mushroom capsules in the world</div>
+      <div class="big">First in the world.</div>
+      <div class="lab">USDA-certified-organic<br>mushroom capsules</div>
     </div>
     <div class="strip-pills">
       <span class="strip-pill"><span class="ic">&#10003;</span>USDA Organic</span>
@@ -429,33 +482,33 @@
     <div class="reviews">
       <article class="review">
         <div class="head">
-          <div class="ava">EC</div>
-          <div class="who"><b>Emma C.</b><span class="meta">Posted 2 months ago</span></div>
+          <div class="ava">AF</div>
+          <div class="who"><b>Anthony F.</b><span class="meta">03 October 2025 &middot; United States</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>The calm I&rsquo;ve been looking for</h4>
-        <p>I&rsquo;ve been on these for about ten weeks. The afternoon energy crash I used to get around three is just&hellip; gone. Bonus: my sleep is deeper. Worth the autoship price.</p>
+        <h4>Great Mushroom Company</h4>
+        <p>Overall experience was a pleasure! Item arrived on time packaged securely. The product is also excellent in doing what was promised. Will purchase more items in future.</p>
       </article>
       <article class="review">
         <div class="head">
-          <div class="ava">DM</div>
-          <div class="who"><b>Derek M.</b><span class="meta">Posted 6 weeks ago</span></div>
+          <div class="ava">SM</div>
+          <div class="who"><b>Sean M.</b><span class="meta">25 September 2025 &middot; United States</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>Finally tried fruiting-body-only mushrooms</h4>
-        <p>Switched from a brand that uses mycelium-on-grain &mdash; the difference in clarity within two weeks was noticeable. Love that they grow their own cordyceps. Easy capsule, no aftertaste.</p>
+        <h4>Great as always</h4>
+        <p>Love the taste. Like chocolate!</p>
       </article>
       <article class="review">
         <div class="head">
-          <div class="ava">RP</div>
-          <div class="who"><b>Rita P.</b><span class="meta">Posted 4 months ago</span></div>
+          <div class="ava">CL</div>
+          <div class="who"><b>Chris L.</b><span class="meta">27 April 2025 &middot; United States</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>Four months in and recommending to friends</h4>
-        <p>My immune system through this winter has been a different person&rsquo;s. I take two with breakfast, that&rsquo;s the whole routine. The autoship lands right on time every 90 days.</p>
+        <h4>Very good! High quality!</h4>
+        <p>Been using them for a few years now. Capsules for me and my wife. Gummies for my children. They work great. Great quality!</p>
       </article>
     </div>
   </div>

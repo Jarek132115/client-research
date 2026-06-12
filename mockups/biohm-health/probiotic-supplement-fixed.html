@@ -149,7 +149,8 @@
 
   .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .benefit{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:var(--shadow-card)}
-  .benefit .ic{width:74px;height:74px;background:var(--teal-3);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;border:1px solid #C7DDE3;font-size:28px}
+  .benefit .ic{width:74px;height:74px;background:var(--teal-3);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;border:1px solid #C7DDE3}
+  .benefit .ic svg{width:36px;height:36px;display:block;stroke:var(--teal-4);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .benefit h3{font-size:20px;color:var(--navy);letter-spacing:-.01em;margin:0 0 8px;font-weight:800}
   .benefit p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
   @media (max-width:780px){ .benefits{grid-template-columns:1fr} .opts{grid-template-columns:1fr} .trust{grid-template-columns:1fr 1fr} }
@@ -163,6 +164,15 @@
   .study .text p{margin:0;font-size:14.5px;color:var(--ink-2)}
   .study .text .cite{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
   @media (max-width:780px){ .study{grid-template-columns:1fr;padding:24px} }
+  .claims{margin-top:22px;background:var(--teal-3);border:1px solid #C7DDE3;border-radius:18px;padding:24px 28px}
+  .claims-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .claims-head h4{font-size:14px;color:var(--navy);letter-spacing:.04em;text-transform:uppercase;font-weight:800;margin:0}
+  .claims-head .src{font-size:11px;color:var(--teal-4);font-style:italic;letter-spacing:.02em}
+  .claims-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .claim{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid #D8E6EA;border-radius:12px;padding:12px 14px}
+  .claim .ck{width:18px;height:18px;background:var(--teal-4);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0;line-height:1;margin-top:1px}
+  .claim p{margin:0;font-size:13px;color:var(--navy);line-height:1.4;font-weight:600}
+  @media (max-width:780px){ .claims-grid{grid-template-columns:1fr} .claims{padding:18px} }
 
   /* ============ Trust strip ============ */
   .strip{background:var(--navy);color:#fff;padding:42px 0;position:relative;overflow:hidden}
@@ -262,7 +272,7 @@
       <div class="buy-top">
         <span class="stars">
           <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <b>4.7</b><span style="color:var(--muted)">·</span><a href="#reviews">812 reviews</a>
+          <b>4.8</b><span style="color:var(--muted)">·</span><a href="#reviews">495 reviews</a>
         </span>
         <span class="clin-tag">Clinically Studied</span>
       </div>
@@ -321,17 +331,17 @@
     </div>
     <div class="benefits">
       <div class="benefit">
-        <div class="ic">&#129516;</div>
+        <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 4c3 4 11 4 14 0"/><path d="M9 28c3-4 11-4 14 0"/><path d="M9 4c0 8 14 16 14 24"/><path d="M23 4c0 8-14 16-14 24"/><path d="M11 9h10M11 16h10M11 23h10"/></svg></div>
         <h3>Bacteria + Fungi</h3>
         <p>30 billion CFUs of bacteria PLUS Saccharomyces boulardii &mdash; the first to balance both kingdoms in one capsule.</p>
       </div>
       <div class="benefit">
-        <div class="ic">&#129504;</div>
+        <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="23" cy="9" r="3"/><circle cx="9" cy="23" r="3"/><circle cx="23" cy="23" r="3"/><circle cx="16" cy="16" r="3"/><path d="M11.5 11.5L13.5 13.5"/><path d="M20.5 11.5L18.5 13.5"/><path d="M11.5 20.5L13.5 18.5"/><path d="M20.5 20.5L18.5 18.5"/></svg></div>
         <h3>Breaks Down Plaque</h3>
         <p>Includes amylase to break down digestive plaque so your gut microbiome can actually rebalance &mdash; not just get re-flooded.</p>
       </div>
       <div class="benefit">
-        <div class="ic">&#129366;</div>
+        <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 4h6"/><path d="M14 4v8L7 25a3 3 0 0 0 2.6 4.5h12.8A3 3 0 0 0 25 25l-7-13V4"/><path d="M10.5 19h11"/></svg></div>
         <h3>Designed by a Scientist</h3>
         <p>Formulated by Dr. Mahmoud Ghannoum, the researcher who coined the term &ldquo;mycobiome.&rdquo; Backed by clinical study, not vibes.</p>
       </div>
@@ -350,7 +360,22 @@
       <div class="text">
         <h3>Significantly better gut function vs. placebo</h3>
         <p>60 healthy adults, 6-week double-blind study. BIOHM significantly improved self-reported ratings of gut function, mild bloating and abdominal discomfort compared to placebo.</p>
-        <p class="cite">BIOHM FX clinical study, 2020. Independent placebo-controlled trial.</p>
+        <p class="cite">BIOHM FX clinical study. Independent placebo-controlled trial.</p>
+      </div>
+    </div>
+
+    <div class="claims" aria-label="Clinically observed results">
+      <div class="claims-head">
+        <h4>Clinically observed results</h4>
+        <span class="src">From the published BIOHM FX study</span>
+      </div>
+      <div class="claims-grid">
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps reduce occasional bloating*</p></div>
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps reduce occasional abdominal discomfort*</p></div>
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps support gut wall integrity*</p></div>
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps support gastrointestinal health*</p></div>
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps break down digestive biofilms (plaque)*</p></div>
+        <div class="claim"><span class="ck">&#10003;</span><p>Helps support healthy Candida levels*</p></div>
       </div>
     </div>
   </div>
@@ -381,11 +406,11 @@
     </div>
     <div class="rev-top">
       <div class="rev-summary">
-        <div class="rev-avg">4.7</div>
+        <div class="rev-avg">4.8</div>
         <div class="rev-meta">
           <span class="stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <span class="count">Based on <b>812 verified reviews</b></span>
-          <span class="count">88% gave it 5 stars</span>
+          <span class="count">Based on <b>495 verified reviews</b></span>
+          <span class="count">85% gave it 5 stars</span>
         </div>
       </div>
       <a class="rev-cta" href="#">Write a review</a>
@@ -394,33 +419,33 @@
     <div class="reviews">
       <article class="review">
         <div class="head">
-          <div class="ava">LR</div>
-          <div class="who"><b>Lauren R.</b><span class="meta">Posted 6 weeks ago</span></div>
+          <div class="ava">EL</div>
+          <div class="who"><b>Eva L.</b><span class="meta">Verified buyer</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>Two weeks in and the bloating is gone</h4>
-        <p>I had given up on probiotics after trying four different brands. The bacteria-plus-fungi angle is what convinced me to try BIOHM. Two weeks in, the daily after-dinner bloating is just&hellip; gone.</p>
+        <h4>Treating the root cause</h4>
+        <p>My functional doctor recommended Total Gut for suspected biofilms that have been the issue for recurring candida overgrowth and leaky gut. I really appreciate the science behind your products and finally feel I&rsquo;m treating the root cause and not the symptoms. I&rsquo;ve only been on for 6 weeks, and have seen an improvement in my skin (crazy scalp eczema) and digestion (gas/bloating).</p>
       </article>
       <article class="review">
         <div class="head">
-          <div class="ava">TG</div>
-          <div class="who"><b>Tom G.</b><span class="meta">Posted 2 months ago</span></div>
+          <div class="ava">EF</div>
+          <div class="who"><b>Elizabeth F.</b><span class="meta">Verified buyer</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>The clinical study is what sold me</h4>
-        <p>I&rsquo;m a doctor and I read the actual study before recommending things to family. P&lt;0.05 vs. placebo on a 60-person trial is not nothing for a probiotic. My wife is on month four and is staying on it.</p>
+        <h4>I have taken this supplement</h4>
+        <p>I have taken this supplement for the past 4 yrs. I have IBS and it doesn&rsquo;t bother me like other probiotics and it&rsquo;s very affordable.</p>
       </article>
       <article class="review">
         <div class="head">
-          <div class="ava">PN</div>
-          <div class="who"><b>Priya N.</b><span class="meta">Posted 4 months ago</span></div>
+          <div class="ava">JR</div>
+          <div class="who"><b>Jude R.</b><span class="meta">Verified buyer</span></div>
         </div>
         <span class="v">Verified buyer</span>
         <span class="stars-r">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <h4>Best probiotic I&rsquo;ve been on, full stop</h4>
-        <p>I went on Total Gut after a course of antibiotics knocked me out. Within a month my digestion was the most regular it&rsquo;s been in years. Subscribe-and-save is genuinely useful, and shipping has never been late.</p>
+        <h4>It Works!</h4>
+        <p>A friend who has Crohn&rsquo;s disease recommended this product because it has helped him so much so I tried it. It works!</p>
       </article>
     </div>
   </div>

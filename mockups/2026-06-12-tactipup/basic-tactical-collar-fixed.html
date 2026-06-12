@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalized 1.5" Basic Tactical Dog Collar - Tactipup (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0c0c; --paper:#ffffff; --gold:#f2c200; --gold-d:#d9ad00;
+    --line:#e7e7e7; --muted:#6b6b6b; --camo:#3c4a32; --radius:12px;
+    --shadow:0 6px 22px rgba(0,0,0,.10);
+    --display:"Oswald",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.5}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  .annc{background:var(--ink);color:#fff;text-align:center;font-size:13px;letter-spacing:.04em;padding:9px 10px;font-weight:500}
+  .annc strong{color:var(--gold)}
+  header{position:sticky;top:0;z-index:30;background:var(--ink);color:#fff;border-bottom:1px solid #1f1f1f}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.10em;color:#fff}
+  .nav nav{display:flex;gap:26px;font-size:14px;font-weight:500;color:#e8e8e8}
+  .nav nav a:hover{color:var(--gold)}
+  .nav .icons{display:flex;gap:18px;color:#fff}
+  .icn{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7}
+  .crumbs{font-size:12.5px;color:var(--muted);padding:16px 0 4px;letter-spacing:.02em}
+  .crumbs b{color:var(--ink)}
+  .pdp{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;padding:18px 0 56px;align-items:start}
+  .gallery{position:sticky;top:84px}
+  .gmain{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#f6f6f4}
+  .gthumbs{display:flex;gap:10px;margin-top:12px}
+  .gthumbs img{width:74px;height:74px;object-fit:cover;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+  .gthumbs img.sel{border:2px solid var(--ink)}
+  .rate{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);font-weight:600}
+  .stars{color:var(--gold);letter-spacing:1px;font-size:15px}
+  h1{font-family:var(--display);font-size:34px;line-height:1.08;margin:8px 0 6px;font-weight:700;letter-spacing:.005em}
+  .price{display:flex;align-items:baseline;gap:10px;margin:2px 0 4px}
+  .price .now{font-size:26px;font-weight:700}
+  .price .was{font-size:17px;color:var(--muted);text-decoration:line-through}
+  .price .save{font-size:12px;font-weight:700;background:#eaf6e8;color:#2f7d32;padding:3px 8px;border-radius:999px}
+  .lede{font-size:14.5px;color:#3a3a3a;margin:8px 0 18px}
+  .field{margin:18px 0}
+  .flabel{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.02em;margin-bottom:9px;text-transform:uppercase}
+  .flabel .pick{font-family:var(--body);font-weight:600;font-size:13px;color:var(--muted);text-transform:none}
+  .flabel a{font-family:var(--body);font-size:12.5px;color:var(--muted);text-decoration:underline;text-transform:none;font-weight:500}
+  /* THE FIX: visual swatches instead of text dropdowns */
+  .swatches{display:flex;flex-wrap:wrap;gap:10px}
+  .swatch{width:54px;height:54px;border-radius:10px;border:2px solid var(--line);cursor:pointer;position:relative;background-size:cover;background-position:center}
+  .swatch.sel{border-color:var(--ink);box-shadow:0 0 0 2px #fff inset}
+  .swatch .nm{position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);font-size:10.5px;color:var(--muted);white-space:nowrap}
+  .dots{display:flex;flex-wrap:wrap;gap:12px}
+  .dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+  .dot.sel{border-color:var(--ink);box-shadow:0 0 0 2px #fff inset,0 0 0 3px var(--ink)}
+  .sizes{display:flex;flex-wrap:wrap;gap:9px}
+  .size{border:2px solid var(--line);border-radius:9px;padding:9px 13px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:center;min-width:78px;background:#fff}
+  .size span{display:block;font-size:11px;color:var(--muted);font-weight:500}
+  .size.sel{border-color:var(--ink);background:#fafafa}
+  .textbox{width:100%;border:2px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:var(--body);font-weight:600}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+  .preview{margin-top:12px;background:#11140f;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px}
+  .preview .chip{font-family:var(--display);font-weight:700;letter-spacing:.06em;font-size:19px;color:#ff3b30;background:#2c3322;padding:7px 16px;border-radius:6px;border:1px solid #44502f}
+  .preview small{color:#b9c2ab;font-size:12px}
+  .atc{display:block;width:100%;background:var(--gold);color:#1a1500;border:none;border-radius:11px;padding:17px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.04em;cursor:pointer;margin-top:8px}
+  .atc:hover{background:var(--gold-d)}
+  .trust{display:flex;gap:8px;justify-content:space-between;margin-top:16px;flex-wrap:wrap}
+  .trust div{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#333}
+  .trust .icn{width:18px;height:18px;stroke:var(--camo)}
+  section.band{padding:60px 0;border-top:1px solid var(--line)}
+  section.dark{background:var(--ink);color:#fff;border:none}
+  .h2{font-family:var(--display);font-weight:700;font-size:27px;text-align:center;letter-spacing:.01em;margin:0 0 34px}
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .ben{text-align:center;padding:10px}
+  .medal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .medal .icn{width:28px;height:28px;stroke:var(--ink);stroke-width:1.8}
+  .ben h3{font-family:var(--display);font-size:17px;margin:0 0 6px;letter-spacing:.02em}
+  .ben p{font-size:13.5px;color:var(--muted);margin:0}
+  .dark .ben h3{color:#fff}.dark .ben p{color:#c9c9c9}.dark .medal{border-color:var(--gold)}.dark .medal .icn{stroke:var(--gold)}
+  .revhead{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:30px}
+  .revhead .big{font-family:var(--display);font-size:46px;font-weight:700;line-height:1}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rev{border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .rev .top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+  .av{width:40px;height:40px;border-radius:50%;background:var(--camo);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;font-family:var(--display)}
+  .rev .who{font-weight:700;font-size:14px}.rev .loc{font-size:12px;color:var(--muted)}
+  .rev p{font-size:13.5px;color:#333;margin:8px 0 0}
+  footer{background:var(--ink);color:#cfcfcf;padding:44px 0;text-align:center}
+  footer .logo{display:inline-block;margin-bottom:12px}
+  footer nav{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:13px;margin-bottom:14px}
+  footer small{color:#8a8a8a;font-size:12px}
+  .note{background:#fffbe6;border:1px dashed var(--gold-d);border-radius:8px;padding:8px 12px;font-size:11.5px;color:#7a6500;margin:18px 0 0}
+  @media(max-width:980px){.pdp{grid-template-columns:1fr;gap:30px}.gallery{position:static}.benefits,.reviews{grid-template-columns:1fr}.nav nav{display:none}}
+  @media(max-width:780px){.wrap{padding:0 16px}h1{font-size:28px}section.band{padding:48px 0}}
+</style>
+</head>
+<body>
+
+<div class="annc">Made-to-order in Largo, FL &middot; <strong>Current Turnaround: 1-2 Weeks</strong></div>
+
+<header><div class="wrap nav">
+  <div class="logo">TACTIPUP</div>
+  <nav><a href="#">Shop</a><a href="#">About</a><a href="#">FAQs</a><a href="#">Collar Cleaning</a><a href="#">Contact</a></nav>
+  <div class="icons">
+    <svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+    <svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+    <svg class="icn" viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="crumbs">Shop &rsaquo; Collars &rsaquo; <b>Personalized 1.5" Basic Tactical Dog Collar</b></div>
+
+  <div class="pdp">
+    <!-- GALLERY (real Tactipup CDN assets) -->
+    <div class="gallery">
+      <div class="gmain">
+        <img src="https://cdn.shopify.com/s/files/1/1717/9379/products/1.5InchBasicPersProductPhoto.jpg?v=1775066390" alt="Personalized 1.5 inch tactical dog collar">
+      </div>
+      <div class="gthumbs">
+        <img class="sel" src="https://cdn.shopify.com/s/files/1/1717/9379/products/1.5InchBasicPersProductPhoto.jpg?v=1775066390" alt="Collar front">
+        <img src="https://cdn.shopify.com/s/files/1/1717/9379/products/1.5BasicProductPhotoA.jpg?v=1633213318" alt="Black camo collar">
+        <img src="https://cdn.shopify.com/s/files/1/1717/9379/products/1.5InBasicPersAltProductPhoto.jpg?v=1775066390" alt="Collar alternate view">
+      </div>
+    </div>
+
+    <!-- BUY BOX -->
+    <div class="buy">
+      <div class="rate"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 5.0 &middot; 4,157 reviews</div>
+      <h1>Personalized 1.5" Basic Tactical Dog Collar</h1>
+      <div class="price"><span class="now">$34.95</span><span class="was">$39.95</span><span class="save">Save $5</span></div>
+      <p class="lede">A US-made, over-built everyday tactical collar with hand embroidery. Build yours below - pick the camo, the thread color, and the size, and see it before you add to cart.</p>
+
+      <!-- THE FIX #1: visual camo/color swatches (was a text dropdown) -->
+      <div class="field">
+        <div class="flabel">Camo / Color <span class="pick">Black Multicam</span></div>
+        <div class="swatches">
+          <div class="swatch sel" style="background-image:url('https://cdn.shopify.com/s/files/1/1717/9379/products/1.5BasicProductPhotoA.jpg?v=1633213318')"><span class="nm">Black Multicam</span></div>
+          <div class="swatch" style="background:#7a8466"><span class="nm">Multicam</span></div>
+          <div class="swatch" style="background:#15161a"><span class="nm">Black</span></div>
+          <div class="swatch" style="background:#9a9b8c"><span class="nm">Wolf Grey</span></div>
+          <div class="swatch" style="background:#b94a3b"><span class="nm">Red</span></div>
+          <div class="swatch" style="background:#2f5ca8"><span class="nm">Blue</span></div>
+          <div class="swatch" style="background:#5a7d3a"><span class="nm">OD Green</span></div>
+          <div class="swatch" style="background:#c9883f"><span class="nm">Coyote</span></div>
+        </div>
+      </div>
+
+      <!-- THE FIX #2: font-color dots (was a text dropdown) -->
+      <div class="field">
+        <div class="flabel">Embroidery Thread <span class="pick">Red</span></div>
+        <div class="dots">
+          <span class="dot sel" style="background:#e23b2e" title="Red"></span>
+          <span class="dot" style="background:#111" title="Black"></span>
+          <span class="dot" style="background:#fff" title="White"></span>
+          <span class="dot" style="background:#f2c200" title="Gold"></span>
+          <span class="dot" style="background:#2f7d32" title="Green"></span>
+          <span class="dot" style="background:#2f5ca8" title="Blue"></span>
+          <span class="dot" style="background:#f4a6c0" title="Pink"></span>
+        </div>
+      </div>
+
+      <!-- THE FIX #3: size buttons (was a text dropdown) -->
+      <div class="field">
+        <div class="flabel">Neck Size <a href="#">Size &amp; fit guide</a></div>
+        <div class="sizes">
+          <div class="size">XS<span>10-13"</span></div>
+          <div class="size sel">S<span>13-16"</span></div>
+          <div class="size">M<span>16-20"</span></div>
+          <div class="size">L<span>20-24"</span></div>
+          <div class="size">XL<span>24-28"</span></div>
+        </div>
+      </div>
+
+      <!-- Custom text + live-style preview -->
+      <div class="field">
+        <div class="flabel">Custom Text <span class="pick">4" embroidery field</span></div>
+        <input class="textbox" type="text" value="MURPHY" maxlength="14" aria-label="Custom embroidery text">
+        <div class="hint">Personalization with multiple words may use smaller text and multiple lines.</div>
+        <div class="preview">
+          <span class="chip">MURPHY</span>
+          <small>Preview - Black Multicam collar, red thread. This is how your collar reads before you order.</small>
+        </div>
+      </div>
+
+      <button class="atc">Add to Cart &middot; $34.95</button>
+
+      <div class="trust">
+        <div><svg class="icn" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg> Over-built USA webbing</div>
+        <div><svg class="icn" viewBox="0 0 24 24"><path d="M3 7h18v10H3z"/><path d="M3 12h18"/></svg> Hand-embroidered in FL</div>
+        <div><svg class="icn" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> 30-day returns</div>
+      </div>
+
+      <div class="note">DRAFT MOCKUP - the fix shown is visual swatch/size selection replacing Tactipup's current five required text dropdowns. Swatch colors for Multicam/Wolf Grey/Coyote etc. are approximate brand-color stand-ins (TODO: drop in the real swatch crops from their Color Menu image). Review count 4,157 and price $34.95/$39.95 are pulled live; review quotes below are verbatim from their homepage.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS (SVG icons, no emoji) -->
+<section class="band"><div class="wrap">
+  <h2 class="h2">BUILT TO OUTLAST THE PET-STORE STUFF</h2>
+  <div class="benefits">
+    <div class="ben"><div class="medal"><svg class="icn" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h3>OVER-BUILT</h3><p>Highest-quality webbing, fabric and hardware, constructed in the USA - not box-store filler.</p></div>
+    <div class="ben"><div class="medal"><svg class="icn" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>TRULY PERSONALIZED</h3><p>Your dog's name, your camo, your thread color - hand-embroidered to order, not printed.</p></div>
+    <div class="ben"><div class="medal"><svg class="icn" viewBox="0 0 24 24"><path d="M12 2v6M12 2l3 3M12 2L9 5"/><path d="M5 12c0 5 3 8 7 9 4-1 7-4 7-9"/></svg></div><h3>MADE IN THE USA</h3><p>Embroidered by hand in Largo, Florida, with US-sourced materials wherever possible.</p></div>
+  </div>
+</div></section>
+
+<!-- REVIEWS (real count + verbatim quotes, initial-avatars, no faces) -->
+<section class="band"><div class="wrap">
+  <div class="revhead"><div class="big">5.0</div><div><div class="stars" style="font-size:20px">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div style="font-size:13px;color:var(--muted);font-weight:600">Based on 4,157 reviews</div></div></div>
+  <div class="reviews">
+    <div class="rev"><div class="top"><div class="av">MO</div><div><div class="who">Mark O.</div><div class="loc">Grand Prairie, TX</div></div></div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"They make these with quality materials and Tactipup's products are built to last. I have the cheaper collars from box stores and the quality and ruggedness does not even come close. It's all worth the extra expense."</p></div>
+    <div class="rev"><div class="top"><div class="av">CB</div><div><div class="who">Callie B.</div><div class="loc">Lakeville, MN</div></div></div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Exactly what we were looking for. It's a durable collar and we love the handle! The collar is heavy duty and we love the buckle mechanism. Our high-drive GSD needs a strong collar and this delivers."</p></div>
+    <div class="rev"><div class="top"><div class="av">JW</div><div><div class="who">Jay W.</div><div class="loc">Meeker, CO</div></div></div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"These collars turned out soooo nice! I looked at these originally and ended up going with some cheap ones from the pet store. Three sets of those and I finally gave in and ordered these. Wish I would have bought these the first time!"</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="logo">TACTIPUP</div>
+  <nav><a href="#">Shop</a><a href="#">About</a><a href="#">FAQs</a><a href="#">Collar Cleaning</a><a href="#">Contact</a></nav>
+  <small>Over-Built Dog Gear &middot; Made in the USA &middot; Largo, FL &middot; Mockup for review</small>
+</div></footer>
+
+</body>
+</html>

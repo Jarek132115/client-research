@@ -174,7 +174,7 @@
     {key:"disqualified",label:"Disqualified",color:"var(--rose)"},
   ];
   const STATUS_COLOR = {researched:"var(--blue)",drafted:"var(--amber)",approved:"var(--teal)",sent:"var(--violet)",replied:"var(--green)",no_email:"var(--muted)",disqualified:"var(--rose)"};
-  const SIG = [["revenueTier","Rev"],["weaknessSeverity","Leak"],["accessibility","Acc"],["verticalFit","Fit"]];
+  const SIG = [["revenueTier","R","Revenue tier"],["weaknessSeverity","L","Leak severity"],["accessibility","A","Accessibility"],["verticalFit","F","Vertical fit"]];
 
   let DATA = [];
   let filter = "all";
@@ -211,10 +211,10 @@
   function setFilter(k){ filter=k; renderStrip(); renderList(); }
 
   function signal(scores){
-    const bars = SIG.map(([k])=>{
+    const bars = SIG.map(([k,,full])=>{
       const v = Math.max(0, Math.min(5, scores[k]||0));
       const h = 6 + v*5.4; // 6..33px
-      return '<div class="sigbar" style="height:33px"><i style="height:'+h+'px"></i></div>';
+      return '<div class="sigbar" style="height:33px" title="'+full+': '+v+'/5"><i style="height:'+h+'px"></i></div>';
     }).join('');
     const labels = SIG.map(([,l])=>'<span>'+l+'</span>').join('');
     return '<div><div class="signal">'+bars+'</div><div class="siglabels">'+labels+'</div></div>';
@@ -224,6 +224,8 @@
     const pri = p.priority||'';
     const priClass = 'pri-'+(pri||'hold');
     const priLabel = pri==='top'?'★ Top':(pri||'—');
+    const realPri = (pri==='top'||pri==='solid'||pri==='hold');
+    const priBadge = realPri ? '<span class="badge '+priClass+'">'+esc(priLabel)+'</span>' : '';
     const stColor = STATUS_COLOR[p.status]||'var(--muted)';
     const interested = (p.replyCategory==='interested');
 
@@ -235,7 +237,7 @@
     let contactBits=[];
     if(p.contactName) contactBits.push('<span class="who">'+esc(p.contactName)+(p.contactTitle?' · '+esc(p.contactTitle):'')+'</span>');
     if(p.contactEmail) contactBits.push('<span class="mono">'+esc(p.contactEmail)+'</span>');
-    else contactBits.push('<span style="color:var(--muted)">no email found</span>');
+    else contactBits.push('<span style="color:var(--amber)">email needed</span>');
 
     let draft='';
     if(p.draftBody){
@@ -250,7 +252,7 @@
       +'<div class="c-head"><div><div class="c-name">'+esc(p.storeName)+'</div>'
         +'<div class="c-domain">'+esc(p.domain)+'</div>'
         +(p.vertical?'<div class="c-vertical">'+esc(p.vertical)+'</div>':'')+'</div>'
-        +'<div class="badges"><span class="badge '+priClass+'">'+esc(priLabel)+'</span>'
+        +'<div class="badges">'+priBadge
         +'<span class="statusPill" style="color:'+stColor+';background:'+stColor.replace('var(','rgba(').replace(')',',.12)')+';background:color-mix(in srgb,'+stColor+' 14%, transparent)">'+esc(p.status||'—')+'</span></div></div>'
       +'<div class="meterRow">'+signal(p.scores||{})+'<div class="fit"><div class="v">'+(p.fitScore||0)+'<span style="font-size:12px;color:var(--muted)"> /20</span></div><div class="k">Fit score</div></div></div>'
       +(p.revenueEstimate?'<div class="rev">Est. revenue · <b>'+esc(p.revenueEstimate)+'</b></div>':'')

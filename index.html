@@ -143,17 +143,7 @@
 </head>
 <body>
 
-<div class="gate" id="gate">
-  <div class="box">
-    <span class="eyebrow">KONARSTUDIO</span>
-    <h2>Prospect Command</h2>
-    <input id="pw" type="password" placeholder="Access key" autocomplete="off" />
-    <button onclick="unlock()">Enter</button>
-    <div class="miss" id="miss"></div>
-  </div>
-</div>
-
-<div class="wrap" id="app" style="display:none">
+<div class="wrap" id="app">
   <header class="top">
     <div class="brand">
       <span class="eyebrow">KONARSTUDIO · Outreach Engine</span>
@@ -172,7 +162,6 @@
 
 <script>
   const API = "https://konarstudio.app.n8n.cloud/webhook/prospects-feed-k2x9";
-  const ACCESS_KEY = "luciaisqueen";
 
   const STAGES = [
     {key:"all",        label:"All",          color:"var(--accent)"},
@@ -189,20 +178,6 @@
 
   let DATA = [];
   let filter = "all";
-
-  function unlock(){
-    const v = document.getElementById('pw').value.trim();
-    if(v === ACCESS_KEY){
-      try{ sessionStorage.setItem('pc_ok','1'); }catch(e){}
-      document.getElementById('gate').style.display='none';
-      document.getElementById('app').style.display='block';
-      load();
-    } else {
-      document.getElementById('miss').textContent='Wrong key.';
-    }
-  }
-  document.getElementById('pw').addEventListener('keydown',e=>{ if(e.key==='Enter') unlock(); });
-  try{ if(sessionStorage.getItem('pc_ok')==='1'){ document.getElementById('gate').style.display='none'; document.getElementById('app').style.display='block'; } }catch(e){}
 
   function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -300,8 +275,9 @@
     c.innerHTML='<div class="grid">'+list.map(card).join('')+'</div>';
   }
 
-  // gentle auto-refresh every 90s
-  setInterval(()=>{ if(document.getElementById('app').style.display!=='none') load(); }, 90000);
+  // initial load + gentle auto-refresh every 90s
+  load();
+  setInterval(load, 90000);
 </script>
 </body>
 </html>

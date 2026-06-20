@@ -123,6 +123,16 @@ Lighthouse score, a URL, or a revenue figure.
      each tagged with style); scrutiny (string, from Phase D); caveats (mandatory, state
      estimated vs confirmed); operatorTodo (verify email in Apollo, run PageSpeed, pull
      /products.json, eyeball the PDP). screenshot is optional (leave it off for now).
+9b. PUSH TO PIPELINE: for each prospect you prepended to data/items.js, also POST that same
+   full item object (including the nested `prospect` field) to the KONARSTUDIO intake webhook
+   so it flows into Mongo -> dashboard -> send/reply pipeline:
+     curl -sS -X POST "https://konarstudio.app.n8n.cloud/webhook/prospect-intake-r3m8" \
+       -H "Content-Type: application/json" \
+       -H "x-intake-key: kstudio-intake-7Ym2Qx" \
+       -d '<the full item JSON>'
+   Treat any non-2xx response or curl failure as NON-BLOCKING: log it and continue. Do NOT let
+   it stop the git add/commit/push in Step 11. (Keep the git write too for now - run both
+   during transition; once Mongo is trusted as source of truth, the git write can be dropped.)
 10. UPDATE MEMORY same commit: add each brand to digest.md "already seen", advance threads
    + changelog line (note if the vertical was thin), promote/decay sources.md scores.
 10b. MOCKUP DRAFTS (additive, non-blocking): for each prospect published in step 9,

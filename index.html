@@ -139,6 +139,44 @@
     h1{font-size:25px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+  /* Detail panel (full record) */
+  .card[onclick]{cursor:pointer}
+  .card[onclick]:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .panelWrap{position:fixed; inset:0; z-index:60; display:none}
+  .panelWrap.open{display:block}
+  .panelWrap .scrim{position:absolute; inset:0; background:rgba(8,9,12,.62); backdrop-filter:blur(3px)}
+  .panel{position:absolute; top:0; right:0; height:100%; width:min(560px,94vw); background:var(--panel); border-left:1px solid var(--line); box-shadow:-24px 0 60px -20px rgba(0,0,0,.6); overflow-y:auto; padding:24px 24px 64px; animation:slideIn .22s cubic-bezier(.2,.7,.2,1)}
+  @keyframes slideIn{from{transform:translateX(26px); opacity:.5}to{transform:none; opacity:1}}
+  .panel .x{position:absolute; top:15px; right:17px; background:var(--panel-2); border:1px solid var(--line); color:var(--text-2); width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:14px; line-height:1}
+  .panel .x:hover{color:var(--text); border-color:var(--accent-dim)}
+  .pn-name{font-family:var(--display); font-size:22px; font-weight:600; letter-spacing:-.01em; padding-right:42px; line-height:1.2}
+  .pn-domain{font-family:var(--mono); font-size:12.5px; color:var(--accent); margin-top:4px; word-break:break-all}
+  .pn-sub{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:13px 0 4px}
+  .pn-sec{margin-top:22px; padding-top:16px; border-top:1px solid var(--line-soft)}
+  .pn-h{font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:11px}
+  .pn-wk{padding:10px 0; border-top:1px solid var(--line-soft); display:grid; grid-template-columns:auto 1fr; gap:4px 11px}
+  .pn-wk:first-child{border-top:none}
+  .pn-sev{font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; padding:2px 7px; border-radius:5px; height:fit-content; font-family:var(--mono)}
+  .pn-sev.sev-high{color:var(--rose); background:rgba(176,106,120,.14)}
+  .pn-sev.sev-med{color:var(--amber); background:rgba(224,165,46,.14)}
+  .pn-sev.sev-low{color:var(--text-2); background:#21242f}
+  .pn-wk .iss{font-weight:550; font-size:13.5px; color:var(--text)}
+  .pn-wk .why{grid-column:2; font-size:12.5px; color:var(--text-2); line-height:1.5}
+  .pn-wk .area{grid-column:2; font-family:var(--mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em}
+  .pn-sig{display:flex; gap:11px; padding:9px 0; border-top:1px solid var(--line-soft)}
+  .pn-sig:first-child{border-top:none}
+  .pn-sig .m{font-family:var(--mono); font-size:11px; color:var(--accent); min-width:118px; flex-shrink:0}
+  .pn-sig .d{font-size:12.5px; color:var(--text)} .pn-sig .s{font-size:11px; color:var(--muted)}
+  .pn-mech{display:flex; gap:10px; padding:6px 0; font-size:13px; color:var(--text-2)}
+  .pn-mech .n{font-family:var(--mono); color:var(--accent); font-size:11px}
+  .pn-draft{background:#0f1117; border:1px solid var(--line-soft); border-radius:9px; padding:13px 14px; margin-bottom:10px}
+  .pn-draft .ds{font-weight:600; font-size:13.5px; margin-bottom:7px; color:var(--text)}
+  .pn-draft .db{font-size:12.5px; color:var(--text-2); line-height:1.6; white-space:pre-wrap}
+  .pn-kv{font-size:13px; color:var(--text-2); line-height:1.6} .pn-kv b{color:var(--text); font-weight:550}
+  .pn-todo{display:flex; gap:9px; padding:5px 0; font-size:12.5px; color:var(--text-2)}
+  .pn-todo:before{content:"\2610"; color:var(--muted)}
+  .pn-cav{font-size:12.5px; color:var(--text-2); font-style:italic; border-left:2px solid var(--line); padding-left:11px; line-height:1.55}
 </style>
 </head>
 <body>
@@ -158,6 +196,11 @@
 
   <div class="strip" id="strip"></div>
   <div id="content"></div>
+</div>
+
+<div class="panelWrap" id="panelWrap" aria-hidden="true">
+  <div class="scrim" onclick="closeDetail()"></div>
+  <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Prospect full record"></aside>
 </div>
 
 <script>
@@ -220,7 +263,7 @@
     return '<div><div class="signal">'+bars+'</div><div class="siglabels">'+labels+'</div></div>';
   }
 
-  function card(p){
+  function card(p, idx){
     const pri = p.priority||'';
     const priClass = 'pri-'+(pri||'hold');
     const priLabel = pri==='top'?'★ Top':(pri||'—');
@@ -241,14 +284,14 @@
 
     let draft='';
     if(p.draftBody){
-      draft='<details class="reveal"><summary><span class="chev">▸</span> View drafted email</summary>'
+      draft='<details class="reveal" onclick="event.stopPropagation()"><summary><span class="chev">▸</span> View drafted email</summary>'
         +'<div class="draftBox">'+(p.draftSubject?'<div class="dsub">'+esc(p.draftSubject)+'</div>':'')
         +'<div class="dbody">'+esc(p.draftBody)+'</div></div></details>';
     }
 
     const leak = p.leakHypothesis ? '<div class="leak"><span class="tag">Conversion leak — hypothesis</span>'+esc(p.leakHypothesis)+'</div>' : '';
 
-    return '<article class="card'+(interested?' is-interested':'')+'">'
+    return '<article class="card'+(interested?' is-interested':'')+'" onclick="openDetail('+idx+')" tabindex="0" role="button" aria-label="Open full record">'
       +'<div class="c-head"><div><div class="c-name">'+esc(p.storeName)+'</div>'
         +'<div class="c-domain">'+esc(p.domain)+'</div>'
         +(p.vertical?'<div class="c-vertical">'+esc(p.vertical)+'</div>':'')+'</div>'
@@ -274,8 +317,94 @@
       c.innerHTML='<div class="state"><div>Nothing in <b>'+esc(filter)+'</b> right now.</div></div>';
       return;
     }
-    c.innerHTML='<div class="grid">'+list.map(card).join('')+'</div>';
+    c.innerHTML='<div class="grid">'+list.map(p=>card(p, DATA.indexOf(p))).join('')+'</div>';
   }
+
+  // ---- Full-record detail panel ----
+  // Reads the §6 enriched shape (research.*, outreach.drafts[], contact{}) when present,
+  // and falls back to the current flat summary fields so it is useful before the API is
+  // enriched. Every field guarded - a missing value never throws or leaves a broken panel.
+  function sec(h, inner){ return inner ? '<div class="pn-sec"><div class="pn-h">'+h+'</div>'+inner+'</div>' : ''; }
+
+  function detailHTML(p){
+    const R = p.research||{}, O = p.outreach||{}, C = p.contact||{};
+
+    // weaknesses (enriched array) else single fallback from the flat leakHypothesis
+    let wk = (R.weaknesses && R.weaknesses.length) ? R.weaknesses
+           : (p.leakHypothesis ? [{issue:p.leakHypothesis, severity:'', area:'', why:''}] : []);
+    const wkHTML = wk.length ? wk.map(w=>{
+      const sev=(w.severity||'').toLowerCase();
+      return '<div class="pn-wk">'+(w.severity?'<span class="pn-sev sev-'+esc(sev)+'">'+esc(w.severity)+'</span>':'<span></span>')
+        +'<span class="iss">'+esc(w.issue||'')+'</span>'
+        +(w.area?'<span class="area">'+esc(w.area)+'</span>':'')
+        +(w.why?'<span class="why">'+esc(w.why)+'</span>':'')+'</div>';
+    }).join('') : '';
+
+    // revenue signals
+    const sigs = R.revenueSignals||[];
+    const sigHTML = sigs.map(s=>'<div class="pn-sig"><span class="m">'+esc(s.method||'')+'</span><span><span class="d">'+esc(s.detail||'')+'</span><br><span class="s">'+esc(s.source||'')+'</span></span></div>').join('');
+    const revInner = (p.revenueEstimate||R.revenueConfidence||sigs.length)
+      ? '<div class="pn-kv">'+(p.revenueEstimate?'<b>'+esc(p.revenueEstimate)+'</b>':'')+(R.revenueConfidence?' &middot; '+esc(R.revenueConfidence)+' confidence':'')+'</div>'+sigHTML : '';
+
+    // demo plan
+    const D = R.demo||{}, mech = D.mechanics||[];
+    const demoInner = (D.primaryPage||D.rationale||mech.length)
+      ? (((D.primaryPage||D.rationale)?'<div class="pn-kv">'+(D.primaryPage?'<b>'+esc(D.primaryPage)+'</b>'+(D.rationale?' &middot; ':''):'')+esc(D.rationale||'')+'</div>':'')
+         + mech.map((m,i)=>'<div class="pn-mech"><span class="n">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(m)+'</span></div>').join('')
+         + (D.bestseller?'<div class="pn-kv" style="margin-top:7px; font-family:var(--mono); font-size:11.5px; color:var(--muted)">'+esc(D.bestseller)+'</div>':'')) : '';
+
+    // drafts (enriched array) else single flat draft
+    let drafts = (O.drafts && O.drafts.length) ? O.drafts : [];
+    if(!drafts.length && (p.draftSubject||p.draftBody)) drafts=[{variant:'',subject:p.draftSubject,body:p.draftBody}];
+    const draftInner = drafts.map(d=>{
+      const label = d.variant||d.style||'draft';
+      return '<div class="pn-draft"><div class="pn-h" style="margin-bottom:7px">'+esc(label)+(d.channel?' &middot; '+esc(d.channel):'')+'</div>'
+        +(d.subject?'<div class="ds">'+esc(d.subject)+'</div>':'')+'<div class="db">'+esc(d.body||'')+'</div></div>';
+    }).join('');
+
+    // contact (enriched object) else flat fields
+    const cName=C.name||p.contactName||'', cTitle=C.title||p.contactTitle||'', cEmail=C.email||p.contactEmail||'', cStat=C.emailStatus||'', cLink=C.linkedin||'';
+    const contactInner = (cName||cEmail)
+      ? '<div class="pn-kv">'+(cName?'<b>'+esc(cName)+'</b>'+(cTitle?' &middot; '+esc(cTitle):''):'')
+        +(cEmail?'<br>'+esc(cEmail)+(cStat?' <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">('+esc(cStat)+')</span>':''):'<br><span style="color:var(--amber)">email needed</span>')
+        +(cLink?'<br><a href="'+esc(cLink)+'" target="_blank" rel="noopener" style="color:var(--accent)">LinkedIn &#8599;</a>':'')+'</div>' : '';
+
+    const todos = (p.operatorTodo||R.operatorTodo||[]);
+    const caveats = p.caveats||R.caveats||'';
+    const shopSig = p.shopifySignal||R.shopifySignal||'';
+    const stColor = STATUS_COLOR[p.status]||'var(--muted)';
+
+    return '<button class="x" onclick="closeDetail()" aria-label="Close">&#10005;</button>'
+      +'<div class="pn-name">'+esc(p.storeName||'')+'</div>'
+      +(p.domain?'<div class="pn-domain">'+esc(p.domain)+'</div>':'')
+      +'<div class="pn-sub">'+((p.priority==='top'||p.priority==='solid'||p.priority==='hold')?'<span class="badge pri-'+esc(p.priority)+'">'+esc(p.priority)+'</span>':'')
+        +(p.status?'<span class="statusPill" style="color:'+stColor+'; background:color-mix(in srgb,'+stColor+' 14%, transparent)">'+esc(p.status)+'</span>':'')
+        +(p.vertical?'<span style="color:var(--muted); font-size:12px">'+esc(p.vertical)+'</span>':'')+'</div>'
+      +'<div class="meterRow" style="margin-top:12px">'+signal(p.scores||{})+'<div class="fit"><div class="v">'+(p.fitScore||0)+'<span style="font-size:12px;color:var(--muted)"> /20</span></div><div class="k">Fit score</div></div></div>'
+      + (p.replyCategory ? '<div class="reply" style="margin-top:14px"><div class="rh">Reply &middot; '+esc(p.replyCategory)+'</div>'+esc(p.replySummary||'')+'</div>' : '')
+      + sec('Revenue', revInner)
+      + sec('Weaknesses'+(wk.length>1?' ('+wk.length+')':''), wkHTML)
+      + sec('Demo plan', demoInner)
+      + sec('Critic verdict', R.scrutiny ? '<div class="pn-cav" style="font-style:normal; border-color:var(--accent-dim)">'+esc(R.scrutiny)+'</div>' : '')
+      + sec('Outreach drafts'+(drafts.length>1?' ('+drafts.length+')':''), draftInner)
+      + sec('Contact', contactInner)
+      + sec('Operator to-do', todos.length ? todos.map(t=>'<div class="pn-todo"><span>'+esc(t)+'</span></div>').join('') : '')
+      + sec('Caveats', caveats ? '<div class="pn-cav">'+esc(caveats)+'</div>' : '')
+      + sec('Shopify signal', shopSig ? '<div class="pn-kv" style="font-family:var(--mono); font-size:11.5px; color:var(--muted)">'+esc(shopSig)+'</div>' : '');
+  }
+
+  function openDetail(i){
+    const p = DATA[i]; if(!p) return;
+    document.getElementById('panel').innerHTML = detailHTML(p);
+    const w = document.getElementById('panelWrap');
+    w.classList.add('open'); w.setAttribute('aria-hidden','false');
+    document.getElementById('panel').scrollTop = 0;
+  }
+  function closeDetail(){
+    const w = document.getElementById('panelWrap');
+    w.classList.remove('open'); w.setAttribute('aria-hidden','true');
+  }
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDetail(); });
 
   // initial load + gentle auto-refresh every 90s
   load();

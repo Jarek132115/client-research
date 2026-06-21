@@ -10,32 +10,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root{
-  /* type scale */
   --t-xs:12px; --t-sm:14px; --t-md:16px; --t-lg:20px; --t-xl:28px; --t-2xl:36px;
-  /* spacing (4 / 8) */
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s8:32px; --s10:40px; --s12:48px;
-  /* surfaces */
   --bg:#f7f8fa; --panel:#ffffff; --panel-2:#fbfcfd; --panel-3:#f3f5f8;
   --fg:#0c0e13; --muted:#5c6470; --faint:#959ba6;
   --border:#e9ebef; --border-2:#dfe2e8;
-  /* accent (used sparingly) */
   --accent:#2563eb; --accent-h:#1d4ed8; --accent-soft:#eef3ff; --accent-bd:#d6e2ff;
-  /* semantic */
   --green:#0f9b63; --green-bg:#e6f6ee;
   --amber:#b9760f; --amber-bg:#fbf0db;
   --red:#d24339; --red-bg:#fbeae8;
   --violet:#6b46d9; --violet-bg:#eee9fc;
   --grey:#5b6472; --grey-bg:#eef0f3;
-  /* radii + shadow */
   --r-lg:16px; --r-md:12px; --r-sm:9px; --r-xs:7px;
   --sh:0 1px 2px rgba(12,14,19,.04),0 1px 3px rgba(12,14,19,.06);
-  --sh-lg:0 24px 60px -18px rgba(12,14,19,.28);
+  --sh-lg:0 24px 70px -18px rgba(12,14,19,.34);
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:var(--sans);background:var(--bg);color:var(--fg);font-size:var(--t-sm);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.modal-open{overflow:hidden}
 ::selection{background:var(--accent-soft)}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
@@ -107,7 +102,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .b-red{background:var(--red-bg);color:var(--red)} .b-red .dot{background:var(--red)}
 .b-violet{background:var(--violet-bg);color:var(--violet)} .b-violet .dot{background:var(--violet)}
 .b-grey{background:var(--grey-bg);color:var(--grey)} .b-grey .dot{background:var(--grey)}
-.tag{font-size:var(--t-xs);font-weight:600;color:var(--muted);background:var(--panel-3);border:1px solid var(--border);padding:3px 9px;border-radius:6px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
+.tag{font-size:var(--t-xs);font-weight:600;color:var(--muted);background:var(--panel-3);border:1px solid var(--border);padding:3px 9px;border-radius:6px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
 
 /* ---------- Table ---------- */
 .table-wrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh);overflow:hidden}
@@ -139,22 +134,27 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
 .state-sub{font-size:var(--t-sm);color:var(--muted);margin:var(--s2) auto 0;max-width:42ch}
 .state-card .btn{margin-top:var(--s5)}
 
-/* ---------- Drawer ---------- */
-.overlay{position:fixed;inset:0;background:rgba(12,14,19,.34);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
-.overlay.show{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100vh;height:100dvh;width:480px;max-width:100vw;background:var(--panel);box-shadow:var(--sh-lg);transform:translateX(100%);transition:transform .3s cubic-bezier(.32,.72,.3,1);z-index:50;display:flex;flex-direction:column}
-.drawer.show{transform:translateX(0)}
-.dr-head{padding:var(--s5) var(--s6) var(--s4);border-bottom:1px solid var(--border);position:relative}
-.dr-close{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:9px;display:grid;place-items:center;color:var(--muted);transition:background .12s}
-.dr-close:hover{background:var(--panel-3);color:var(--fg)}
-.dr-close svg{width:18px;height:18px}
-.dr-eyebrow{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s3);padding-right:44px}
-.dr-title{font-size:var(--t-lg);font-weight:800;letter-spacing:-.02em;line-height:1.15}
-.dr-domain{font-family:var(--mono);font-size:var(--t-xs);color:var(--accent);margin-top:var(--s1);display:inline-flex;align-items:center;gap:5px}
-.dr-chips{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s4)}
-.dr-body{overflow-y:auto;padding:0 var(--s6) var(--s10);flex:1;-webkit-overflow-scrolling:touch}
+/* ---------- Modal (80% centered detail) ---------- */
+.modal-wrap{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--s6);background:rgba(12,14,19,.44);opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-wrap.show{opacity:1;pointer-events:auto}
+.modal{width:80vw;max-width:1180px;max-height:90vh;background:var(--panel);border-radius:18px;box-shadow:var(--sh-lg);display:flex;flex-direction:column;overflow:hidden;transform:translateY(10px) scale(.985);transition:transform .22s cubic-bezier(.32,.72,.3,1)}
+.modal-wrap.show .modal{transform:none}
+.modal-head{flex:0 0 auto;display:flex;align-items:center;gap:var(--s4);padding:var(--s4) var(--s6);border-bottom:1px solid var(--border);background:var(--panel)}
+.mh-main{min-width:0;flex:1}
+.mh-title{font-size:var(--t-lg);font-weight:800;letter-spacing:-.02em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mh-dom{font-family:var(--mono);font-size:var(--t-xs);color:var(--accent);display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.modal-close{flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;color:var(--muted);transition:background .12s,color .12s}
+.modal-close:hover{background:var(--panel-3);color:var(--fg)}
+.modal-close svg{width:20px;height:20px}
+.modal-body{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:var(--s4) var(--s6) var(--s10)}
+.eyebrow{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;padding:var(--s2) 0 var(--s4)}
+.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--s8);align-items:start}
+.col-main{min-width:0;max-width:72ch}
+.col-side{min-width:0}
 .sec{padding:var(--s5) 0;border-bottom:1px solid var(--border)}
+.sec:first-child{padding-top:0}
 .sec:last-child{border-bottom:none}
+.col-side .sec:first-child{padding-top:0}
 .sec-title{font-size:var(--t-xs);font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .sec-title .ct{font-family:var(--mono);background:var(--panel-3);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:10px;color:var(--muted)}
 .leak{font-size:var(--t-md);font-weight:600;line-height:1.5;letter-spacing:-.01em}
@@ -192,13 +192,13 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
 .mini svg{width:13px;height:13px}
 
 /* ---------- Email drafts (the centerpiece) ---------- */
-.email-card{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:var(--s4);background:var(--panel)}
+.email-card{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:var(--s4);background:var(--panel);box-shadow:var(--sh)}
 .email-card:last-child{margin-bottom:0}
 .email-head{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);background:var(--panel-2);border-bottom:1px solid var(--border);flex-wrap:wrap}
 .email-actions{margin-left:auto;display:flex;gap:var(--s2)}
 .email-subject{padding:var(--s4) var(--s4) var(--s2);font-weight:700;font-size:var(--t-md);letter-spacing:-.01em;line-height:1.35}
 .email-subject .sl{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:3px}
-.email-body{padding:var(--s2) var(--s4) var(--s5);font-size:var(--t-sm);line-height:1.6;color:#2b313d;white-space:pre-wrap;word-break:break-word;max-width:60ch}
+.email-body{padding:var(--s2) var(--s4) var(--s5);font-size:var(--t-sm);line-height:1.62;color:#2b313d;white-space:pre-wrap;word-break:break-word;max-width:60ch}
 .ph{background:var(--amber-bg);color:#9a6406;font-weight:600;border-radius:5px;padding:0 5px;border:1px solid #efdcb4;font-size:.93em}
 
 /* ---------- Toast ---------- */
@@ -206,7 +206,7 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast svg{width:16px;height:16px;color:#5dd29b}
 
-/* ---------- Responsive: table -> cards ---------- */
+/* ---------- Responsive ---------- */
 @media(max-width:768px){
   .appbar{padding:var(--s3) var(--s4)}
   .brand-sub{display:none}
@@ -225,9 +225,15 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
   tbody td.td-store{display:block;padding:0 0 var(--s3);margin-bottom:var(--s2);border-bottom:1px solid var(--border)}
   tbody td:not(.td-store)::before{content:attr(data-label);font-size:var(--t-xs);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
   .cs-name{font-size:var(--t-md)}
-  .drawer{width:100vw;max-width:100vw}
-  .dr-head{padding:var(--s5) var(--s5) var(--s4)}
-  .dr-body{padding:0 var(--s5) var(--s10)}
+  /* full-bleed modal */
+  .modal-wrap{padding:0}
+  .modal{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+  .modal-head{padding:var(--s3) var(--s4)}
+  .modal-body{padding:var(--s4) var(--s4) var(--s10)}
+  .grid2{grid-template-columns:1fr;gap:0}
+  .col-main{max-width:none}
+  .col-side{margin-top:var(--s4);border-top:1px solid var(--border)}
+  .col-side .sec:first-child{padding-top:var(--s5)}
   .email-body{max-width:none}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
@@ -247,7 +253,7 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
 <main class="wrap">
   <div class="hero">
     <h1 class="hero-title">Prospect Command</h1>
-    <p class="hero-sub">Researched Shopify stores — scored, drafted, and ready for your review. Tap any prospect for the full teardown and cold-email drafts.</p>
+    <p class="hero-sub">Researched Shopify stores — scored, drafted, and ready for your review. Open any prospect for the full teardown and cold-email drafts.</p>
   </div>
 
   <section class="kpis" id="kpis"></section>
@@ -281,8 +287,9 @@ tbody td{padding:14px var(--s5);vertical-align:middle}
   </section>
 </main>
 
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Prospect detail" role="dialog" aria-modal="true"></aside>
+<div class="modal-wrap" id="modalWrap" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Prospect detail" id="modal"></div>
+</div>
 <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="toastMsg">Copied</span></div>
 
 <script>
@@ -294,20 +301,23 @@ var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySel
 function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
 function cap(s){ return s? s.charAt(0).toUpperCase()+s.slice(1) : s; }
+/* decode escaped newlines (\\r\\n, \\n, \\r) to real newlines; real newlines pass through untouched */
+function decodeNL(s){ return (s==null?'':String(s)).replace(/\\r\\n|\\r|\\n/g,'\n').replace(/\r\n/g,'\n'); }
 
 /* ---------- state ---------- */
 var RAW = [];
-var STATE = 'loading';           // loading | ready | empty | error
+var STATE = 'loading';
 var filter = 'all';
 var sortKey = 'fit', sortDir = -1;
 var search = '';
-var drawerData = null, draftIdx = 0;
+var lastFocus = null;
 
-/* ---------- defensive field mapping (flat first, then nested) ---------- */
+/* ---------- defensive field mapping ---------- */
 function norm(p){
   var r=p.research||{}, c=p.contact||{}, o=p.outreach||{};
   var drafts = (o.drafts && o.drafts.length) ? o.drafts
             : (p.draftBody || p.draftSubject) ? [{variant:'draft', channel:'email', subject:p.draftSubject, body:p.draftBody}] : [];
+  drafts = drafts.map(function(d){ return { variant:d.variant||'draft', channel:d.channel||'', subject:d.subject||'', body:decodeNL(d.body||'') }; });
   var emailStatus = c.emailStatus || p.emailStatus || '';
   var emailVerified = c.emailVerified===true || emailStatus==='verified';
   return {
@@ -318,7 +328,6 @@ function norm(p){
     priority: p.priority || '',
     track: p.track || '',
     disqualified: p.disqualified===true || p.status==='disqualified',
-    disqualifyReason: p.disqualifyReason || '',
     shopifyConfirmed: p.shopifyConfirmed===true || !!p.shopifySignal,
     shopifySignal: p.shopifySignal || '',
     fitScore: num(p.fitScore!=null ? p.fitScore : r.fitScore),
@@ -404,7 +413,7 @@ function renderChips(){
   $('#chips').innerHTML = defs.map(function(d){ return '<button class="chip '+(filter===d[0]?'on':'')+'" data-chip="'+d[0]+'">'+d[1]+'<span class="cc">'+d[2]+'</span></button>'; }).join('');
 }
 function syncSortUI(){
-  $$('.sortbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.sort===sortKey); });
+  $$('.sortbtn').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-sort')===sortKey); });
   $$('[data-ar]').forEach(function(a){ a.textContent = a.getAttribute('data-ar')===sortKey ? (sortDir>0?'▲':'▼') : ''; });
   $$('[data-ar2]').forEach(function(a){ a.textContent = a.getAttribute('data-ar2')===sortKey ? (sortDir>0?'▲':'▼') : ''; });
 }
@@ -438,75 +447,81 @@ function render(){
   renderKPIs(); renderChips(); syncSortUI(); renderTable();
 }
 
-/* ---------- drawer ---------- */
+/* ---------- modal ---------- */
 function initials(name){ return (name||'?').split(/\s+/).slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase()||'?'; }
 function highlightPH(escaped){ return escaped.replace(/\[[^\]\n]{1,40}\]/g, function(m){ return '<span class="ph">'+m+'</span>'; }); }
 function emailCard(d,i){
-  var subj = d.subject||'(no subject)';
-  var body = d.body||'';
+  var body = d.body||'';           /* already decoded in norm() */
   return '<div class="email-card">'+
     '<div class="email-head"><span class="badge b-violet"><span class="dot"></span>'+esc(variantLabel(d.variant))+'</span>'+(d.channel?'<span class="tag">'+esc(d.channel)+'</span>':'')+
       '<div class="email-actions"><button class="mini" data-copysubj="'+i+'">Copy subject</button><button class="mini" data-copymail="'+i+'"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2"/></svg>Copy email</button></div></div>'+
-    '<div class="email-subject"><span class="sl">Subject</span>'+esc(subj)+'</div>'+
+    '<div class="email-subject"><span class="sl">Subject</span>'+esc(d.subject||'(no subject)')+'</div>'+
     '<div class="email-body">'+highlightPH(esc(body))+'</div>'+
   '</div>';
 }
-function openDrawer(p){
-  drawerData=p; draftIdx=0;
-  var c=p.contact, dr=$('#drawer');
+function openModal(p){
+  var c=p.contact, w=$('#modalWrap'), m=$('#modal');
+  lastFocus = document.activeElement;
   var shopify = p.shopifyConfirmed ? badge('b-green','Shopify confirmed') : '';
   var track = p.track ? badge('b-violet', cap(p.track)+' track') : '';
   var conf = p.revenueConfidence ? badge(p.revenueConfidence==='high'?'b-green':(p.revenueConfidence==='medium'||p.revenueConfidence==='med')?'b-amber':'b-grey', p.revenueConfidence+'-confidence') : '';
 
   var signals = (p.revenueSignals||[]).map(function(s){ return '<div class="signal"><span class="m">'+esc(s.method||'signal')+'</span><span class="d">'+esc(s.detail||'')+(s.source?'<span class="src">'+esc(s.source)+'</span>':'')+'</span></div>'; }).join('');
-  var weaknesses = (p.weaknesses||[]).map(function(w){ var sev=(w.severity||'low').toLowerCase(); return '<div class="wk"><span class="wk-sev sev-'+esc(sev)+'"></span><div style="flex:1"><div class="wk-top"><span class="wk-issue">'+esc(w.issue||'')+'</span>'+(w.area?'<span class="tag">'+esc(w.area)+'</span>':'')+'<span class="badge '+(sev==='high'?'b-red':sev==='med'?'b-amber':'b-grey')+'"><span class="dot"></span>'+esc(sev)+'</span></div>'+(w.why?'<div class="wk-why">'+esc(w.why)+'</div>':'')+'</div></div>'; }).join('');
+  var weaknesses = (p.weaknesses||[]).map(function(w2){ var sev=(w2.severity||'low').toLowerCase(); return '<div class="wk"><span class="wk-sev sev-'+esc(sev)+'"></span><div style="flex:1"><div class="wk-top"><span class="wk-issue">'+esc(w2.issue||'')+'</span>'+(w2.area?'<span class="tag">'+esc(w2.area)+'</span>':'')+'<span class="badge '+(sev==='high'?'b-red':sev==='med'?'b-amber':'b-grey')+'"><span class="dot"></span>'+esc(sev)+'</span></div>'+(w2.why?'<div class="wk-why">'+esc(w2.why)+'</div>':'')+'</div></div>'; }).join('');
   var demo = '';
-  if(p.demo){ var mech=(p.demo.mechanics||[]).map(function(m,i){ var n=String(i+1); if(n.length<2)n='0'+n; return '<div class="mech"><span class="n">'+n+'</span><span>'+esc(m)+'</span></div>'; }).join('');
+  if(p.demo){ var mech=(p.demo.mechanics||[]).map(function(mm,i){ var n=String(i+1); if(n.length<2)n='0'+n; return '<div class="mech"><span class="n">'+n+'</span><span>'+esc(mm)+'</span></div>'; }).join('');
     demo = '<div class="demo-head">'+(p.demo.primaryPage?badge('b-blue', String(p.demo.primaryPage).toUpperCase()):'')+(p.demo.bestseller?'<span class="tag">'+esc(p.demo.bestseller)+'</span>':'')+'</div>'+(p.demo.rationale?'<div class="demo-rat">'+esc(p.demo.rationale)+'</div>':'')+mech;
   }
   var drafts = (p.drafts||[]).map(emailCard).join('');
   var todos = (p.operatorTodo||[]).map(function(t){ return '<label class="todo"><input type="checkbox">'+esc(t)+'</label>'; }).join('');
 
-  dr.innerHTML =
-    '<div class="dr-head"><button class="dr-close" id="drClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+
-      '<div class="dr-eyebrow">'+priorityBadge(p.priority,p.disqualified)+statusBadge(p.status)+track+'</div>'+
-      '<div class="dr-title">'+esc(p.storeName)+'</div>'+
-      (p.domain?'<a class="dr-domain" href="https://'+esc(p.domain)+'" target="_blank" rel="noopener">'+esc(p.domain)+' ↗</a>':'')+
-      '<div class="dr-chips">'+shopify+badge('b-grey','Fit '+(p.fitScore||'—')+'/20')+(p.vertical?'<span class="tag">'+esc(p.vertical)+'</span>':'')+'</div>'+
-    '</div>'+
-    '<div class="dr-body">'+
-      (p.leakHypothesis?'<div class="sec"><div class="sec-title">The problem</div><div class="leak">'+esc(p.leakHypothesis)+'</div></div>':'')+
-      ((p.revenueEstimate||signals)?'<div class="sec"><div class="sec-title">Research · revenue</div><div class="kv"><span class="est">'+esc(p.revenueEstimate||'—')+'</span>'+conf+'</div>'+(p.revenueConfidence?'<div class="wk-why" style="margin-bottom:8px">Treat as a directional estimate &mdash; '+esc(p.revenueConfidence)+'-confidence, triangulated, not filed accounts.</div>':'')+signals+'</div>':'')+
-      (weaknesses?'<div class="sec"><div class="sec-title">Weaknesses <span class="ct">'+p.weaknesses.length+'</span></div>'+weaknesses+'</div>':'')+
-      (demo?'<div class="sec"><div class="sec-title">Demo plan</div>'+demo+'</div>':'')+
-      (p.panelNotes?'<div class="sec"><div class="sec-title">Review panel &middot; verdict</div><div class="panel-note">'+esc(p.panelNotes)+'</div></div>':'')+
-      (p.caveats?'<div class="sec"><div class="sec-title">Caveats</div><div class="caveat"><div class="cv-l">&#9888; Read before sending</div>'+esc(p.caveats)+'</div></div>':'')+
-      (todos?'<div class="sec"><div class="sec-title">Operator to-do <span class="ct">'+p.operatorTodo.length+'</span></div>'+todos+'</div>':'')+
-      ((c.name||c.email)?'<div class="sec"><div class="sec-title">Contact</div><div class="contact-card"><div class="avatar">'+esc(initials(c.name))+'</div><div style="flex:1;min-width:0"><div class="ct-name">'+esc(c.name||'—')+'</div><div class="ct-role">'+esc(c.title||'')+'</div><div class="ct-email">'+(c.email?esc(c.email):'email needed')+'</div><div style="margin-top:6px">'+emailBadge(c)+'</div></div><div class="ct-links">'+(c.email?'<button class="mini" data-copyemailaddr="'+esc(c.email)+'">Copy</button>':'')+(c.linkedin?'<a class="mini" href="'+esc(c.linkedin)+'" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn ↗</a>':'')+'</div></div></div>':'')+
-      ((p.drafts&&p.drafts.length)?'<div class="sec"><div class="sec-title">Cold email drafts <span class="ct">'+p.drafts.length+'</span></div>'+drafts+'</div>':'')+
+  var colMain =
+    (p.leakHypothesis?'<div class="sec"><div class="sec-title">The problem</div><div class="leak">'+esc(p.leakHypothesis)+'</div></div>':'')+
+    ((p.revenueEstimate||signals)?'<div class="sec"><div class="sec-title">Research · revenue</div><div class="kv"><span class="est">'+esc(p.revenueEstimate||'—')+'</span>'+conf+'</div>'+(p.revenueConfidence?'<div class="wk-why" style="margin-bottom:8px">Treat as a directional estimate &mdash; '+esc(p.revenueConfidence)+'-confidence, triangulated, not filed accounts.</div>':'')+signals+'</div>':'')+
+    (weaknesses?'<div class="sec"><div class="sec-title">Weaknesses <span class="ct">'+p.weaknesses.length+'</span></div>'+weaknesses+'</div>':'')+
+    (demo?'<div class="sec"><div class="sec-title">Demo plan</div>'+demo+'</div>':'')+
+    (p.panelNotes?'<div class="sec"><div class="sec-title">Review panel &middot; verdict</div><div class="panel-note">'+esc(p.panelNotes)+'</div></div>':'')+
+    (p.caveats?'<div class="sec"><div class="sec-title">Caveats</div><div class="caveat"><div class="cv-l">&#9888; Read before sending</div>'+esc(p.caveats)+'</div></div>':'')+
+    (todos?'<div class="sec"><div class="sec-title">Operator to-do <span class="ct">'+p.operatorTodo.length+'</span></div>'+todos+'</div>':'');
+
+  var colSide =
+    ((c.name||c.email)?'<div class="sec"><div class="sec-title">Contact</div><div class="contact-card"><div class="avatar">'+esc(initials(c.name))+'</div><div style="flex:1;min-width:0"><div class="ct-name">'+esc(c.name||'—')+'</div><div class="ct-role">'+esc(c.title||'')+'</div><div class="ct-email">'+(c.email?esc(c.email):'email needed')+'</div><div style="margin-top:6px">'+emailBadge(c)+'</div></div><div class="ct-links">'+(c.email?'<button class="mini" data-copyemailaddr="'+esc(c.email)+'">Copy</button>':'')+(c.linkedin?'<a class="mini" href="'+esc(c.linkedin)+'" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn ↗</a>':'')+'</div></div></div>':'')+
+    ((p.drafts&&p.drafts.length)?'<div class="sec"><div class="sec-title">Cold email drafts <span class="ct">'+p.drafts.length+'</span></div>'+drafts+'</div>':'<div class="sec"><div class="sec-title">Cold email drafts</div><div class="wk-why">No drafts yet for this prospect.</div></div>');
+
+  m.innerHTML =
+    '<div class="modal-head"><div class="mh-main"><div class="mh-title">'+esc(p.storeName)+'</div>'+(p.domain?'<a class="mh-dom" href="https://'+esc(p.domain)+'" target="_blank" rel="noopener">'+esc(p.domain)+' ↗</a>':'')+'</div><button class="modal-close" id="mClose" aria-label="Close">'+
+      '<svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>'+
+    '<div class="modal-body"><div class="eyebrow">'+priorityBadge(p.priority,p.disqualified)+statusBadge(p.status)+track+shopify+badge('b-grey','Fit '+(p.fitScore||'—')+'/20')+(p.vertical?'<span class="tag">'+esc(p.vertical)+'</span>':'')+'</div>'+
+      '<div class="grid2"><div class="col-main">'+colMain+'</div><div class="col-side">'+colSide+'</div></div>'+
     '</div>';
 
-  $('#drClose').addEventListener('click', closeDrawer);
-  $$('[data-copysubj]',dr).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copysubj')]; if(d) copy(d.subject||'', 'Subject copied'); }); });
-  $$('[data-copymail]',dr).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copymail')]; if(d) copy((d.subject?d.subject+'\n\n':'')+(d.body||''), 'Email copied'); }); });
-  $$('[data-copyemailaddr]',dr).forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copyemailaddr'), 'Email address copied'); }); });
+  $('#mClose').addEventListener('click', closeModal);
+  $$('[data-copysubj]',m).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copysubj')]; if(d) copy(d.subject||'', 'Subject copied'); }); });
+  $$('[data-copymail]',m).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copymail')]; if(d) copy((d.subject?d.subject+'\n\n':'')+(d.body||''), 'Email copied'); }); });
+  $$('[data-copyemailaddr]',m).forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copyemailaddr'), 'Email address copied'); }); });
 
-  $('#overlay').classList.add('show');
-  dr.classList.add('show'); dr.setAttribute('aria-hidden','false');
-  dr.scrollTop=0;
-  var fc=$('#drClose'); if(fc) fc.focus();
-  document.body.style.overflow='hidden';
+  w.classList.add('show'); w.setAttribute('aria-hidden','false');
+  m.scrollTop=0; $('.modal-body',m).scrollTop=0;
+  document.body.classList.add('modal-open');
+  var fc=$('#mClose'); if(fc) fc.focus();
 }
-function closeDrawer(){ $('#drawer').classList.remove('show'); $('#drawer').setAttribute('aria-hidden','true'); $('#overlay').classList.remove('show'); document.body.style.overflow=''; }
+function closeModal(){
+  var w=$('#modalWrap');
+  if(!w.classList.contains('show')) return;
+  w.classList.remove('show'); w.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  if(lastFocus && lastFocus.focus){ try{ lastFocus.focus(); }catch(e){} }
+}
 
 /* ---------- utilities ---------- */
 var toastT;
 function toast(msg){ var t=$('#toast'); $('#toastMsg').textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){ t.classList.remove('show'); },1800); }
 function copy(text,msg){
   function done(ok){ toast(ok?(msg||'Copied'):'Copy failed'); }
-  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){done(true);}).catch(function(){done(false);}); }
-  else { try{ var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(true); }catch(e){ done(false); } }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){done(true);}).catch(function(){fallback(text,done);}); }
+  else { fallback(text,done); }
 }
+function fallback(text,done){ try{ var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.top='-9999px'; document.body.appendChild(ta); ta.focus(); ta.select(); var ok=document.execCommand('copy'); document.body.removeChild(ta); done(ok); }catch(e){ done(false); } }
 function setLive(kind, ts){
   var d=$('#liveDot'), t=$('#liveTxt');
   d.className='live-dot'+(kind==='live'?'':kind==='error'?' is-err':' is-seed');
@@ -539,13 +554,13 @@ function load(){
 /* ---------- events ---------- */
 $('#search').addEventListener('input', function(e){ search=e.target.value.trim(); if(STATE==='ready') renderTable(); });
 $('#refreshBtn').addEventListener('click', load);
-$('#overlay').addEventListener('click', closeDrawer);
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDrawer(); });
+$('#modalWrap').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
 $('#chips').addEventListener('click', function(e){ var c=e.target.closest('[data-chip]'); if(!c) return; filter=c.getAttribute('data-chip'); renderChips(); renderTable(); });
 $$('.sortbtn').forEach(function(b){ b.addEventListener('click', function(){ var k=b.getAttribute('data-sort'); if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=(k==='store')?1:-1; } syncSortUI(); renderTable(); }); });
 $$('thead th.sortable').forEach(function(th){ th.addEventListener('click', function(){ var k=th.getAttribute('data-sort'); if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=(k==='store')?1:-1; } syncSortUI(); renderTable(); }); });
-$('#tbody').addEventListener('click', function(e){ var tr=e.target.closest('tr[data-i]'); if(!tr) return; var p=RAW[+tr.getAttribute('data-i')]; if(p) openDrawer(p); });
-$('#tbody').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ var tr=e.target.closest('tr[data-i]'); if(tr){ e.preventDefault(); var p=RAW[+tr.getAttribute('data-i')]; if(p) openDrawer(p); } } });
+$('#tbody').addEventListener('click', function(e){ var tr=e.target.closest('tr[data-i]'); if(!tr) return; var p=RAW[+tr.getAttribute('data-i')]; if(p) openModal(p); });
+$('#tbody').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ var tr=e.target.closest('tr[data-i]'); if(tr){ e.preventDefault(); var p=RAW[+tr.getAttribute('data-i')]; if(p) openModal(p); } } });
 
 /* boot */
 render();

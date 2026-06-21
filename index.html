@@ -10,383 +10,318 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --bg:#f6f7f9; --panel:#ffffff; --panel-2:#fbfcfd;
-  --fg:#0d0f14; --muted:#646b78; --faint:#9aa1ad;
-  --border:#ebedf1; --border-2:#e1e4e9;
-  --accent:#2563eb; --accent-h:#1d4ed8; --accent-soft:#eef3ff; --accent-bd:#d7e3ff;
-  --green:#0f9b63; --green-soft:#e7f6ef;
-  --amber:#bf7a13; --amber-soft:#fbf1df;
-  --red:#d6473f; --red-soft:#fceceb;
-  --violet:#6d4ad6; --violet-soft:#efeafc;
-  --slate:#5b6472; --slate-soft:#eef0f3;
-  --radius:14px; --radius-sm:9px; --radius-xs:7px;
-  --shadow:0 1px 2px rgba(13,15,20,.04),0 1px 3px rgba(13,15,20,.05);
-  --shadow-lg:0 18px 48px -16px rgba(13,15,20,.22);
+  /* type scale */
+  --t-xs:12px; --t-sm:14px; --t-md:16px; --t-lg:20px; --t-xl:28px; --t-2xl:36px;
+  /* spacing (4 / 8) */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s8:32px; --s10:40px; --s12:48px;
+  /* surfaces */
+  --bg:#f7f8fa; --panel:#ffffff; --panel-2:#fbfcfd; --panel-3:#f3f5f8;
+  --fg:#0c0e13; --muted:#5c6470; --faint:#959ba6;
+  --border:#e9ebef; --border-2:#dfe2e8;
+  /* accent (used sparingly) */
+  --accent:#2563eb; --accent-h:#1d4ed8; --accent-soft:#eef3ff; --accent-bd:#d6e2ff;
+  /* semantic */
+  --green:#0f9b63; --green-bg:#e6f6ee;
+  --amber:#b9760f; --amber-bg:#fbf0db;
+  --red:#d24339; --red-bg:#fbeae8;
+  --violet:#6b46d9; --violet-bg:#eee9fc;
+  --grey:#5b6472; --grey-bg:#eef0f3;
+  /* radii + shadow */
+  --r-lg:16px; --r-md:12px; --r-sm:9px; --r-xs:7px;
+  --sh:0 1px 2px rgba(12,14,19,.04),0 1px 3px rgba(12,14,19,.06);
+  --sh-lg:0 24px 60px -18px rgba(12,14,19,.28);
   --mono:'JetBrains Mono',ui-monospace,monospace;
-  --sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:var(--sans);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.5}
+body{font-family:var(--sans);background:var(--bg);color:var(--fg);font-size:var(--t-sm);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--accent-soft)}
 a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.shell{display:flex;min-height:100vh}
+.hide-sm{display:inline}
 
-/* ---------- Sidebar ---------- */
-.side{width:248px;flex:0 0 248px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
-.brand{display:flex;align-items:center;gap:11px;padding:20px 20px 18px}
-.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#2563eb,#4f8bff);display:grid;place-items:center;box-shadow:0 4px 12px -3px rgba(37,99,235,.5)}
+/* ---------- App bar ---------- */
+.appbar{position:sticky;top:0;z-index:30;background:rgba(247,248,250,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s6)}
+.brand{display:flex;align-items:center;gap:var(--s3)}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#2563eb,#4f8bff);display:grid;place-items:center;box-shadow:0 4px 12px -3px rgba(37,99,235,.5);flex:0 0 34px}
 .brand-mark svg{width:18px;height:18px}
-.brand-name{font-weight:800;letter-spacing:-.02em;font-size:15px;line-height:1.1}
-.brand-sub{font-size:11px;color:var(--faint);font-weight:500;letter-spacing:.02em}
-.nav{padding:6px 12px;display:flex;flex-direction:column;gap:2px}
-.nav-label{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);padding:16px 10px 7px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-xs);color:var(--muted);font-weight:600;font-size:13px;transition:background .12s,color .12s;text-align:left;width:100%}
-.nav-item:hover{background:var(--panel-2);color:var(--fg)}
-.nav-item.on{background:var(--accent-soft);color:var(--accent)}
-.nav-item .ico{width:16px;height:16px;flex:0 0 16px;opacity:.85}
-.nav-item .ct{margin-left:auto;font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--faint)}
-.nav-item.on .ct{color:var(--accent)}
-.nav-dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px}
-.side-foot{margin-top:auto;padding:14px;border-top:1px solid var(--border)}
-.warm{background:var(--panel-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px}
-.warm-row{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
-.warm-row .pulse{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 0 rgba(191,122,19,.5);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(191,122,19,.45)}70%{box-shadow:0 0 0 7px rgba(191,122,19,0)}100%{box-shadow:0 0 0 0 rgba(191,122,19,0)}}
-.warm-txt{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.45}
-
-/* ---------- Main ---------- */
-.main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{position:sticky;top:0;z-index:20;background:rgba(246,247,249,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:16px}
-.page-h{display:flex;flex-direction:column;gap:1px}
-.page-t{font-size:17px;font-weight:800;letter-spacing:-.02em}
-.page-d{font-size:12px;color:var(--muted)}
-.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
-.search{position:relative;display:flex;align-items:center}
-.search svg{position:absolute;left:11px;width:15px;height:15px;color:var(--faint)}
-.search input{font-family:inherit;font-size:13px;width:230px;padding:8px 12px 8px 33px;border:1px solid var(--border-2);border-radius:var(--radius-sm);background:var(--panel);color:var(--fg);transition:border .15s,box-shadow .15s}
-.search input:focus{outline:none;border-color:var(--accent-bd);box-shadow:0 0 0 3px var(--accent-soft)}
-.search input::placeholder{color:var(--faint)}
-.btn{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:8px 13px;border-radius:var(--radius-sm);border:1px solid var(--border-2);background:var(--panel);color:var(--fg);transition:background .12s,border .12s}
+.brand-name{font-weight:800;font-size:var(--t-md);letter-spacing:-.02em;line-height:1.05}
+.brand-sub{font-size:var(--t-xs);color:var(--faint);font-weight:600;letter-spacing:.01em}
+.appbar-spacer{flex:1}
+.live{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--t-xs);color:var(--muted);font-weight:600;white-space:nowrap}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--green-bg)}
+.live-dot.is-seed{background:var(--amber);box-shadow:0 0 0 3px var(--amber-bg)}
+.live-dot.is-err{background:var(--red);box-shadow:0 0 0 3px var(--red-bg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);font-size:var(--t-sm);font-weight:600;padding:9px 14px;border-radius:var(--r-sm);border:1px solid var(--border-2);background:var(--panel);transition:background .12s,border-color .12s,opacity .12s;min-height:40px}
 .btn:hover{background:var(--panel-2)}
-.btn svg{width:14px;height:14px}
-.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn-accent:hover{background:var(--accent-h)}
-.updated{font-size:11.5px;color:var(--faint);display:flex;align-items:center;gap:6px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-.live-dot.seed{background:var(--amber)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn svg{width:15px;height:15px}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-h)}
 
-.content{padding:24px 28px 56px;max-width:1320px;width:100%}
+/* ---------- Layout ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding:var(--s6) var(--s6) var(--s12);width:100%}
+.hero{margin-bottom:var(--s6)}
+.hero-title{font-size:var(--t-xl);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.hero-sub{font-size:var(--t-sm);color:var(--muted);margin-top:var(--s2);max-width:62ch}
 
-/* ---------- KPI ---------- */
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
-.kpi{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
-.kpi-lab{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.kpi-ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center}
-.kpi-ic svg{width:15px;height:15px}
-.kpi-val{font-family:var(--mono);font-size:29px;font-weight:600;letter-spacing:-.02em;line-height:1}
-.kpi-foot{font-size:11.5px;color:var(--muted);margin-top:8px;font-weight:500}
-.kpi-foot b{color:var(--fg);font-weight:700}
+/* ---------- KPI strip ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s3);margin-bottom:var(--s6)}
+.kpi{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--s4) var(--s5);box-shadow:var(--sh)}
+.kpi-label{font-size:var(--t-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.kpi-value{font-family:var(--mono);font-size:var(--t-xl);font-weight:600;letter-spacing:-.02em;line-height:1.05;margin-top:var(--s3)}
+.kpi-value small{font-size:var(--t-md);color:var(--faint)}
+.kpi-sub{font-size:var(--t-xs);color:var(--muted);margin-top:var(--s2);font-weight:500}
+.kpi-sub b{color:var(--fg);font-weight:700}
 
-/* ---------- Charts ---------- */
-.charts{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-bottom:18px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-.card-h{padding:15px 18px 0;display:flex;align-items:flex-start;justify-content:space-between}
-.card-t{font-size:13.5px;font-weight:700;letter-spacing:-.01em}
-.card-s{font-size:11.5px;color:var(--faint);margin-top:1px;font-weight:500}
-.card-b{padding:16px 18px 18px}
-
-/* funnel */
-.fn-row{display:flex;align-items:center;gap:12px;padding:7px 0}
-.fn-name{width:74px;flex:0 0 74px;font-size:12px;font-weight:600;color:var(--muted)}
-.fn-track{flex:1;height:26px;background:var(--panel-2);border-radius:7px;position:relative;overflow:hidden;border:1px solid var(--border)}
-.fn-fill{position:absolute;inset:0 auto 0 0;border-radius:7px;display:flex;align-items:center;padding-left:10px;transition:width .7s cubic-bezier(.2,.7,.3,1)}
-.fn-ct{width:30px;flex:0 0 30px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:600}
-.fn-pct{font-family:var(--mono);font-size:11px;font-weight:600;color:#fff;opacity:.92}
-
-/* horizontal bars */
-.hb{display:flex;align-items:center;gap:11px;padding:9px 0}
-.hb-name{display:flex;align-items:center;gap:8px;width:88px;flex:0 0 88px;font-size:12.5px;font-weight:600;color:var(--muted)}
-.hb-track{flex:1;height:9px;background:var(--panel-2);border-radius:99px;overflow:hidden}
-.hb-fill{height:100%;border-radius:99px;transition:width .7s cubic-bezier(.2,.7,.3,1)}
-.hb-ct{font-family:var(--mono);font-size:12.5px;font-weight:600;width:24px;text-align:right}
-
-/* donut */
-.donut-wrap{display:flex;align-items:center;gap:18px}
-.donut{position:relative;width:128px;height:128px;flex:0 0 128px}
-.donut-center{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.donut-center .n{font-family:var(--mono);font-size:24px;font-weight:600;line-height:1}
-.donut-center .l{font-size:10px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-.legend{display:flex;flex-direction:column;gap:9px;flex:1}
-.lg-row{display:flex;align-items:center;gap:9px;font-size:12.5px}
-.lg-dot{width:9px;height:9px;border-radius:3px;flex:0 0 9px}
-.lg-name{font-weight:600;text-transform:capitalize}
-.lg-ct{margin-left:auto;font-family:var(--mono);font-weight:600;color:var(--muted)}
-
-/* ---------- Table ---------- */
-.tbl-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.tbl-top{padding:15px 18px;display:flex;align-items:center;gap:13px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.tbl-top .card-t{margin-right:4px}
-.chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-size:12px;font-weight:600;padding:5px 11px;border-radius:99px;border:1px solid var(--border-2);color:var(--muted);background:var(--panel);transition:all .12s;display:inline-flex;align-items:center;gap:6px}
+/* ---------- Toolbar ---------- */
+.toolbar{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s4)}
+.chips{display:flex;gap:var(--s2);flex-wrap:wrap}
+.chip{font-size:var(--t-sm);font-weight:600;padding:8px 13px;border-radius:99px;border:1px solid var(--border-2);color:var(--muted);background:var(--panel);transition:all .12s;display:inline-flex;align-items:center;gap:var(--s2);min-height:38px}
 .chip:hover{background:var(--panel-2);color:var(--fg)}
 .chip.on{background:var(--fg);color:#fff;border-color:var(--fg)}
-.chip .cc{font-family:var(--mono);font-size:11px;opacity:.7}
+.chip .cc{font-family:var(--mono);font-size:11px;opacity:.65}
 .chip.on .cc{opacity:.85}
-.tbl-scroll{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:920px}
-thead th{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);text-align:left;padding:11px 16px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--panel-2);user-select:none}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.search{position:relative;display:flex;align-items:center}
+.search svg{position:absolute;left:12px;width:16px;height:16px;color:var(--faint);pointer-events:none}
+.search input{font-family:inherit;font-size:var(--t-sm);width:240px;max-width:60vw;padding:10px 14px 10px 36px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--panel);color:var(--fg);transition:border-color .15s,box-shadow .15s;min-height:40px}
+.search input:focus{outline:none;border-color:var(--accent-bd);box-shadow:0 0 0 3px var(--accent-soft)}
+.search input::placeholder{color:var(--faint)}
+.sortctl{display:inline-flex;border:1px solid var(--border-2);border-radius:var(--r-sm);overflow:hidden;background:var(--panel)}
+.sortbtn{font-size:var(--t-sm);font-weight:600;color:var(--muted);padding:9px 13px;min-height:40px;display:inline-flex;align-items:center;gap:5px;transition:background .12s,color .12s}
+.sortbtn+.sortbtn{border-left:1px solid var(--border-2)}
+.sortbtn:hover{background:var(--panel-2);color:var(--fg)}
+.sortbtn.on{background:var(--accent-soft);color:var(--accent)}
+.sortbtn .ar{font-size:9px}
+
+/* ---------- Badges ---------- */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:var(--t-xs);font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap;letter-spacing:.005em}
+.badge .dot{width:6px;height:6px;border-radius:50%}
+.b-blue{background:var(--accent-soft);color:var(--accent)} .b-blue .dot{background:var(--accent)}
+.b-green{background:var(--green-bg);color:var(--green)} .b-green .dot{background:var(--green)}
+.b-amber{background:var(--amber-bg);color:var(--amber)} .b-amber .dot{background:var(--amber)}
+.b-red{background:var(--red-bg);color:var(--red)} .b-red .dot{background:var(--red)}
+.b-violet{background:var(--violet-bg);color:var(--violet)} .b-violet .dot{background:var(--violet)}
+.b-grey{background:var(--grey-bg);color:var(--grey)} .b-grey .dot{background:var(--grey)}
+.tag{font-size:var(--t-xs);font-weight:600;color:var(--muted);background:var(--panel-3);border:1px solid var(--border);padding:3px 9px;border-radius:6px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
+
+/* ---------- Table ---------- */
+.table-wrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:var(--t-xs);font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);text-align:left;padding:12px var(--s5);border-bottom:1px solid var(--border);background:var(--panel-2);white-space:nowrap;user-select:none}
 thead th.sortable{cursor:pointer}
 thead th.sortable:hover{color:var(--muted)}
-thead th .arr{opacity:.5;font-size:9px}
+thead th .ar{opacity:.55;font-size:9px}
 tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--accent-soft)}
-tbody td{padding:13px 16px;vertical-align:middle}
-.cell-store{display:flex;flex-direction:column;gap:2px;min-width:150px}
-.cs-name{font-weight:700;font-size:13.5px;letter-spacing:-.01em}
-.cs-dom{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.fit{display:flex;align-items:center;gap:9px}
-.fit-n{font-family:var(--mono);font-size:13px;font-weight:600;width:34px}
-.fit-bar{width:54px;height:6px;background:var(--panel-2);border-radius:99px;overflow:hidden}
-.fit-bar i{display:block;height:100%;border-radius:99px}
-.rev{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-.cell-contact{min-width:130px}
-.cc-name{font-weight:600;font-size:12.5px}
-.cc-role{font-size:11px;color:var(--faint)}
-.leak{max-width:280px;font-size:12px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap;letter-spacing:.01em}
-.badge .bd{width:6px;height:6px;border-radius:50%}
-.b-blue{background:var(--accent-soft);color:var(--accent)} .b-blue .bd{background:var(--accent)}
-.b-green{background:var(--green-soft);color:var(--green)} .b-green .bd{background:var(--green)}
-.b-amber{background:var(--amber-soft);color:var(--amber)} .b-amber .bd{background:var(--amber)}
-.b-red{background:var(--red-soft);color:var(--red)} .b-red .bd{background:var(--red)}
-.b-slate{background:var(--slate-soft);color:var(--slate)} .b-slate .bd{background:var(--slate)}
-.b-violet{background:var(--violet-soft);color:var(--violet)} .b-violet .bd{background:var(--violet)}
-.tag{font-size:11px;font-weight:600;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);padding:2px 8px;border-radius:6px;text-transform:capitalize}
-.empty{padding:54px 20px;text-align:center;color:var(--faint)}
-.empty .e-t{font-weight:700;color:var(--muted);font-size:14px;margin-bottom:4px}
+tbody td{padding:14px var(--s5);vertical-align:middle}
+.cs-name{font-weight:700;font-size:var(--t-sm);letter-spacing:-.01em}
+.cs-dom{font-family:var(--mono);font-size:11px;color:var(--faint);display:block;margin-top:1px}
+.fit{display:inline-flex;align-items:baseline;gap:2px;font-family:var(--mono);font-weight:600}
+.fit b{font-size:var(--t-md)}
+.fit .mx{font-size:11px;color:var(--faint)}
+
+/* ---------- Skeleton / states ---------- */
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.sk{background:linear-gradient(90deg,#eef0f3 25%,#f6f7f9 50%,#eef0f3 75%);background-size:800px 100%;animation:shimmer 1.3s infinite linear;border-radius:6px}
+.sk-line{height:12px;margin:6px 0}
+.kpi .sk-line{height:28px;margin-top:var(--s3)}
+.state-card{padding:var(--s12) var(--s6);text-align:center}
+.state-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin:0 auto var(--s4);background:var(--panel-3);color:var(--muted)}
+.state-icon svg{width:24px;height:24px}
+.state-icon.err{background:var(--red-bg);color:var(--red)}
+.state-title{font-size:var(--t-md);font-weight:700}
+.state-sub{font-size:var(--t-sm);color:var(--muted);margin:var(--s2) auto 0;max-width:42ch}
+.state-card .btn{margin-top:var(--s5)}
 
 /* ---------- Drawer ---------- */
-.overlay{position:fixed;inset:0;background:rgba(13,15,20,.32);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;backdrop-filter:blur(1px)}
+.overlay{position:fixed;inset:0;background:rgba(12,14,19,.34);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
 .overlay.show{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100vh;width:516px;max-width:94vw;background:var(--panel);box-shadow:var(--shadow-lg);transform:translateX(100%);transition:transform .28s cubic-bezier(.32,.72,.3,1);z-index:50;display:flex;flex-direction:column}
+.drawer{position:fixed;top:0;right:0;height:100vh;height:100dvh;width:480px;max-width:100vw;background:var(--panel);box-shadow:var(--sh-lg);transform:translateX(100%);transition:transform .3s cubic-bezier(.32,.72,.3,1);z-index:50;display:flex;flex-direction:column}
 .drawer.show{transform:translateX(0)}
-.dr-head{padding:20px 22px 16px;border-bottom:1px solid var(--border);position:relative}
-.dr-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--muted);transition:background .12s}
-.dr-close:hover{background:var(--panel-2);color:var(--fg)}
-.dr-close svg{width:16px;height:16px}
-.dr-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.dr-name{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
-.dr-dom{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:3px;display:inline-flex;align-items:center;gap:5px}
-.dr-stats{display:flex;gap:22px;margin-top:15px}
-.dr-stat .v{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:-.01em}
-.dr-stat .l{font-size:10.5px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
-.dr-body{overflow-y:auto;padding:4px 22px 32px;flex:1}
-.sec{padding:18px 0;border-bottom:1px solid var(--border)}
+.dr-head{padding:var(--s5) var(--s6) var(--s4);border-bottom:1px solid var(--border);position:relative}
+.dr-close{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:9px;display:grid;place-items:center;color:var(--muted);transition:background .12s}
+.dr-close:hover{background:var(--panel-3);color:var(--fg)}
+.dr-close svg{width:18px;height:18px}
+.dr-eyebrow{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s3);padding-right:44px}
+.dr-title{font-size:var(--t-lg);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.dr-domain{font-family:var(--mono);font-size:var(--t-xs);color:var(--accent);margin-top:var(--s1);display:inline-flex;align-items:center;gap:5px}
+.dr-chips{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s4)}
+.dr-body{overflow-y:auto;padding:0 var(--s6) var(--s10);flex:1;-webkit-overflow-scrolling:touch}
+.sec{padding:var(--s5) 0;border-bottom:1px solid var(--border)}
 .sec:last-child{border-bottom:none}
-.sec-t{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.sec-t .ct{font-family:var(--mono);background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:10px;color:var(--muted)}
-.leakbox{background:linear-gradient(90deg,var(--accent-soft),#fff 90%);border:1px solid var(--accent-bd);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:13px 15px}
-.leakbox .lk-l{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
-.leakbox .lk-t{font-size:13.5px;font-weight:600;line-height:1.5;color:var(--fg)}
-.rev-line{display:flex;align-items:baseline;gap:9px;margin-bottom:4px}
-.rev-est{font-family:var(--mono);font-size:15px;font-weight:600}
-.sig{display:flex;gap:9px;padding:9px 0;border-top:1px dashed var(--border)}
-.sig:first-of-type{border-top:none}
-.sig-m{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 7px;height:fit-content;white-space:nowrap;flex:0 0 auto}
-.sig-d{font-size:12.5px;color:var(--muted);line-height:1.5}
-.sig-d .src{color:var(--faint);font-size:11px}
-.wk{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--border)}
+.sec-title{font-size:var(--t-xs);font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
+.sec-title .ct{font-family:var(--mono);background:var(--panel-3);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:10px;color:var(--muted)}
+.leak{font-size:var(--t-md);font-weight:600;line-height:1.5;letter-spacing:-.01em}
+.kv{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s3)}
+.kv .est{font-family:var(--mono);font-size:var(--t-md);font-weight:600}
+.signal{display:flex;gap:var(--s3);padding:var(--s3) 0;border-top:1px dashed var(--border)}
+.signal:first-of-type{border-top:none}
+.signal .m{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:3px 8px;height:fit-content;white-space:nowrap;flex:0 0 auto}
+.signal .d{font-size:var(--t-sm);color:var(--muted);line-height:1.55}
+.signal .d .src{display:block;color:var(--faint);font-size:11px;margin-top:2px}
+.wk{display:flex;gap:var(--s3);padding:var(--s3) 0;border-top:1px solid var(--border)}
 .wk:first-of-type{border-top:none}
-.wk-sev{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 8px}
-.sev-high{background:var(--red)} .sev-med{background:var(--amber)} .sev-low{background:var(--slate)}
-.wk-body{flex:1}
-.wk-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
-.wk-issue{font-size:13px;font-weight:600;line-height:1.45}
-.wk-why{font-size:12px;color:var(--muted);line-height:1.5}
-.mech{display:flex;gap:10px;padding:7px 0;font-size:12.5px;line-height:1.5}
-.mech-n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);flex:0 0 auto;margin-top:1px}
-.tabs{display:flex;gap:5px;margin-bottom:13px;background:var(--panel-2);padding:4px;border-radius:9px;border:1px solid var(--border)}
-.tab{flex:1;font-size:12px;font-weight:600;padding:7px 8px;border-radius:6px;color:var(--muted);transition:all .12s}
-.tab:hover{color:var(--fg)}
-.tab.on{background:var(--panel);color:var(--fg);box-shadow:var(--shadow)}
-.draft{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
-.draft-subj{padding:11px 14px;background:var(--panel-2);border-bottom:1px solid var(--border);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.draft-subj .sl{font-size:10px;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
-.copy-btn{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-bd);padding:4px 9px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;flex:0 0 auto}
-.copy-btn:hover{background:#e3edff}
-.copy-btn svg{width:12px;height:12px}
-.draft-body{padding:13px 14px;font-size:13px;line-height:1.6;color:#2c3240;white-space:pre-wrap}
-.contact-card{display:flex;align-items:center;gap:13px;background:var(--panel-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 15px}
-.avatar{width:42px;height:42px;border-radius:11px;background:linear-gradient(145deg,#2563eb,#5b8dff);color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;flex:0 0 42px}
-.ct-name{font-weight:700;font-size:14px}
-.ct-role{font-size:12px;color:var(--muted)}
-.ct-email{font-family:var(--mono);font-size:11.5px;color:var(--accent);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.ct-links{margin-left:auto;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-.todo{display:flex;gap:10px;padding:8px 0;font-size:12.5px;line-height:1.5;align-items:flex-start;cursor:pointer}
-.todo input{margin-top:2px;width:15px;height:15px;accent-color:var(--accent);flex:0 0 15px}
-.caveat{background:var(--amber-soft);border:1px solid #f0dcb6;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;line-height:1.55;color:#7a5410}
-.caveat .cv-l{font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.05em;margin-bottom:5px;display:flex;align-items:center;gap:6px}
-.dr-actions{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;background:var(--panel)}
-.dr-actions .btn{flex:1;justify-content:center}
+.wk-sev{width:9px;height:9px;border-radius:50%;margin-top:6px;flex:0 0 9px}
+.sev-high{background:var(--red)} .sev-med{background:var(--amber)} .sev-low{background:var(--grey)}
+.wk-top{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;margin-bottom:3px}
+.wk-issue{font-size:var(--t-sm);font-weight:600;line-height:1.45}
+.wk-why{font-size:var(--t-sm);color:var(--muted);line-height:1.55}
+.demo-head{display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s3);flex-wrap:wrap}
+.demo-rat{font-size:var(--t-sm);color:var(--muted);line-height:1.55;margin-bottom:var(--s3)}
+.mech{display:flex;gap:var(--s3);padding:6px 0;font-size:var(--t-sm);line-height:1.55}
+.mech .n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);flex:0 0 auto;margin-top:1px}
+.panel-note{background:var(--violet-bg);border:1px solid #ddd2f6;border-left:3px solid var(--violet);border-radius:var(--r-sm);padding:var(--s3) var(--s4);font-size:var(--t-sm);line-height:1.6;color:#43308f}
+.caveat{background:var(--amber-bg);border:1px solid #efdcb4;border-radius:var(--r-sm);padding:var(--s3) var(--s4);font-size:var(--t-sm);line-height:1.6;color:#7c5410}
+.caveat .cv-l{font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.06em;margin-bottom:var(--s2);display:flex;align-items:center;gap:var(--s2)}
+.todo{display:flex;gap:var(--s3);padding:7px 0;font-size:var(--t-sm);line-height:1.55;align-items:flex-start;cursor:pointer}
+.todo input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);flex:0 0 16px}
+.contact-card{display:flex;align-items:center;gap:var(--s3);background:var(--panel-2);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s4)}
+.avatar{width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#2563eb,#5b8dff);color:#fff;display:grid;place-items:center;font-weight:700;font-size:var(--t-md);flex:0 0 44px}
+.ct-name{font-weight:700;font-size:var(--t-sm)}
+.ct-role{font-size:var(--t-xs);color:var(--muted)}
+.ct-email{font-family:var(--mono);font-size:11.5px;color:var(--accent);margin-top:3px;display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;word-break:break-all}
+.ct-links{margin-left:auto;display:flex;flex-direction:column;gap:var(--s2);align-items:flex-end;flex:0 0 auto}
+.mini{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-bd);padding:6px 10px;border-radius:7px;display:inline-flex;align-items:center;gap:5px;min-height:34px}
+.mini:hover{background:#e3edff}
+.mini svg{width:13px;height:13px}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--fg);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:10px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .25s;z-index:80;display:flex;align-items:center;gap:8px}
+/* ---------- Email drafts (the centerpiece) ---------- */
+.email-card{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:var(--s4);background:var(--panel)}
+.email-card:last-child{margin-bottom:0}
+.email-head{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);background:var(--panel-2);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.email-actions{margin-left:auto;display:flex;gap:var(--s2)}
+.email-subject{padding:var(--s4) var(--s4) var(--s2);font-weight:700;font-size:var(--t-md);letter-spacing:-.01em;line-height:1.35}
+.email-subject .sl{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:3px}
+.email-body{padding:var(--s2) var(--s4) var(--s5);font-size:var(--t-sm);line-height:1.6;color:#2b313d;white-space:pre-wrap;word-break:break-word;max-width:60ch}
+.ph{background:var(--amber-bg);color:#9a6406;font-weight:600;border-radius:5px;padding:0 5px;border:1px solid #efdcb4;font-size:.93em}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--fg);color:#fff;font-size:var(--t-sm);font-weight:600;padding:11px 18px;border-radius:11px;box-shadow:var(--sh-lg);opacity:0;pointer-events:none;transition:all .25s;z-index:80;display:flex;align-items:center;gap:var(--s2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast svg{width:15px;height:15px;color:#5dd29b}
+.toast svg{width:16px;height:16px;color:#5dd29b}
 
-.menu-btn{display:none}
-@media(max-width:1180px){.kpis{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr 1fr}.charts .card:first-child{grid-column:1/-1}}
-@media(max-width:860px){
-  .side{position:fixed;left:0;top:0;z-index:60;transform:translateX(-100%);transition:transform .25s}
-  .side.open{transform:translateX(0);box-shadow:var(--shadow-lg)}
-  .menu-btn{display:inline-flex}
-  .kpis{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}.charts .card:first-child{grid-column:auto}
-  .search input{width:150px}.content{padding:18px 16px 48px}.topbar{padding:12px 16px}
+/* ---------- Responsive: table -> cards ---------- */
+@media(max-width:768px){
+  .appbar{padding:var(--s3) var(--s4)}
+  .brand-sub{display:none}
+  .hide-sm{display:none}
+  .wrap{padding:var(--s5) var(--s4) var(--s12)}
+  .hero-title{font-size:var(--t-lg)}
+  .tb-right{width:100%;margin-left:0}
+  .search{flex:1}
+  .search input{width:100%;max-width:none}
+  .table-wrap{background:transparent;border:none;box-shadow:none;overflow:visible}
+  thead{display:none}
+  table,tbody{display:block}
+  tbody tr{display:block;border:1px solid var(--border);border-radius:var(--r-md);background:var(--panel);box-shadow:var(--sh);padding:var(--s4);margin-bottom:var(--s3);min-height:44px}
+  tbody tr:hover{background:var(--panel)}
+  tbody td{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:7px 0;border:none}
+  tbody td.td-store{display:block;padding:0 0 var(--s3);margin-bottom:var(--s2);border-bottom:1px solid var(--border)}
+  tbody td:not(.td-store)::before{content:attr(data-label);font-size:var(--t-xs);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .cs-name{font-size:var(--t-md)}
+  .drawer{width:100vw;max-width:100vw}
+  .dr-head{padding:var(--s5) var(--s5) var(--s4)}
+  .dr-body{padding:0 var(--s5) var(--s10)}
+  .email-body{max-width:none}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 </style>
 </head>
 <body>
-<div class="shell">
-  <!-- Sidebar -->
-  <aside class="side" id="side">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 19V5l7 7 7-7v14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <div class="brand-name">KONARSTUDIO</div>
-        <div class="brand-sub">Prospect Command</div>
-      </div>
-    </div>
-    <nav class="nav">
-      <button class="nav-item on" data-navfilter="all"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="16" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/></svg>Overview</button>
-      <button class="nav-item" data-navfilter="all"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>All prospects<span class="ct" id="nav-all">0</span></button>
-      <div class="nav-label">Pipeline</div>
-      <button class="nav-item" data-navfilter="top"><span class="nav-dot" style="background:var(--green)"></span>Ready to send<span class="ct" id="nav-top">0</span></button>
-      <button class="nav-item" data-navfilter="drafted"><span class="nav-dot" style="background:var(--accent)"></span>Drafted<span class="ct" id="nav-drafted">0</span></button>
-      <button class="nav-item" data-navfilter="no_email"><span class="nav-dot" style="background:var(--amber)"></span>Needs email<span class="ct" id="nav-noemail">0</span></button>
-      <button class="nav-item" data-navfilter="disqualified"><span class="nav-dot" style="background:var(--red)"></span>Disqualified<span class="ct" id="nav-disq">0</span></button>
-    </nav>
-    <div class="side-foot">
-      <div class="warm">
-        <div class="warm-row"><span class="pulse"></span>Inbox warming up</div>
-        <div class="warm-txt">MailReach ramp in progress. First cold-send window <b>~early July</b>.</div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Main -->
-  <div class="main">
-    <header class="topbar">
-      <button class="btn menu-btn" id="menuBtn" style="padding:8px" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="page-h">
-        <div class="page-t">Overview</div>
-        <div class="page-d">Researched prospects, scored and drafted — ready for review.</div>
-      </div>
-      <div class="top-actions">
-        <div class="search">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input id="search" placeholder="Search store, domain, contact…" aria-label="Search prospects" />
-        </div>
-        <span class="updated"><span class="live-dot" id="liveDot"></span><span id="updated">—</span></span>
-        <button class="btn" id="refreshBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Refresh</button>
-      </div>
-    </header>
-
-    <main class="content">
-      <!-- KPIs -->
-      <section class="kpis" id="kpis"></section>
-
-      <!-- Charts -->
-      <section class="charts">
-        <div class="card">
-          <div class="card-h"><div><div class="card-t">Pipeline</div><div class="card-s">From research to reply</div></div></div>
-          <div class="card-b" id="funnel"></div>
-        </div>
-        <div class="card">
-          <div class="card-h"><div><div class="card-t">By priority</div><div class="card-s">Fit-ranked tiers</div></div></div>
-          <div class="card-b" id="priority"></div>
-        </div>
-        <div class="card">
-          <div class="card-h"><div><div class="card-t">By vertical</div><div class="card-s">Category mix</div></div></div>
-          <div class="card-b"><div class="donut-wrap"><div class="donut" id="donut"></div><div class="legend" id="vlegend"></div></div></div>
-        </div>
-      </section>
-
-      <!-- Table -->
-      <section class="tbl-card">
-        <div class="tbl-top">
-          <div class="card-t">Prospects</div>
-          <div class="chips" id="chips"></div>
-        </div>
-        <div class="tbl-scroll">
-          <table>
-            <thead><tr>
-              <th class="sortable" data-sort="storeName">Store <span class="arr"></span></th>
-              <th>Vertical</th>
-              <th class="sortable" data-sort="fit">Fit <span class="arr"></span></th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th class="sortable" data-sort="rev">Est. revenue <span class="arr"></span></th>
-              <th>Contact</th>
-              <th>Money leak</th>
-            </tr></thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
+<header class="appbar">
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19V5l7 7 7-7v14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div><div class="brand-name">KONARSTUDIO</div><div class="brand-sub">Prospect Command</div></div>
   </div>
-</div>
+  <div class="appbar-spacer"></div>
+  <span class="live"><span class="live-dot" id="liveDot"></span><span id="liveTxt">Loading…</span></span>
+  <button class="btn" id="refreshBtn" aria-label="Refresh data"><svg viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hide-sm">Refresh</span></button>
+</header>
 
-<!-- Drawer -->
+<main class="wrap">
+  <div class="hero">
+    <h1 class="hero-title">Prospect Command</h1>
+    <p class="hero-sub">Researched Shopify stores — scored, drafted, and ready for your review. Tap any prospect for the full teardown and cold-email drafts.</p>
+  </div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <div class="toolbar">
+    <div class="chips" id="chips"></div>
+    <div class="tb-right">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" placeholder="Search store, domain, vertical…" aria-label="Search prospects" />
+      </div>
+      <div class="sortctl" role="group" aria-label="Sort">
+        <button class="sortbtn on" data-sort="fit">Fit <span class="ar" data-ar="fit">▼</span></button>
+        <button class="sortbtn" data-sort="priority">Priority <span class="ar" data-ar="priority"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <section class="table-wrap">
+    <table>
+      <thead><tr>
+        <th class="sortable" data-sort="store">Store <span class="ar"></span></th>
+        <th>Vertical</th>
+        <th class="sortable" data-sort="fit">Fit <span class="ar" data-ar2="fit"></span></th>
+        <th class="sortable" data-sort="priority">Priority <span class="ar" data-ar2="priority"></span></th>
+        <th>Status</th>
+        <th>Email</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </section>
+</main>
+
 <div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Prospect detail"></aside>
-
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Prospect detail" role="dialog" aria-modal="true"></aside>
 <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="toastMsg">Copied</span></div>
 
 <script>
-const API = "https://konarstudio.app.n8n.cloud/webhook/prospects-feed-k2x9";
-/*SEED_START*/const SEED = [{"storeName":"TRUWILD","domain":"truwild.com","vertical":"supplements","status":"drafted","priority":"top","track":"demo","disqualified":false,"disqualifyReason":"","fitScore":16,"scores":{"revenueTier":3,"weaknessSeverity":4,"accessibility":5,"verticalFit":4},"revenueEstimate":"~$2-6M/yr (DTC + Amazon/Walmart + ~110 retailers)","leakHypothesis":"The highest-LTV action (subscription) on a daily consumable shows a broken/placeholder price, killing trust and subscribe conversion.","contactName":"Zac Curhan","contactTitle":"Co-Founder & CEO","contactEmail":"zac@truwild.com","replyCategory":"","replySummary":"","draftSubject":"rebuilt your Wild Greens page (free)","draftBody":"Hi Zac, I rebuilt your Wild Greens product page as a free demo: fixed the $0.00 subscribe price, made the currency consistent, corrected the wrong-product header, and moved reviews next to the buy box. Before/after here: [demo link]. If it is useful, happy to walk you through it on a quick call. [Your name]","createdAt":"2026-06-20T23:08:15.910Z","shopifySignal":"Live products.json returns a full Shopify catalog; storefront assets served from cdn.shopify.com","operatorTodo":["Verify zac@truwild.com before sending (pattern guess; Apollo email match needs a paid plan, so confirm via LinkedIn/site or another tool).","Re-check the Wild Greens PDP from a US IP to confirm the currency behavior and the $0.00 subscribe price (observed in a UK-localized session).","Run PageSpeed Insights on the Wild Greens PDP (mobile + desktop).","Pull truwild.com/products.json for exact Wild Greens variants to build the demo.","Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."],"caveats":"Revenue is a LOW-confidence estimate from a Crunchbase under-$10M band plus multi-channel distribution and press signals, not filed accounts (US brand, no Companies House); six-figure/mo is likely at the midpoint but not certain. Email zac@truwild.com is a PATTERN GUESS, not verified (Apollo people-match is unavailable on the current free plan). Lighthouse not yet run. Weaknesses were observed live on the Wild Greens PDP on 2026-06-10 in a UK-localized browser session, so the GBP currency display may differ for US visitors (the $0.00 subscribe price and the wrong-product header are not location-dependent).","research":{"weaknesses":[{"issue":"Subscribe & Save per-serving price renders as $0.00 per serving on the Wild Greens PDP","area":"pdp","severity":"high","why":"The highest-LTV action (subscription) on a daily consumable shows a broken/placeholder price, killing trust and subscribe conversion."},{"issue":"Mixed-currency display: main price localizes to GBP (about 25.77 pounds) while per-serving costs are hardcoded in USD (about $0.98/serving)","area":"pdp","severity":"med","why":"Inconsistent currency at the decision point confuses buyers and erodes trust."},{"issue":"Copy/template error: a benefits block on the Wild Greens page is headed for the wrong product (it still reads as the Hydrate section)","area":"pdp","severity":"med","why":"A visible wrong-product header signals low CRO attention and undermines credibility."},{"issue":"Social proof (293 reviews, 4.8 stars) sits far below a very long PDP, not beside the buy box","area":"pdp","severity":"med","why":"Proof is not visible at the decision point, costing conversion."}],"revenueSignals":[{"method":"Third-party revenue band","detail":"Crunchbase lists TRUWILD among San Diego companies at under $10M revenue","source":"Crunchbase"},{"method":"Distribution + growth signal","detail":"Omni-channel (DTC, Amazon, Walmart.com, ~110 specialty retailers); FoodNavigator (Oct 2025) reports rapid growth and that the brand is weighing investors","source":"FoodNavigator-USA, Oct 2025"}],"revenueConfidence":"low","demo":{"primaryPage":"pdp","rationale":"Traffic goes to product PDPs, and the bestseller Wild Greens PDP is where the broken subscribe price and currency bugs live - rebuild where the buying decision happens.","mechanics":["Fix the Subscribe & Save price so the real discounted per-serving cost shows (not $0.00), with the saving vs one-time","Make currency consistent (localize everything including per-serving, or default US visitors to USD)","Correct the wrong-product (Hydrate) benefits header to Wild Greens and tighten the above-the-fold value prop","Pull the 4.8-star / 293-review social proof up beside the buy box","Add a sticky add-to-cart on the long mobile PDP"],"bestseller":"Wild Greens - truwild.com/products/wild-greens"},"scrutiny":"Passes the critic. The weaknesses are real, demonstrable bugs (a literal $0.00 subscribe price, mixed pound/dollar pricing, a wrong-product section header) on the bestseller PDP - money-leaking and trivial to demo, not nitpicks. Founder Zac Curhan is unusually reachable (podcasts, active LinkedIn, publicly weighing investment) and the brand is scaling, so timing is good. Revenue is the soft spot: only an under-$10M third-party band, so the six-figure/mo read is likely but not certain. Worth an hour to build the demo."},"outreach":{"drafts":[{"subject":"small thing on your Wild Greens page","body":"Hey Zac, fell down a bit of a rabbit hole on your site the other night (the outdoor-athlete angle is great) and ended up on the Wild Greens page. Really like what you've built. One tiny thing jumped out though: the Subscribe and Save line is showing $0.00 per serving, so it looks a little broken right where people decide to subscribe. Felt like an easy win, so I mocked up a cleaned-up version: [demo link]. No agenda, just thought you'd want to see it. Either way, keep it up. [Your name]","variant":"warm-human","channel":"email"},{"subject":"your Wild Greens page","body":"Hi Zac, I was on your Wild Greens page and noticed a few things working against conversion: the Subscribe and Save price renders as $0.00 per serving, the prices mix pounds and dollars on the same page, and one benefits header still reads as the Hydrate section. I rebuilt the page with the subscribe price fixed, one consistent currency, the header corrected, and your 4.8-star reviews pulled up next to the buy button. Quick before/after, no charge: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"rebuilt your Wild Greens page (free)","body":"Hi Zac, I rebuilt your Wild Greens product page as a free demo: fixed the $0.00 subscribe price, made the currency consistent, corrected the wrong-product header, and moved reviews next to the buy box. Before/after here: [demo link]. If it is useful, happy to walk you through it on a quick call. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Zac Curhan","title":"Co-Founder & CEO","email":"zac@truwild.com","emailStatus":"pattern-guess","linkedin":"https://www.linkedin.com/company/truwild"}},{"storeName":"Under the Weather","domain":"undertheweather.com","vertical":"outdoor apparel","status":"drafted","priority":"top","track":"demo","disqualified":false,"disqualifyReason":"","fitScore":15,"scores":{"revenueTier":4,"weaknessSeverity":4,"accessibility":3,"verticalFit":4},"revenueEstimate":"$1M-$3M ARR","leakHypothesis":"shoppers cannot see how to pick their pod size without scrolling, adding friction at the key decision","contactName":"Jeremy","contactTitle":"Founder","contactEmail":"jeremy@undertheweather.com","replyCategory":"","replySummary":"","draftSubject":"quick mockup for Under the Weather","draftBody":"Hi Jeremy, I rebuilt your pod page hero with the size selector moved above the fold and inline reviews. Short clip here...","createdAt":"2026-06-20T16:41:19.156Z","shopifySignal":"cdn.shopify.com assets + /cart.js","operatorTodo":["verify email","record demo"],"caveats":"revenue estimate is rough","research":{"weaknesses":[{"issue":"PDP hero buries the size selector below the fold","area":"pdp","severity":"high","why":"shoppers cannot see how to pick their pod size without scrolling, adding friction at the key decision"},{"issue":"No reviews shown on PDP","area":"pdp","severity":"med","why":"social proof is on the homepage but missing where the buy decision happens"},{"issue":"Cart drawer has no urgency or trust cues","area":"cart","severity":"low","why":"nothing reinforces the purchase at the cart step"}],"revenueSignals":[{"method":"traffic","detail":"~40k visits/mo","source":"similarweb"},{"method":"reviews","detail":"3k+ reviews","source":"site"}],"revenueConfidence":"medium","demo":{"primaryPage":"pdp","rationale":"the size selector friction is the clearest single-fix win","mechanics":["move selector above fold","add inline reviews","sticky add-to-cart"],"bestseller":"The Original Pod"},"scrutiny":"Real leak on the PDP; founder reachable; worth a demo-first approach."},"outreach":{"drafts":[{"subject":"the size selector on your pod page","body":"Hi Jeremy, I was on the Original Pod page and went looking for where to pick my size, and it took me a few scrolls to find it. Moved it up and the page feels much easier...","variant":"warm-human","channel":"email"},{"subject":"quick mockup for Under the Weather","body":"Hi Jeremy, I rebuilt your pod page hero with the size selector moved above the fold and inline reviews. Short clip here...","variant":"demo-first","channel":"email"}]},"contact":{"name":"Jeremy","title":"Founder","email":"jeremy@undertheweather.com","emailStatus":"pattern-guess","linkedin":"linkedin.com/in/jeremy"}},{"storeName":"Mushroom Revival","domain":"mushroomrevival.com","vertical":"supplements","status":"drafted","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":15,"scores":{"revenueTier":2,"weaknessSeverity":4,"accessibility":5,"verticalFit":4},"revenueEstimate":"Est. low-to-mid seven figures/yr (six-figures/mo, inferred - no public figure)","leakHypothesis":"A broken/contradictory price at the exact decision point kills trust and subscribe conversion on a daily consumable.","contactName":"Alex Dorr","contactTitle":"Founder & CEO","contactEmail":"alex@mushroomrevival.com","replyCategory":"","replySummary":"","draftSubject":"rebuilt your Daily 10 page (free)","draftBody":"Hi Alex, I rebuilt your [bestseller] page as a free demo: fixed the autoship/one-time pricing so it matches the selected pack, repaired the 404 nav links, and pulled reviews up next to the buy box. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","createdAt":"2026-06-20T23:08:15.908Z","shopifySignal":"products.json returns a full Shopify catalog (store 0049/1687/1235); assets on cdn.shopify.com","operatorTodo":["Verify alex@mushroomrevival.com before sending - pattern guess; Apollo match needs a paid plan.","Confirm revenue clears six-figures/mo (no public figure found; estimate is inference-based).","Re-check the autoship/one-time pricing live across 1/2/3-pack selections.","Run PageSpeed Insights on the Daily 10 PDP (mobile + desktop).","Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."],"caveats":"Revenue is a LOW-confidence inference from operational-scale signals (own organic cordyceps farm, national media, multi-format catalog, eight years operating); there is no third-party dollar figure, so six-figures/mo is likely but UNCONFIRMED - verify before investing. Not filed accounts (US brand). Email alex@mushroomrevival.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. Weaknesses observed live on the Daily 10 PDP on 2026-06-10.","research":{"weaknesses":[{"issue":"Broken buy-box pricing: on the 3-pack the Autoship price shows $37.95 striking through an identical $37.95, while the one-time price is $102.47 - the autoship price does not match the selected pack","area":"pdp","severity":"high","why":"A broken/contradictory price at the exact decision point kills trust and subscribe conversion on a daily consumable."},{"issue":"Broken internal product links: the Best Sellers nav points to handles that 404 (e.g. focus-lions-mane-powder, lions-mane-capsules)","area":"pdp","severity":"high","why":"Dead links from the primary navigation lose buyers mid-journey."},{"issue":"Thin and unmanaged social proof: the hero Daily 10 has only 23 reviews and surfaces negatives prominently (a 1-star email-opt-out complaint and an expired-product complaint) at the buy box","area":"pdp","severity":"med","why":"Low review volume plus visible negatives at the decision point depress conversion."},{"issue":"Heavy discount stacking: a 50%-off sitewide popup, a 20%-off-first-order popup, per-pack save 20-28%, and autoship up-to-36%-off all at once","area":"home","severity":"med","why":"Overlapping promos erode margin and muddy the offer."}],"revenueSignals":[{"method":"Operational scale","detail":"Operates the first USDA-certified-organic cordyceps farm in the Americas; national media presence and the longest-running mushroom podcast; DTC plus retail","source":"Company / press"},{"method":"Catalog + tenure + model","detail":"Eight years operating (since 2018), broad multi-format catalog, premium pricing ($38-455 bundles), autoship/subscription on the PDP","source":"Site + products.json"}],"revenueConfidence":"low","demo":{"primaryPage":"pdp","rationale":"Rebuild the Daily 10 capsule PDP, where the broken autoship price and weak social proof live, and fix the dead nav links.","mechanics":["Fix the autoship/one-time pricing so the price matches the selected pack and the strikethrough shows a real saving (not the same number)","Repair the Best Sellers nav links so they resolve to live PDPs (no 404s)","Pull more curated reviews up beside the buy box and triage/respond to the visible negatives","Consolidate the promo stack into one clear offer"],"bestseller":"Daily 10 Mix Mushroom Capsules - mushroomrevival.com/products/daily-10-mix-mushroom-capsules"},"scrutiny":"Passes as a solid. The weaknesses are real, demo-able bugs (a contradictory autoship price at the buy box, 404 links from the Best Sellers nav, thin reviews with unmanaged negatives), and founder Alex Dorr is about as reachable as founders get (mycologist, top mushroom podcast host, author). The honest soft spot is revenue: there is no third-party figure, only operational-scale inference, so I would treat six-figures/mo as likely but unconfirmed and verify before investing heavily. Lead with the broken buy-box price."},"outreach":{"drafts":[{"subject":"small bug on your Daily 10 page","body":"Hey Alex, big fan of what you have built with the farm and the podcast. Was on your Daily 10 page and noticed the price box looks a bit broken: on the 3-pack the autoship price shows $37.95 with a strike-through of the same $37.95, while the one-time is $102.47, so it is hard to tell what you actually pay. Felt like an easy win, so I rebuilt a cleaned-up version: [demo link]. No agenda, just thought you would want to see it. [Your name]","variant":"warm-human","channel":"email"},{"subject":"your Daily 10 buy box","body":"Hi Alex, a few things on your [bestseller] page are costing conversions: the autoship price ($37.95) does not match the selected 3-pack (one-time $102.47) and strikes through an identical number, a couple of your Best Sellers menu links 404, and the reviews section is thin with some unanswered negatives. I rebuilt the page with the pricing fixed, the links repaired, and reviews pulled up next to the buy button. Quick before/after, no charge: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"rebuilt your Daily 10 page (free)","body":"Hi Alex, I rebuilt your [bestseller] page as a free demo: fixed the autoship/one-time pricing so it matches the selected pack, repaired the 404 nav links, and pulled reviews up next to the buy box. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Alex Dorr","title":"Founder & CEO","email":"alex@mushroomrevival.com","emailStatus":"pattern-guess","linkedin":"https://www.linkedin.com/in/mushroomrevival/"}},{"storeName":"Under the Weather","domain":"undertheweatherpet.com","vertical":"pet","status":"drafted","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":15,"scores":{"revenueTier":5,"weaknessSeverity":3,"accessibility":4,"verticalFit":3},"revenueEstimate":"Est. ~$10M/yr (triangulated, not filed accounts)","leakHypothesis":"Wrong descriptions on the highest-traffic page mislabel products at the moment of choice, confuse cat-vs-dog buyers, and erode trust on a health product.","contactName":"Kyla Sternlieb","contactTitle":"Founder & CEO (owner)","contactEmail":"kyla@undertheweatherpet.com","replyCategory":"","replySummary":"","draftSubject":"rebuilt your best sellers section (free)","draftBody":"Hi Kyla, I put together a free before/after of your homepage Best Sellers: corrected the mismatched descriptions (the Hairball and Colostrum cards are swapped), pulled real review counts onto each card, and ordered them by proof. Here it is: [demo link]. If it is useful I am happy to send the snippet over or walk through it. [Your name]","createdAt":"2026-06-20T23:08:15.905Z","shopifySignal":"products.json store 0364/8736/4667, vendor 'Under the Weather'; multiple live products (e.g. Taurine Powder Topper for Cats, Nursing Kit for Puppies) ship with empty body_html","operatorTodo":["Verify kyla@undertheweatherpet.com before sending - pattern guess; Apollo people-match needs a paid plan.","Run PageSpeed on the homepage and a couple of PDPs.","Eyeball the live Best Sellers module and screenshot the mismatched cards before outreach (observed 2026-06-20).","Check the same section on mobile - browser mobile-emulation was unavailable this run."],"caveats":"Revenue is a TRIANGULATED estimate (2024 Entrepreneur feature ~$10M + SEMrush ~16k organic/mo + on-site 100k-customer claim), not filed accounts. Email kyla@undertheweatherpet.com is a PATTERN GUESS, not verified (Apollo unavailable on the free plan). Lighthouse not yet run. Mobile not verified (browser mobile-emulation unavailable). The mismatched Best Sellers descriptions and empty product body_html were observed live on 2026-06-20. No mockup this run.","research":{"weaknesses":[{"issue":"Homepage Best Sellers cards carry mismatched product descriptions: the cat 'Hairball Support Gel' card reads 'a variety pack of soothing instant meals for your pup's upset tummy', and the 'Colostrum Gel for Cats' card carries the hairball-elimination blurb - the copy belongs to other products","area":"home","severity":"high","why":"Wrong descriptions on the highest-traffic page mislabel products at the moment of choice, confuse cat-vs-dog buyers, and erode trust on a health product."},{"issue":"Multiple products ship with no description at all (empty body_html in products.json, e.g. Taurine Powder Topper for Cats, Nursing Kit for Puppies), so those PDPs have no body copy","area":"pdp","severity":"med","why":"An empty PDP description lowers conversion and forfeits product-page SEO on supplements people research before buying."},{"issue":"Social-proof inconsistency: several Best Sellers cards show very low review counts (4-7 reviews) sitting directly beside hero claims of 100,000+ customers and 250,000+ pets helped","area":"home","severity":"med","why":"Thin per-product proof next to a huge headline number reads as a mismatch and weakens both claims."},{"issue":"The Best Sellers grid mixes well-reviewed hero SKUs (e.g. Ready-Cal, 194 reviews) with brand-new 4-7 review items without ordering by proof, diluting the strongest social proof","area":"home","severity":"low","why":"Leading with low-proof items in a best-sellers module wastes the most persuasive real estate on the page."}],"revenueSignals":[{"method":"Press figure","detail":"2024 Entrepreneur feature headline states the business makes $10 million a year; founder profiled by name","source":"Entrepreneur"},{"method":"Organic traffic","detail":"SEMrush US: ~15,964 organic visits/mo across ~22,800 ranking keywords","source":"SEMrush domain_rank (us)"},{"method":"Scale claims","detail":"Site states 100,000+ customers and 250,000+ pets helped; broad multi-line catalog with an active blog and reviews","source":"Live site"}],"revenueConfidence":"high","demo":{"primaryPage":"home","rationale":"Rebuild the homepage Best Sellers section so each card shows its own correct description, proof is consistent, and the best-reviewed products lead.","mechanics":["Fix the card copy so each product shows its own description (Hairball Gel reads as a hairball product, Colostrum reads as colostrum)","Pull the live review count and rating onto each card from the same source as the PDP so the numbers match","Order the grid by review volume so the strongest social proof leads","Add a one-line concern tag (Digestion, Hairball, Recovery) so cat and dog buyers self-select correctly"],"bestseller":"Homepage Best Sellers module - undertheweatherpet.com"},"scrutiny":"Passes as a solid. Revenue is the strongest part - a named Entrepreneur feature puts it near $10M and SEMrush shows ~16k organic visits/mo, so this is a real business not a guess. Founder-CEO Kyla Sternlieb still owns it and is publicly named, so reachability is genuine. The leak is real and screenshot-able (mismatched Best Sellers descriptions, plus empty PDP bodies confirmed in products.json) but it is a content and merchandising cleanup rather than a broken funnel, so it is a credibility fix worth an hour, not a full rebuild - lead honestly on that. Worth an hour."},"outreach":{"drafts":[{"subject":"small mixup on your best sellers","body":"Hi Kyla, I was on your site looking at the cat gels and noticed the Hairball Support Gel card actually describes 'soothing instant meals for your pup', and the Colostrum gel card has the hairball wording - looks like a couple of the best-seller descriptions got crossed. Easy fix, but on a health product it is the kind of thing that makes a first-time buyer hesitate. I tidied up that section as a quick before/after if you want to see it: [demo link]. Love what you have built. [Your name]","variant":"warm-human","channel":"email"},{"subject":"your best sellers section is mislabeling products","body":"Hi Kyla, on your homepage Best Sellers the cat Hairball Gel is described as instant meals for a pup and the Colostrum gel carries the hairball blurb, and a few of those product pages have no description at all. For a 100,000-customer health brand that is avoidable friction right where people choose. I rebuilt the section so each card shows its own correct copy, the review counts match the product pages, and the best-reviewed items lead: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"rebuilt your best sellers section (free)","body":"Hi Kyla, I put together a free before/after of your homepage Best Sellers: corrected the mismatched descriptions (the Hairball and Colostrum cards are swapped), pulled real review counts onto each card, and ordered them by proof. Here it is: [demo link]. If it is useful I am happy to send the snippet over or walk through it. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Kyla Sternlieb","title":"Founder & CEO (owner)","email":"kyla@undertheweatherpet.com","emailStatus":"pattern-guess","linkedin":"https://www.crunchbase.com/person/kyla-sternlieb-d976"}},{"storeName":"Tactipup","domain":"tactipup.com","vertical":"pet","status":"drafted","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":14,"scores":{"revenueTier":2,"weaknessSeverity":4,"accessibility":4,"verticalFit":4},"revenueEstimate":"Est. low-to-mid seven figures/yr (six-figures/mo, inferred - no public figure)","leakHypothesis":"Buyers cannot see the camo and thread combo they are building and must cross-reference a gallery image against dropdown text - high friction on a product sold entirely on its look.","contactName":"Paul Haynes","contactTitle":"Owner","contactEmail":"paul@tactipup.com","replyCategory":"","replySummary":"","draftSubject":"rebuilt your bestseller collar page (free)","draftBody":"Hi Paul, I rebuilt your [bestseller] page as a free demo: the camo and thread-color dropdowns are now clickable swatches, neck size is buttons, and there is a live preview above one clear Add to Cart. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","createdAt":"2026-06-20T23:08:15.907Z","shopifySignal":"products.json store 1717/9379, vendor Tactipup; bestseller is a single Default-Title variant with options bolted on via the Bold Product Options app","operatorTodo":["Verify paul@tactipup.com before sending - pattern guess; ZoomInfo shows owner email starts with p; Apollo match needs a paid plan.","Confirm the swatch-vs-dropdown finding and the buried Add-to-Cart on mobile (browser mobile-emulation was unavailable this run).","Run PageSpeed on the homepage (slow hero) and the collar PDP.","Swap the mockup swatch stand-in colors for the real crops from their Color Menu image before sending."],"caveats":"Revenue is a LOW-confidence inference (no third-party dollar figure; 4,157+ reviews, nine years operating, and a made-to-order backlog as scale signals), not filed accounts. Email paul@tactipup.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan; ZoomInfo shows the owner email begins with p). Mobile not verified live (browser mobile-emulation unavailable this run). Lighthouse not yet run. The PDP leak was observed live on 2026-06-12. Mockup is a DRAFT - swatch colors are brand-color stand-ins pending the real Color Menu crops.","research":{"weaknesses":[{"issue":"PDP leak: the bestseller collar is a visually-customized product (camo pattern, embroidery thread color, size) configured through five required plain text dropdowns via Bold Options (Camo Pattern/Color, Neck Size, Custom Text, Font Color, Add flag Patch) with no clickable swatches; the real colors exist only as a static Color Menu reference image in the gallery","area":"pdp","severity":"high","why":"Buyers cannot see the camo and thread combo they are building and must cross-reference a gallery image against dropdown text - high friction on a product sold entirely on its look."},{"issue":"Add-to-Cart is buried below all five stacked required option fields; nothing actionable sits above the fold on the buy side","area":"pdp","severity":"med","why":"Every extra required step before a visible Add-to-Cart sheds conversions, especially on mobile."},{"issue":"Perpetual Sale: every product shows a struck compare-at price (e.g. $34.95 / $39.95) sitewide and on the homepage","area":"home","severity":"med","why":"Always-on fake discounting trains buyers to discount the brand and weakens real promotions."},{"issue":"Slow-loading hero: the homepage hero renders as a blank black void for roughly three seconds before the photo appears (verified - it does load)","area":"home","severity":"med","why":"Cold traffic can hit an empty above-the-fold for several seconds, a real LCP and bounce risk (confirm with PageSpeed)."}],"revenueSignals":[{"method":"Operational scale","detail":"Bestseller 1.5in collar has 4,157 reviews (Extreme collar +1,694); made-to-order USA workshop with a 1-2 week backlog; nine years operating (since 2017); featured in press","source":"Live site / press"},{"method":"Catalog + tenure","detail":"Broad personalized catalog (collars, leashes, harnesses, patches), perpetual demand, established 2017","source":"Site + products.json"}],"revenueConfidence":"low","demo":{"primaryPage":"pdp","rationale":"Rebuild the bestseller collar PDP so a visually-customized product is configured visually: swatch tiles for camo, thread-color dots, size buttons, and a clear preview above one Add-to-Cart.","mechanics":["Replace the camo/color text dropdown with clickable swatch tiles that update the preview","Replace the font-color dropdown with thread-color dots","Turn neck size into buttons with the inch ranges inline","Surface one clear Add-to-Cart with the live price directly under the selectors"],"bestseller":"Personalized 1.5in Basic Tactical Dog Collar - tactipup.com/products/personalized-1-5-basic-tactical-dog-collar"},"scrutiny":"Passes as a solid and is the cleanest leak of the day. A $35 collar whose entire appeal is the look is sold through five plain text dropdowns with no visual swatches (Bold Options bolted onto a single-variant product), and the Add-to-Cart sits below all of them. That is specific, visible, and exactly what a swatch-based PDP rebuild fixes - the leak-matched mockup is built. Revenue is the soft spot (no public figure, only 4,157+ reviews and a made-to-order backlog as scale signals), so treat six-figures/mo as likely but unconfirmed. Owner is reachable. Worth an hour."},"outreach":{"drafts":[{"subject":"building a collar on your site","body":"Hey Paul, went to build a collar for my dog on your site and realized I was picking the camo and the thread color from plain dropdown menus, so I could not actually see the combo I was making until I cross-referenced your color chart image. The collars themselves look awesome. I rebuilt your bestseller page with clickable camo and color swatches plus a live preview so people can see what they are buying: [demo link]. No agenda, just thought you would want to see it. [Your name]","variant":"warm-human","channel":"email"},{"subject":"your collar page is sold on looks but picked by dropdowns","body":"Hi Paul, your [bestseller] is a visual product but it is configured through five text dropdowns (camo, size, text, font color, flag) with the real colors hidden in a gallery image, and the Add to Cart sits below all five. For a $35 collar people buy for the look, that is friction. I rebuilt the PDP with visual camo and thread swatches, size buttons, a preview, and one clear Add to Cart. Quick before/after, no charge: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"rebuilt your bestseller collar page (free)","body":"Hi Paul, I rebuilt your [bestseller] page as a free demo: the camo and thread-color dropdowns are now clickable swatches, neck size is buttons, and there is a live preview above one clear Add to Cart. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Paul Haynes","title":"Owner","email":"paul@tactipup.com","emailStatus":"pattern-guess","linkedin":"https://www.tactipup.com/pages/about-us"}},{"storeName":"Pup Labs","domain":"puplabs.com","vertical":"pet","status":"drafted","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":14,"scores":{"revenueTier":3,"weaknessSeverity":3,"accessibility":4,"verticalFit":4},"revenueEstimate":"~$2-3M/yr (reported mid-2024)","leakHypothesis":"A shopper who notices the same product flip from ~2,900 to 99 reviews at the buy box loses trust; inflated or contradictory social proof reads as fake and depresses conversion on an otherwise high-intent page.","contactName":"Peter Tzemis","contactTitle":"Founder","contactEmail":"peter@puplabs.com","replyCategory":"","replySummary":"","draftSubject":"tightened up your ProDenta page (free)","draftBody":"Hi Peter, I rebuilt your ProDenta page as a free demo: one consistent honest review count, a clean product render instead of the promo-overlay image, and a standing subscribe offer instead of the always-today deadline. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","createdAt":"2026-06-20T23:08:15.907Z","shopifySignal":"products.json store 0627/1234/8910, vendor puplabsco; assets on cdn.shopify.com","operatorTodo":["Verify peter@puplabs.com before sending - pattern guess; Apollo match needs a paid plan.","Confirm the ProDenta review-count discrepancy is still live and not a widget-loading artifact - screenshot the homepage card and the PDP side by side.","Run PageSpeed on the ProDenta PDP; pull a clean ProDenta product render for any demo.","MOCKUP SKIPPED - flagged for manual generation: the leak is a cross-page data inconsistency (awkward to demo as a single-page rebuild) and the only ProDenta hero on their CDN is a promo-overlay image the recipe says to avoid. Generate by hand with a clean render."],"caveats":"Revenue ~$2-3M is a reported mid-2024 third-party figure, not filed accounts (US brand). Email peter@puplabs.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Mobile not verified live (browser mobile-emulation unavailable this run). Lighthouse not yet run. The review-count numbers were read live on 2026-06-12; confirm they are not a review-widget loading artifact before sending. No mockup generated - flagged for manual generation (see operatorTodo).","research":{"weaknesses":[{"issue":"Social-proof contradiction: the ProDenta product shows 2,946 reviews on the homepage bestseller card but only 99 reviews on its own PDP; the homepage hero claims 25,000 reviews sitewide while the trust bar says 15,000+","area":"pdp","severity":"high","why":"A shopper who notices the same product flip from ~2,900 to 99 reviews at the buy box loses trust; inflated or contradictory social proof reads as fake and depresses conversion on an otherwise high-intent page."},{"issue":"Manufactured today-only urgency: the PDP frames a standing subscribe discount as Todays Price plus an Order By Jun 12th deadline that is always the current day","area":"pdp","severity":"med","why":"Date-stamped fake urgency erodes credibility with returning visitors who keep seeing the same today deadline."},{"issue":"Promo-overlay hero image: the ProDenta hero is a marketing graphic with 20% OFF Subscription, Free dog treats, and a FREE GIFT badge baked into the product image rather than a clean product render","area":"pdp","severity":"med","why":"Baked-in promo graphics date quickly, cannot be A/B tested, and look busy and templated at the decision point."},{"issue":"Lowest-risk entry option out of stock: on Tummy Essentials the single 1 Pouch is sold out, pushing the entry price to a $100 two-pack","area":"pdp","severity":"med","why":"Removing the low-risk trial size raises the first-purchase barrier in a trust-driven category."}],"revenueSignals":[{"method":"Reported revenue","detail":"Reported annual revenue of $2-3M as of mid-2024 (trade write-up)","source":"businessabc / trade press"},{"method":"Operational scale","detail":"Claims 100,000+ customers and 25,000 reviews; broad vet-formulated catalog; named lead vet consultant; founder is a known DTC operator","source":"Live site"}],"revenueConfidence":"medium","demo":{"primaryPage":"pdp","rationale":"Rebuild the ProDenta PDP with one honest review number from a single source of truth, a clean product render, and a standing (not fake-dated) offer.","mechanics":["Unify the review count from one source so the homepage card, hero, and PDP all show the same honest number","Replace the promo-overlay hero with a clean product render and move the offer into the buy box","Drop the date-stamped fake urgency for a standing, honest subscribe offer","Restore a low-risk single-unit entry option or a clear trial"],"bestseller":"ProDenta Dog Dental Powder - puplabs.com/products/prodenta"},"scrutiny":"Passes as a solid, with eyes open. Pup Labs is an aggressively-optimized CRO funnel, so this is NOT a weak-theme rebuild - the honest, pointable leak is a social-proof contradiction (ProDenta shows ~2,946 reviews on the homepage but 99 on its PDP; hero says 25,000, trust bar says 15,000+). That objective inconsistency is a real trust-tax at the buy box, but it is a data/merchandising fix more than a theme overhaul - lead with the review-count contradiction, keep expectations honest, and do not oversell a broken site it is not. Founder is reachable."},"outreach":{"drafts":[{"subject":"quick thing on your ProDenta page","body":"Hi Peter, big respect for the funnel you have built at Pup Labs. One thing jumped out: your homepage card says ProDenta has about 2,946 reviews, but the ProDenta page itself shows 99, and the hero says 25,000 reviews while the badge strip says 15,000-plus. Sharp buyers notice that and it dents trust right at the buy box. I mocked up a cleaned-up version with one honest number throughout: [demo link]. No agenda, just thought you would want to know. [Your name]","variant":"warm-human","channel":"email"},{"subject":"your review counts contradict each other","body":"Hi Peter, on ProDenta your numbers disagree across the funnel: 2,946 reviews on the homepage card, 99 on the PDP, 25,000 in the hero, 15,000-plus in the trust bar. On a trust-driven supplement that contradiction costs conversions. I rebuilt the PDP pulling one honest review number from a single source, with a clean product render and a standing offer instead of the always-today deadline. Quick before/after: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"tightened up your ProDenta page (free)","body":"Hi Peter, I rebuilt your ProDenta page as a free demo: one consistent honest review count, a clean product render instead of the promo-overlay image, and a standing subscribe offer instead of the always-today deadline. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Peter Tzemis","title":"Founder","email":"peter@puplabs.com","emailStatus":"pattern-guess","linkedin":"https://www.linkedin.com/in/petertzemis"}},{"storeName":"BIOHM Health","domain":"biohmhealth.com","vertical":"supplements","status":"drafted","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":14,"scores":{"revenueTier":3,"weaknessSeverity":3,"accessibility":4,"verticalFit":4},"revenueEstimate":"~$5-6M/yr (estimate)","leakHypothesis":"On-site product copy routes buyers to a 404 instead of the flagship product.","contactName":"Afif Ghannoum","contactTitle":"Co-Founder & CEO","contactEmail":"afif@biohmhealth.com","replyCategory":"","replySummary":"","draftSubject":"rebuilt your probiotic page (free)","draftBody":"Hi Afif, I rebuilt your [bestseller] page as a free demo: fixed the 404 link from your product copy, consolidated the overlapping discounts into one clear offer, and cleaned up the markup. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","createdAt":"2026-06-20T23:08:15.909Z","shopifySignal":"products.json returns a full Shopify catalog (store 1713/4291); assets on cdn.shopify.com; pages built with Shogun","operatorTodo":["Verify afif@biohmhealth.com before sending - pattern guess; Apollo match needs a paid plan.","Confirm whether a JS reviews widget loads on the probiotic PDP (the reviews-absence weakness should be eyeballed live).","Run PageSpeed Insights on the probiotic PDP (mobile + desktop) - the Shogun/Word markup is likely a speed drag.","Pull biohmhealth.com/products/probiotic-supplement.json for exact variants to build the demo.","Capture a navbar+hero screenshot (capture-screenshot.js/thum.io was network-blocked in the build sandbox)."],"caveats":"Revenue ~$5-6M is a third-party aggregator estimate (Growjo / ZoomInfo / PitchBook), not filed accounts (US brand). Email afif@biohmhealth.com is a PATTERN GUESS, not verified (Apollo people-match unavailable on the free plan). Lighthouse not yet run. The reviews-absence weakness should be confirmed live (a JS widget may load). Observed 2026-06-10.","research":{"weaknesses":[{"issue":"Broken internal product link: the live Nourish Regimen page links its PROBIOTIC to /products/biohm-probiotic-supplement, which 404s (the live handle is /products/probiotic-supplement)","area":"pdp","severity":"high","why":"On-site product copy routes buyers to a 404 instead of the flagship product."},{"issue":"Discount-stacking on the flagship PDP: a sale price, Subscribe & Save 15%, a 40%-off code (TOTALPRO40), and a save-about-30% claim all shown at once","area":"pdp","severity":"med","why":"Overlapping discounts erode margin and muddy the offer at the decision point."},{"issue":"Product pages are built in Shogun with content pasted from MS Word (SCXW/TextRun span artifacts in the HTML), producing bloated, hard-to-maintain markup","area":"pdp","severity":"med","why":"Bloat hurts maintainability and likely page speed (confirm with PageSpeed)."},{"issue":"Customer reviews/ratings are not surfaced at the buy box on the flagship probiotic (it leans on a clinical study and a 2023 award; no visible star rating or review count)","area":"pdp","severity":"med","why":"No customer social proof at the decision point on a $35 supplement."}],"revenueSignals":[{"method":"Third-party revenue estimate","detail":"Growjo puts revenue at ~$5.5M (29 employees); another aggregator ~$6.4M (21 employees); PitchBook ~24 employees","source":"Growjo / ZoomInfo / PitchBook"},{"method":"Funding + operations","detail":"Venture-backed (Vanterra Capital, Middleland Capital); clinically studied formulas; DTC plus an at-home gut test","source":"PR Newswire / AgFunder"}],"revenueConfidence":"medium","demo":{"primaryPage":"pdp","rationale":"Rebuild the Total Gut Probiotic PDP: fix the dead link, simplify the offer, clean up the markup, and add reviews.","mechanics":["Fix the broken PROBIOTIC link so on-site copy points to the live /products/probiotic-supplement","Consolidate the sale + subscribe + 40%-code + save-30% into one clear, honest offer","Rebuild the PDP with clean semantic HTML (drop the Shogun/Word-paste bloat) for speed and maintainability","Add a customer reviews/ratings widget at the buy box"],"bestseller":"Total Gut Probiotic Supplement - biohmhealth.com/products/probiotic-supplement"},"scrutiny":"Passes as a solid. Revenue is real (~$5-6M, two aggregators agree) and the founders are credible and reachable (Afif is a public operator, Dr. Ghannoum a renowned scientist). The weaknesses are concrete and demo-able: a verified 404 from live product copy to the flagship, a confusing four-way discount stack, and bloated Shogun/Word markup. The reviews-absence is the softest point - confirm a JS review widget is truly missing before leaning on it. Lead with the dead flagship link."},"outreach":{"drafts":[{"subject":"small thing on your site","body":"Hi Afif, really like the mycobiome angle BIOHM is built on. Was reading your Nourish Regimen page and the PROBIOTIC link in the copy goes to a 404 (looks like an old handle), so people clicking through to your flagship hit a dead end. Easy win, so I patched it and cleaned up the product page in a quick demo: [demo link]. No agenda, just thought you would want to know. [Your name]","variant":"warm-human","channel":"email"},{"subject":"dead link to your flagship probiotic","body":"Hi Afif, a few things on your [bestseller] flow are leaking sales: your Nourish Regimen page links PROBIOTIC to a handle that 404s, the probiotic PDP stacks a sale price plus subscribe plus a 40%-off code plus a save-30% claim at once, and the page markup is heavy Shogun/Word paste. I rebuilt the PDP with the link fixed, one clear offer, clean markup, and reviews added. Quick before/after, no charge: [demo link]. Worth a look? [Your name]","variant":"teardown","channel":"email"},{"subject":"rebuilt your probiotic page (free)","body":"Hi Afif, I rebuilt your [bestseller] page as a free demo: fixed the 404 link from your product copy, consolidated the overlapping discounts into one clear offer, and cleaned up the markup. Before/after here: [demo link]. If it is useful, happy to walk through it on a quick call. [Your name]","variant":"demo-first","channel":"email"}]},"contact":{"name":"Afif Ghannoum","title":"Co-Founder & CEO","email":"afif@biohmhealth.com","emailStatus":"pattern-guess","linkedin":"https://www.linkedin.com/company/biohm-health"}},{"storeName":"Goodlands Food Co.","domain":"goodlandsfood.co","vertical":"hot sauce and specialty condiments","status":"researched","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":12,"scores":{"revenueTier":2,"weaknessSeverity":3,"accessibility":3,"verticalFit":4},"revenueEstimate":"$50K-$150K ARR","leakHypothesis":"The homepage product grid lacks scarcity signals, reviews, or heat-level indicators despite offering 12+ SKUs with varying flavor profiles—customers may abandon at product selection due to unclear differentiation between similar-priced sauces ($12-14 bottles).","contactName":"","contactTitle":"","contactEmail":"","replyCategory":"","replySummary":"","draftSubject":"one thing I noticed on the Goodlands product grid","draftBody":"The Spice Flights bundle caught my eye, but I had to look for it. If shoppers are landing on the product grid and mostly seeing single bottles without a clear reason to consider the multi-pack, that path to a higher order value might be harder to find than it needs to be. Small positioning shifts there can sometimes move the needle more than any ad spend. Happy to share a quick idea if it would be useful. Lucia","createdAt":"2026-06-15T13:24:54.934Z","shopifySignal":"","operatorTodo":[],"caveats":"","research":{"weaknesses":[],"revenueSignals":[],"revenueConfidence":"low","demo":{},"scrutiny":""},"outreach":{"drafts":[{"subject":"one thing I noticed on the Goodlands product grid","body":"The Spice Flights bundle caught my eye, but I had to look for it. If shoppers are landing on the product grid and mostly seeing single bottles without a clear reason to consider the multi-pack, that path to a higher order value might be harder to find than it needs to be. Small positioning shifts there can sometimes move the needle more than any ad spend. Happy to share a quick idea if it would be useful. Lucia","variant":"standard","createdAt":"2026-06-15T12:42:33.232Z"}]},"contact":{"name":"","title":"","email":"","emailStatus":"","linkedin":""}},{"storeName":"Barkriffic","domain":"barkriffic.com","vertical":"handmade dog treats","status":"no_email","priority":"solid","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":12,"scores":{"revenueTier":2,"weaknessSeverity":3,"accessibility":3,"verticalFit":4},"revenueEstimate":"$5K-$25K/month","leakHypothesis":"Product pages may lack sufficient social proof elements (reviews, user photos, testimonials) that typically drive conversion in handmade/artisanal pet product categories, potentially reducing buyer confidence at checkout despite strong product differentiation.","contactName":"","contactTitle":"","contactEmail":"","replyCategory":"","replySummary":"","draftSubject":"","draftBody":"","createdAt":"2026-06-15T13:56:02.879Z","shopifySignal":"","operatorTodo":[],"caveats":"","research":{"weaknesses":[],"revenueSignals":[],"revenueConfidence":"low","demo":{},"scrutiny":""},"outreach":{"drafts":[]},"contact":{"name":"","title":"","email":"","emailStatus":"","linkedin":""}},{"storeName":"Nala and Lucas","domain":"nalaandlucas.com","vertical":"dog treats and jerky","status":"disqualified","priority":"disqualified","track":"standard","disqualified":false,"disqualifyReason":"","fitScore":13,"scores":{"revenueTier":3,"weaknessSeverity":2,"accessibility":3,"verticalFit":5},"revenueEstimate":"$150K–$500K ARR","leakHypothesis":"The navigation menu repeats identically in both header and footer with no visual distinction, and the homepage lacks product imagery or hero visuals—only text blocks—which may increase cognitive load and reduce initial engagement before users reach product gallery pages.","contactName":"Tom","contactTitle":"Founder and Business Owner","contactEmail":"info@stagheaddesigns.com","replyCategory":"","replySummary":"","draftSubject":"","draftBody":"","createdAt":"2026-06-15T13:56:06.456Z","shopifySignal":"","operatorTodo":[],"caveats":"","research":{"weaknesses":[],"revenueSignals":[],"revenueConfidence":"medium","demo":{},"scrutiny":""},"outreach":{"drafts":[]},"contact":{"name":"Tom","title":"Founder and Business Owner","email":"info@stagheaddesigns.com","emailStatus":"","linkedin":""}}];/*SEED_END*/
+"use strict";
+var API = "https://konarstudio.app.n8n.cloud/webhook/prospects-feed-k2x9";
 
-const $  = (s,r)=> (r||document).querySelector(s);
-const $$ = (s,r)=> Array.prototype.slice.call((r||document).querySelectorAll(s));
-const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const num = v => { const n = parseFloat(v); return Number.isFinite(n)?n:0; };
-
-const IC = {
-  layers:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3 3 8l9 5 9-5-9-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-  send:'<svg viewBox="0 0 24 24" fill="none"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-  target:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
-  pen:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-  mail:'<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>',
-  copy:'<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2"/></svg>'
-};
+var $  = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
+function cap(s){ return s? s.charAt(0).toUpperCase()+s.slice(1) : s; }
 
 /* ---------- state ---------- */
-let RAW = [];
-let filter = 'all', sortKey = null, sortDir = 1, search = '';
-let drawerData = null, draftIdx = 0;
+var RAW = [];
+var STATE = 'loading';           // loading | ready | empty | error
+var filter = 'all';
+var sortKey = 'fit', sortDir = -1;
+var search = '';
+var drawerData = null, draftIdx = 0;
 
 /* ---------- defensive field mapping (flat first, then nested) ---------- */
 function norm(p){
-  const r=p.research||{}, c=p.contact||{}, o=p.outreach||{};
-  let drafts = (o.drafts && o.drafts.length) ? o.drafts
+  var r=p.research||{}, c=p.contact||{}, o=p.outreach||{};
+  var drafts = (o.drafts && o.drafts.length) ? o.drafts
             : (p.draftBody || p.draftSubject) ? [{variant:'draft', channel:'email', subject:p.draftSubject, body:p.draftBody}] : [];
+  var emailStatus = c.emailStatus || p.emailStatus || '';
+  var emailVerified = c.emailVerified===true || emailStatus==='verified';
   return {
     storeName: p.storeName || p.title || 'Untitled',
     domain: p.domain || '',
     vertical: p.vertical || '',
     status: p.status || 'researched',
     priority: p.priority || '',
-    disqualified: p.disqualified === true || p.status === 'disqualified',
-    fitScore: num(p.fitScore != null ? p.fitScore : r.fitScore),
+    track: p.track || '',
+    disqualified: p.disqualified===true || p.status==='disqualified',
+    disqualifyReason: p.disqualifyReason || '',
+    shopifyConfirmed: p.shopifyConfirmed===true || !!p.shopifySignal,
+    shopifySignal: p.shopifySignal || '',
+    fitScore: num(p.fitScore!=null ? p.fitScore : r.fitScore),
     scores: p.scores || r.scores || {},
     revenueEstimate: p.revenueEstimate || r.revenueEstimate || '',
     revenueConfidence: p.revenueConfidence || r.revenueConfidence || '',
@@ -395,230 +330,225 @@ function norm(p){
     weaknesses: p.weaknesses || r.weaknesses || [],
     demo: p.demo || r.demo || null,
     scrutiny: p.scrutiny || r.scrutiny || '',
-    contact: {
-      name:  c.name  || p.contactName  || '',
-      title: c.title || p.contactTitle || '',
-      email: c.email || p.contactEmail || '',
-      emailStatus: c.emailStatus || p.emailStatus || '',
-      linkedin: c.linkedin || ''
-    },
+    panelNotes: r.panelNotes || p.panelNotes || '',
+    contact: { name:c.name||p.contactName||'', title:c.title||p.contactTitle||'', email:c.email||p.contactEmail||'', emailStatus:emailStatus, emailVerified:emailVerified, linkedin:c.linkedin||'' },
     drafts: drafts,
     operatorTodo: p.operatorTodo || r.operatorTodo || [],
-    caveats: p.caveats || r.caveats || '',
-    mockupStatus: p.mockupStatus || r.mockupStatus || null,
-    replyCategory: p.replyCategory || '', replySummary: p.replySummary || ''
+    caveats: p.caveats || r.caveats || ''
   };
 }
 
 /* ---------- badges ---------- */
-const STATUS_BADGE = {researched:['b-slate','Researched'],drafted:['b-blue','Drafted'],no_email:['b-amber','Needs email'],approved:['b-green','Approved'],sent:['b-violet','Sent'],replied:['b-green','Replied'],disqualified:['b-red','Disqualified']};
-const PRIORITY_BADGE = {top:['b-green','Top'],solid:['b-blue','Solid'],hold:['b-amber','Hold'],skip:['b-slate','Skip']};
-function statusBadge(s){ const m=STATUS_BADGE[s]||['b-slate', s||'—']; return '<span class="badge '+m[0]+'"><span class="bd"></span>'+esc(m[1])+'</span>'; }
-function priorityBadge(p,disq){ if(disq && !PRIORITY_BADGE[p]) return '<span class="badge b-red"><span class="bd"></span>DQ</span>'; const m=PRIORITY_BADGE[p]||['b-slate', p||'—']; return '<span class="badge '+m[0]+'"><span class="bd"></span>'+esc(m[1])+'</span>'; }
-function fitColor(n){ return n>=15?'var(--green)':n>=12?'var(--accent)':n>=9?'var(--amber)':'var(--slate)'; }
-function confBadge(c){ if(!c) return ''; const cl = (c==='high')?'b-green':(c==='medium'||c==='med')?'b-amber':'b-slate'; return '<span class="badge '+cl+'"><span class="bd"></span>'+esc(c)+' confidence</span>'; }
-
-/* ---------- filters + counts ---------- */
-const FILTERS = {
-  all: function(){return true;},
-  top: function(p){return p.priority==='top';},
-  drafted: function(p){return p.status==='drafted';},
-  no_email: function(p){return p.status==='no_email';},
-  disqualified: function(p){return p.disqualified;}
-};
-function counts(){
-  const c={all:RAW.length,top:0,drafted:0,no_email:0,disqualified:0};
-  RAW.forEach(function(p){ if(FILTERS.top(p))c.top++; if(FILTERS.drafted(p))c.drafted++; if(FILTERS.no_email(p))c.no_email++; if(FILTERS.disqualified(p))c.disqualified++; });
-  return c;
+var STATUS_BADGE = {researched:['b-grey','Researched'],drafted:['b-blue','Drafted'],no_email:['b-amber','Needs email'],approved:['b-green','Approved'],sent:['b-violet','Sent'],replied:['b-green','Replied'],disqualified:['b-red','Disqualified']};
+var PRIORITY_BADGE = {top:['b-green','Top'],solid:['b-blue','Solid'],hold:['b-amber','Hold'],skip:['b-grey','Skip']};
+function badge(cls,label){ return '<span class="badge '+cls+'"><span class="dot"></span>'+esc(label)+'</span>'; }
+function statusBadge(s){ var m=STATUS_BADGE[s]||['b-grey', cap(s)||'—']; return badge(m[0],m[1]); }
+function priorityBadge(p,disq){ if(disq && !PRIORITY_BADGE[p]) return badge('b-red','Disqualified'); var m=PRIORITY_BADGE[p]||['b-grey', cap(p)||'—']; return badge(m[0],m[1]); }
+function emailBadge(c){
+  if(!c.email) return badge('b-amber','no email');
+  if(c.emailVerified) return badge('b-green','verified');
+  if(c.emailStatus==='pattern-guess') return badge('b-amber','pattern-guess · unverified');
+  return badge('b-grey', c.emailStatus ? c.emailStatus : 'unverified');
 }
-function revNum(s){ if(!s) return 0; const m=String(s).match(/([\d.]+)\s*([MK])?/i); if(!m) return 0; let n=parseFloat(m[1])||0; const u=(m[2]||'').toUpperCase(); if(u==='M')n*=1e6; if(u==='K')n*=1e3; return n; }
+function fitColor(n){ return n>=15?'var(--green)':n>=12?'var(--accent)':n>=9?'var(--amber)':'var(--grey)'; }
+function variantLabel(v){ var m={'warm-human':'Warm-human','teardown':'Teardown','demo-first':'Demo-first','value-first':'Value-first','follow-up':'Follow-up','standard':'Standard'}; return m[v] || (v? v.split('-').map(cap).join(' ') : 'Draft'); }
+
+/* ---------- filters + sort ---------- */
+var FILTERS = {
+  all: function(){ return true; },
+  top: function(p){ return p.priority==='top'; },
+  solid: function(p){ return p.priority==='solid'; },
+  hold: function(p){ return p.priority==='hold'; },
+  drafted: function(p){ return p.status==='drafted'; },
+  no_email: function(p){ return p.status==='no_email'; },
+  disqualified: function(p){ return p.disqualified; }
+};
+function count(fn){ var n=0; for(var i=0;i<RAW.length;i++){ if(fn(RAW[i])) n++; } return n; }
+var PRANK = {top:0,solid:1,hold:2,skip:3,disqualified:4};
 function visible(){
-  let list = RAW.filter(FILTERS[filter] || function(){return true;});
-  if(search){ const q=search.toLowerCase(); list = list.filter(function(p){ return (p.storeName+' '+p.domain+' '+p.contact.name+' '+p.contact.title+' '+p.leakHypothesis).toLowerCase().indexOf(q)>=0; }); }
-  if(sortKey){
-    list = list.slice().sort(function(a,b){
-      if(sortKey==='storeName'){ const av=a.storeName.toLowerCase(), bv=b.storeName.toLowerCase(); return av<bv?-sortDir:av>bv?sortDir:0; }
-      if(sortKey==='fit'){ return (a.fitScore-b.fitScore)*sortDir; }
-      if(sortKey==='rev'){ return (revNum(a.revenueEstimate)-revNum(b.revenueEstimate))*sortDir; }
-      return 0;
-    });
-  }
+  var list = RAW.filter(FILTERS[filter] || FILTERS.all);
+  if(search){ var q=search.toLowerCase(); list = list.filter(function(p){ return (p.storeName+' '+p.domain+' '+p.vertical).toLowerCase().indexOf(q)>=0; }); }
+  list = list.slice().sort(function(a,b){
+    if(sortKey==='store'){ var av=a.storeName.toLowerCase(), bv=b.storeName.toLowerCase(); return av<bv?-sortDir:av>bv?sortDir:0; }
+    if(sortKey==='priority'){ var ra=(PRANK[a.priority]!=null?PRANK[a.priority]:9), rb=(PRANK[b.priority]!=null?PRANK[b.priority]:9); return (ra-rb)*sortDir || (b.fitScore-a.fitScore); }
+    return (a.fitScore-b.fitScore)*sortDir;
+  });
   return list;
 }
 
-/* ---------- renderers ---------- */
+/* ---------- KPI ---------- */
 function renderKPIs(){
-  const total=RAW.length, qualified=RAW.filter(function(p){return !p.disqualified;}).length;
-  const ready=RAW.filter(FILTERS.top).length;
-  const fits=RAW.filter(function(p){return !p.disqualified;}).map(function(p){return p.fitScore;}).filter(function(n){return n>0;});
-  const avg=fits.length?(fits.reduce(function(a,b){return a+b;},0)/fits.length):0;
-  const drafted=RAW.filter(FILTERS.drafted).length, noemail=RAW.filter(FILTERS.no_email).length;
-  const card=function(lab,val,foot,col,soft,ico){return '<div class="kpi"><div class="kpi-top"><span class="kpi-lab">'+lab+'</span><span class="kpi-ic" style="background:'+soft+';color:'+col+'">'+ico+'</span></div><div class="kpi-val">'+val+'</div><div class="kpi-foot">'+foot+'</div></div>';};
-  $('#kpis').innerHTML =
-    card('Total prospects', total, '<b>'+qualified+'</b> qualified', 'var(--accent)','var(--accent-soft)', IC.layers)+
-    card('Ready to send', ready, 'top priority', 'var(--green)','var(--green-soft)', IC.send)+
-    card('Avg fit score', avg.toFixed(1)+'<span style="font-size:15px;color:var(--faint)"> /20</span>', 'across qualified', 'var(--violet)','var(--violet-soft)', IC.target)+
-    card('Drafted', drafted, 'awaiting review', 'var(--accent)','var(--accent-soft)', IC.pen)+
-    card('Needs email', noemail, 'verify before send', 'var(--amber)','var(--amber-soft)', IC.mail);
-}
-function renderFunnel(){
-  const rank={researched:0,no_email:0,drafted:1,approved:2,sent:3,replied:4};
-  const pool=RAW.filter(function(p){return !p.disqualified;});
-  const stages=[['Researched',0,'var(--slate)'],['Drafted',1,'var(--accent)'],['Approved',2,'var(--green)'],['Sent',3,'var(--violet)'],['Replied',4,'var(--green)']];
-  const cnts=stages.map(function(s){return pool.filter(function(p){return (rank[p.status]!=null?rank[p.status]:0) >= s[1];}).length;});
-  const max=Math.max.apply(null,cnts.concat([1]));
-  $('#funnel').innerHTML=stages.map(function(s,i){
-    const c=cnts[i], w=c?Math.max(c/max*100,6):0;
-    return '<div class="fn-row"><span class="fn-name">'+s[0]+'</span><div class="fn-track"><div class="fn-fill" style="width:'+w+'%;background:'+s[2]+'">'+(c?'<span class="fn-pct">'+c+'</span>':'')+'</div></div><span class="fn-ct">'+c+'</span></div>';
+  var qualified = count(function(p){ return !p.disqualified; });
+  var fits = RAW.filter(function(p){ return !p.disqualified && p.fitScore>0; }).map(function(p){ return p.fitScore; });
+  var avg = fits.length ? (fits.reduce(function(a,b){return a+b;},0)/fits.length) : 0;
+  var cards = [
+    ['Total prospects', RAW.length, '<b>'+qualified+'</b> qualified'],
+    ['Top priority', count(FILTERS.top), 'ready to send'],
+    ['Solid', count(FILTERS.solid), 'in pipeline'],
+    ['Hold', count(FILTERS.hold), 'needs a second look'],
+    ['Drafted', count(FILTERS.drafted), 'awaiting review'],
+    ['Avg fit score', avg.toFixed(1)+'<small> /20</small>', 'across qualified']
+  ];
+  $('#kpis').innerHTML = cards.map(function(c){
+    return '<div class="kpi"><div class="kpi-label">'+c[0]+'</div><div class="kpi-value">'+c[1]+'</div><div class="kpi-sub">'+c[2]+'</div></div>';
   }).join('');
 }
-function renderPriority(){
-  const rows=[['Top','top','var(--green)'],['Solid','solid','var(--accent)'],['Hold','hold','var(--amber)'],['Disqualified','dq','var(--red)']];
-  const cnts=rows.map(function(r){return r[1]==='dq' ? RAW.filter(function(p){return p.disqualified;}).length : RAW.filter(function(p){return p.priority===r[1];}).length;});
-  const max=Math.max.apply(null,cnts.concat([1]));
-  $('#priority').innerHTML=rows.map(function(r,i){
-    const c=cnts[i];
-    return '<div class="hb"><span class="hb-name"><span class="lg-dot" style="border-radius:50%;background:'+r[2]+'"></span>'+r[0]+'</span><div class="hb-track"><div class="hb-fill" style="width:'+(c/max*100)+'%;background:'+r[2]+'"></div></div><span class="hb-ct">'+c+'</span></div>';
-  }).join('');
+function skeletonKPIs(){
+  var out=''; for(var i=0;i<6;i++){ out+='<div class="kpi"><div class="kpi-label sk sk-line" style="width:60%"></div><div class="kpi-value"><div class="sk sk-line" style="width:50%"></div></div><div class="kpi-sub sk sk-line" style="width:70%;height:10px"></div></div>'; }
+  $('#kpis').innerHTML = out;
 }
-function renderDonut(){
-  const map={}; RAW.forEach(function(p){ const v=p.vertical||'other'; map[v]=(map[v]||0)+1; });
-  const entries=Object.keys(map).map(function(k){return [k,map[k]];}).sort(function(a,b){return b[1]-a[1];});
-  const total=RAW.length||1;
-  const palette=['var(--accent)','var(--green)','var(--amber)','var(--violet)','var(--slate)','var(--red)'];
-  const R=54, C=2*Math.PI*R; let off=0;
-  const segs=entries.map(function(e,i){ const len=e[1]/total*C, col=palette[i%palette.length]; const s='<circle cx="64" cy="64" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="16" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 64 64)"/>'; off+=len; return s; }).join('');
-  $('#donut').innerHTML='<svg viewBox="0 0 128 128" width="128" height="128"><circle cx="64" cy="64" r="'+R+'" fill="none" stroke="var(--panel-2)" stroke-width="16"/>'+segs+'</svg><div class="donut-center"><div class="n">'+RAW.length+'</div><div class="l">stores</div></div>';
-  $('#vlegend').innerHTML=entries.map(function(e,i){return '<div class="lg-row"><span class="lg-dot" style="background:'+palette[i%palette.length]+'"></span><span class="lg-name">'+esc(e[0])+'</span><span class="lg-ct">'+e[1]+'</span></div>';}).join('');
-}
+
+/* ---------- chips + sort UI ---------- */
 function renderChips(){
-  const c=counts();
-  const defs=[['all','All',c.all],['top','Ready to send',c.top],['drafted','Drafted',c.drafted],['no_email','Needs email',c.no_email],['disqualified','Disqualified',c.disqualified]];
-  $('#chips').innerHTML=defs.map(function(d){return '<button class="chip '+(filter===d[0]?'on':'')+'" data-chip="'+d[0]+'">'+d[1]+'<span class="cc">'+d[2]+'</span></button>';}).join('');
+  var defs=[['all','All',RAW.length],['top','Top',count(FILTERS.top)],['solid','Solid',count(FILTERS.solid)],['hold','Hold',count(FILTERS.hold)],['drafted','Drafted',count(FILTERS.drafted)],['no_email','Needs email',count(FILTERS.no_email)],['disqualified','Disqualified',count(FILTERS.disqualified)]];
+  $('#chips').innerHTML = defs.map(function(d){ return '<button class="chip '+(filter===d[0]?'on':'')+'" data-chip="'+d[0]+'">'+d[1]+'<span class="cc">'+d[2]+'</span></button>'; }).join('');
 }
-function renderNav(){
-  const c=counts();
-  $('#nav-all').textContent=c.all; $('#nav-top').textContent=c.top; $('#nav-drafted').textContent=c.drafted; $('#nav-noemail').textContent=c.no_email; $('#nav-disq').textContent=c.disqualified;
-  $$('.nav-item').forEach(function(b){b.classList.remove('on');});
-  let matched=false;
-  $$('.nav-item[data-navfilter]').forEach(function(b){ if(!matched && b.getAttribute('data-navfilter')===filter){ b.classList.add('on'); matched=true; } });
-  if(!matched){ const all=$$('.nav-item[data-navfilter="all"]'); if(all[0]) all[0].classList.add('on'); }
+function syncSortUI(){
+  $$('.sortbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.sort===sortKey); });
+  $$('[data-ar]').forEach(function(a){ a.textContent = a.getAttribute('data-ar')===sortKey ? (sortDir>0?'▲':'▼') : ''; });
+  $$('[data-ar2]').forEach(function(a){ a.textContent = a.getAttribute('data-ar2')===sortKey ? (sortDir>0?'▲':'▼') : ''; });
 }
-function updateArrows(){ $$('thead th.sortable').forEach(function(th){ const k=th.dataset.sort, a=th.querySelector('.arr'); a.textContent = sortKey===k ? (sortDir>0?'▲':'▼') : ''; }); }
+
+/* ---------- table ---------- */
 function renderTable(){
-  const list=visible(), tb=$('#tbody');
-  if(!list.length){ tb.innerHTML='<tr><td colspan="8"><div class="empty"><div class="e-t">No prospects here</div><div>Nothing matches this filter'+(search?' and search':'')+'.</div></div></td></tr>'; updateArrows(); return; }
-  tb.innerHTML=list.map(function(p){
-    const idx=RAW.indexOf(p);
-    return '<tr data-i="'+idx+'" tabindex="0">'+
-      '<td><div class="cell-store"><span class="cs-name">'+esc(p.storeName)+'</span><span class="cs-dom mono">'+esc(p.domain)+'</span></div></td>'+
-      '<td>'+(p.vertical?'<span class="tag">'+esc(p.vertical)+'</span>':'—')+'</td>'+
-      '<td><div class="fit"><span class="fit-n">'+(p.fitScore||'—')+'<span style="color:var(--faint)">/20</span></span><div class="fit-bar"><i style="width:'+((p.fitScore/20*100)||0)+'%;background:'+fitColor(p.fitScore)+'"></i></div></div></td>'+
-      '<td>'+priorityBadge(p.priority,p.disqualified)+'</td>'+
-      '<td>'+statusBadge(p.status)+'</td>'+
-      '<td><span class="rev">'+esc(p.revenueEstimate||'—')+'</span></td>'+
-      '<td><div class="cell-contact"><div class="cc-name">'+esc(p.contact.name||'—')+'</div><div class="cc-role">'+esc(p.contact.title||'')+'</div></div></td>'+
-      '<td><div class="leak">'+esc(p.leakHypothesis||'—')+'</div></td></tr>';
+  var list=visible(), tb=$('#tbody');
+  if(!list.length){
+    tb.innerHTML = '<tr><td class="td-store"><div class="state-card"><div class="state-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="state-title">Nothing matches</div><div class="state-sub">No prospects fit this filter'+(search?' and search':'')+'. Try clearing it.</div></div></td></tr>';
+    return;
+  }
+  tb.innerHTML = list.map(function(p){
+    var idx=RAW.indexOf(p);
+    return '<tr data-i="'+idx+'" tabindex="0" role="button" aria-label="Open '+esc(p.storeName)+'">'+
+      '<td class="td-store"><span class="cs-name">'+esc(p.storeName)+'</span><span class="cs-dom mono">'+esc(p.domain||'—')+'</span></td>'+
+      '<td data-label="Vertical"><span class="tag" title="'+esc(p.vertical)+'">'+esc(p.vertical||'—')+'</span></td>'+
+      '<td data-label="Fit"><span class="fit" style="color:'+fitColor(p.fitScore)+'"><b>'+(p.fitScore||'—')+'</b><span class="mx">/20</span></span></td>'+
+      '<td data-label="Priority">'+priorityBadge(p.priority,p.disqualified)+'</td>'+
+      '<td data-label="Status">'+statusBadge(p.status)+'</td>'+
+      '<td data-label="Email">'+emailBadge(p.contact)+'</td>'+
+    '</tr>';
   }).join('');
-  updateArrows();
 }
-function renderAll(){ renderKPIs(); renderFunnel(); renderPriority(); renderDonut(); renderChips(); renderNav(); renderTable(); }
+
+/* ---------- top-level render ---------- */
+function render(){
+  if(STATE==='loading'){ skeletonKPIs(); $('#chips').innerHTML=''; $('#tbody').innerHTML='<tr><td class="td-store"><div class="sk sk-line" style="width:40%;height:16px"></div><div class="sk sk-line" style="width:80%"></div><div class="sk sk-line" style="width:70%"></div><div class="sk sk-line" style="width:75%"></div></td></tr>'; return; }
+  if(STATE==='error'){ $('#kpis').innerHTML=''; $('#chips').innerHTML=''; $('#tbody').innerHTML='<tr><td class="td-store"><div class="state-card"><div class="state-icon err"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg></div><div class="state-title">Couldn&rsquo;t reach the feed</div><div class="state-sub">The Prospects API didn&rsquo;t respond. Check the connection and try again.</div><button class="btn btn-primary" id="retryBtn">Retry</button></div></td></tr>';
+    var rb=$('#retryBtn'); if(rb) rb.addEventListener('click', load); return; }
+  if(STATE==='empty'){ renderKPIs(); renderChips(); $('#tbody').innerHTML='<tr><td class="td-store"><div class="state-card"><div class="state-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/><path d="M9 3v4M15 3v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="state-title">No prospects yet</div><div class="state-sub">The routine hasn&rsquo;t published any prospects today. They&rsquo;ll appear here automatically once it runs.</div></div></td></tr>'; return; }
+  renderKPIs(); renderChips(); syncSortUI(); renderTable();
+}
 
 /* ---------- drawer ---------- */
 function initials(name){ return (name||'?').split(/\s+/).slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase()||'?'; }
-function draftLabel(v){ const m={'warm-human':'Warm-human','teardown':'Teardown','demo-first':'Demo-first'}; return m[v] || (v? (v.charAt(0).toUpperCase()+v.slice(1)) : 'Draft'); }
-function buildDraft(p, i){
-  const d = p.drafts[i]; if(!d) return '';
-  return '<div class="draft"><div class="draft-subj"><span><span class="sl">'+esc(draftLabel(d.variant))+(d.channel?' · '+esc(d.channel):'')+'</span>'+esc(d.subject||'(no subject)')+'</span><button class="copy-btn" data-copydraft="'+i+'">'+IC.copy+'Copy</button></div><div class="draft-body">'+esc(d.body||'')+'</div></div>';
+function highlightPH(escaped){ return escaped.replace(/\[[^\]\n]{1,40}\]/g, function(m){ return '<span class="ph">'+m+'</span>'; }); }
+function emailCard(d,i){
+  var subj = d.subject||'(no subject)';
+  var body = d.body||'';
+  return '<div class="email-card">'+
+    '<div class="email-head"><span class="badge b-violet"><span class="dot"></span>'+esc(variantLabel(d.variant))+'</span>'+(d.channel?'<span class="tag">'+esc(d.channel)+'</span>':'')+
+      '<div class="email-actions"><button class="mini" data-copysubj="'+i+'">Copy subject</button><button class="mini" data-copymail="'+i+'"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2"/></svg>Copy email</button></div></div>'+
+    '<div class="email-subject"><span class="sl">Subject</span>'+esc(subj)+'</div>'+
+    '<div class="email-body">'+highlightPH(esc(body))+'</div>'+
+  '</div>';
 }
 function openDrawer(p){
   drawerData=p; draftIdx=0;
-  const dr=$('#drawer');
-  const mock = p.mockupStatus ? '<span class="badge '+(p.mockupStatus==='ready'?'b-green':'b-slate')+'"><span class="bd"></span>mockup '+esc(p.mockupStatus)+'</span>' : '';
-  const tabs = p.drafts.length>1 ? '<div class="tabs">'+p.drafts.map(function(d,i){return '<button class="tab '+(i===0?'on':'')+'" data-tab="'+i+'">'+esc(draftLabel(d.variant))+'</button>';}).join('')+'</div>' : '';
-  const sig = (p.revenueSignals||[]).map(function(s){return '<div class="sig"><span class="sig-m">'+esc(s.method||'signal')+'</span><span class="sig-d">'+esc(s.detail||'')+(s.source?'<br><span class="src">'+esc(s.source)+'</span>':'')+'</span></div>';}).join('');
-  const wk = (p.weaknesses||[]).map(function(w){return '<div class="wk"><span class="wk-sev sev-'+esc((w.severity||'low').toLowerCase())+'"></span><div class="wk-body"><div class="wk-top"><span class="wk-issue">'+esc(w.issue||'')+'</span>'+(w.area?'<span class="tag">'+esc(w.area)+'</span>':'')+'</div>'+(w.why?'<div class="wk-why">'+esc(w.why)+'</div>':'')+'</div></div>';}).join('');
-  const demo = p.demo ? (((p.demo.primaryPage||p.demo.rationale)?'<div style="margin-bottom:10px"><span class="badge b-blue"><span class="bd"></span>'+esc(p.demo.primaryPage||'page')+'</span> <span style="font-size:12.5px;color:var(--muted)">'+esc(p.demo.rationale||'')+'</span></div>':'')
-    + (p.demo.mechanics||[]).map(function(m,i){var n=String(i+1); if(n.length<2){n='0'+n;} return '<div class="mech"><span class="mech-n">'+n+'</span><span>'+esc(m)+'</span></div>';}).join('')
-    + (p.demo.bestseller?'<div style="margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--faint)">'+esc(p.demo.bestseller)+'</div>':'')) : '';
-  const c=p.contact;
-  const todos=(p.operatorTodo||[]).map(function(t){return '<label class="todo"><input type="checkbox">'+esc(t)+'</label>';}).join('');
+  var c=p.contact, dr=$('#drawer');
+  var shopify = p.shopifyConfirmed ? badge('b-green','Shopify confirmed') : '';
+  var track = p.track ? badge('b-violet', cap(p.track)+' track') : '';
+  var conf = p.revenueConfidence ? badge(p.revenueConfidence==='high'?'b-green':(p.revenueConfidence==='medium'||p.revenueConfidence==='med')?'b-amber':'b-grey', p.revenueConfidence+'-confidence') : '';
+
+  var signals = (p.revenueSignals||[]).map(function(s){ return '<div class="signal"><span class="m">'+esc(s.method||'signal')+'</span><span class="d">'+esc(s.detail||'')+(s.source?'<span class="src">'+esc(s.source)+'</span>':'')+'</span></div>'; }).join('');
+  var weaknesses = (p.weaknesses||[]).map(function(w){ var sev=(w.severity||'low').toLowerCase(); return '<div class="wk"><span class="wk-sev sev-'+esc(sev)+'"></span><div style="flex:1"><div class="wk-top"><span class="wk-issue">'+esc(w.issue||'')+'</span>'+(w.area?'<span class="tag">'+esc(w.area)+'</span>':'')+'<span class="badge '+(sev==='high'?'b-red':sev==='med'?'b-amber':'b-grey')+'"><span class="dot"></span>'+esc(sev)+'</span></div>'+(w.why?'<div class="wk-why">'+esc(w.why)+'</div>':'')+'</div></div>'; }).join('');
+  var demo = '';
+  if(p.demo){ var mech=(p.demo.mechanics||[]).map(function(m,i){ var n=String(i+1); if(n.length<2)n='0'+n; return '<div class="mech"><span class="n">'+n+'</span><span>'+esc(m)+'</span></div>'; }).join('');
+    demo = '<div class="demo-head">'+(p.demo.primaryPage?badge('b-blue', String(p.demo.primaryPage).toUpperCase()):'')+(p.demo.bestseller?'<span class="tag">'+esc(p.demo.bestseller)+'</span>':'')+'</div>'+(p.demo.rationale?'<div class="demo-rat">'+esc(p.demo.rationale)+'</div>':'')+mech;
+  }
+  var drafts = (p.drafts||[]).map(emailCard).join('');
+  var todos = (p.operatorTodo||[]).map(function(t){ return '<label class="todo"><input type="checkbox">'+esc(t)+'</label>'; }).join('');
 
   dr.innerHTML =
     '<div class="dr-head"><button class="dr-close" id="drClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+
-      '<div class="dr-eyebrow">'+priorityBadge(p.priority,p.disqualified)+statusBadge(p.status)+mock+'</div>'+
-      '<div class="dr-name">'+esc(p.storeName)+'</div>'+
-      (p.domain?'<a class="dr-dom" href="https://'+esc(p.domain)+'" target="_blank" rel="noopener">'+esc(p.domain)+' ↗</a>':'')+
-      '<div class="dr-stats">'+
-        '<div class="dr-stat"><div class="v">'+(p.fitScore||'—')+'<span style="font-size:12px;color:var(--faint)"> /20</span></div><div class="l">Fit score</div></div>'+
-        '<div class="dr-stat"><div class="v" style="font-size:14px">'+esc(p.revenueEstimate||'—')+'</div><div class="l">Est. revenue</div></div>'+
-        '<div class="dr-stat"><div class="v" style="font-size:14px;text-transform:capitalize">'+esc(p.vertical||'—')+'</div><div class="l">Vertical</div></div>'+
-      '</div></div>'+
-    '<div class="dr-body">'+
-      (p.leakHypothesis?'<div class="sec"><div class="leakbox"><div class="lk-l">Money leak — hypothesis</div><div class="lk-t">'+esc(p.leakHypothesis)+'</div></div></div>':'')+
-      ((p.revenueEstimate||sig)?'<div class="sec"><div class="sec-t">Revenue &amp; signals</div><div class="rev-line"><span class="rev-est">'+esc(p.revenueEstimate||'—')+'</span>'+confBadge(p.revenueConfidence)+'</div>'+sig+'</div>':'')+
-      (wk?'<div class="sec"><div class="sec-t">Weaknesses <span class="ct">'+p.weaknesses.length+'</span></div>'+wk+'</div>':'')+
-      (demo?'<div class="sec"><div class="sec-t">Demo plan</div>'+demo+'</div>':'')+
-      (p.drafts.length?'<div class="sec"><div class="sec-t">Outreach drafts <span class="ct">'+p.drafts.length+'</span></div>'+tabs+'<div id="draftHost">'+buildDraft(p,0)+'</div></div>':'')+
-      ((c.name||c.email)?'<div class="sec"><div class="sec-t">Contact</div><div class="contact-card"><div class="avatar">'+esc(initials(c.name))+'</div><div style="flex:1;min-width:0"><div class="ct-name">'+esc(c.name||'—')+'</div><div class="ct-role">'+esc(c.title||'')+'</div>'+(c.email?'<div class="ct-email">'+esc(c.email)+(c.emailStatus?'<span class="badge '+(c.emailStatus==='verified'?'b-green':'b-amber')+'"><span class="bd"></span>'+esc(c.emailStatus)+'</span>':'')+'</div>':'<div class="ct-email" style="color:var(--amber)">email needed</div>')+'</div><div class="ct-links">'+(c.email?'<button class="copy-btn" data-copyemail="'+esc(c.email)+'">'+IC.copy+'Email</button>':'')+(c.linkedin?'<a class="copy-btn" href="'+esc(c.linkedin)+'" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn ↗</a>':'')+'</div></div></div>':'')+
-      (todos?'<div class="sec"><div class="sec-t">Operator checklist <span class="ct">'+p.operatorTodo.length+'</span></div>'+todos+'</div>':'')+
-      (p.caveats?'<div class="sec"><div class="caveat"><div class="cv-l">⚠ Caveats — read before sending</div>'+esc(p.caveats)+'</div></div>':'')+
+      '<div class="dr-eyebrow">'+priorityBadge(p.priority,p.disqualified)+statusBadge(p.status)+track+'</div>'+
+      '<div class="dr-title">'+esc(p.storeName)+'</div>'+
+      (p.domain?'<a class="dr-domain" href="https://'+esc(p.domain)+'" target="_blank" rel="noopener">'+esc(p.domain)+' ↗</a>':'')+
+      '<div class="dr-chips">'+shopify+badge('b-grey','Fit '+(p.fitScore||'—')+'/20')+(p.vertical?'<span class="tag">'+esc(p.vertical)+'</span>':'')+'</div>'+
     '</div>'+
-    '<div class="dr-actions"><button class="btn" id="copyCurrent">'+IC.copy+'Copy current draft</button><button class="btn btn-accent" id="approveBtn">Approve to send</button></div>';
+    '<div class="dr-body">'+
+      (p.leakHypothesis?'<div class="sec"><div class="sec-title">The problem</div><div class="leak">'+esc(p.leakHypothesis)+'</div></div>':'')+
+      ((p.revenueEstimate||signals)?'<div class="sec"><div class="sec-title">Research · revenue</div><div class="kv"><span class="est">'+esc(p.revenueEstimate||'—')+'</span>'+conf+'</div>'+(p.revenueConfidence?'<div class="wk-why" style="margin-bottom:8px">Treat as a directional estimate &mdash; '+esc(p.revenueConfidence)+'-confidence, triangulated, not filed accounts.</div>':'')+signals+'</div>':'')+
+      (weaknesses?'<div class="sec"><div class="sec-title">Weaknesses <span class="ct">'+p.weaknesses.length+'</span></div>'+weaknesses+'</div>':'')+
+      (demo?'<div class="sec"><div class="sec-title">Demo plan</div>'+demo+'</div>':'')+
+      (p.panelNotes?'<div class="sec"><div class="sec-title">Review panel &middot; verdict</div><div class="panel-note">'+esc(p.panelNotes)+'</div></div>':'')+
+      (p.caveats?'<div class="sec"><div class="sec-title">Caveats</div><div class="caveat"><div class="cv-l">&#9888; Read before sending</div>'+esc(p.caveats)+'</div></div>':'')+
+      (todos?'<div class="sec"><div class="sec-title">Operator to-do <span class="ct">'+p.operatorTodo.length+'</span></div>'+todos+'</div>':'')+
+      ((c.name||c.email)?'<div class="sec"><div class="sec-title">Contact</div><div class="contact-card"><div class="avatar">'+esc(initials(c.name))+'</div><div style="flex:1;min-width:0"><div class="ct-name">'+esc(c.name||'—')+'</div><div class="ct-role">'+esc(c.title||'')+'</div><div class="ct-email">'+(c.email?esc(c.email):'email needed')+'</div><div style="margin-top:6px">'+emailBadge(c)+'</div></div><div class="ct-links">'+(c.email?'<button class="mini" data-copyemailaddr="'+esc(c.email)+'">Copy</button>':'')+(c.linkedin?'<a class="mini" href="'+esc(c.linkedin)+'" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn ↗</a>':'')+'</div></div></div>':'')+
+      ((p.drafts&&p.drafts.length)?'<div class="sec"><div class="sec-title">Cold email drafts <span class="ct">'+p.drafts.length+'</span></div>'+drafts+'</div>':'')+
+    '</div>';
 
   $('#drClose').addEventListener('click', closeDrawer);
-  $$('.tab', dr).forEach(function(t){ t.addEventListener('click',function(){ draftIdx=+t.dataset.tab; $$('.tab',dr).forEach(function(x){x.classList.toggle('on',x===t);}); $('#draftHost').innerHTML=buildDraft(p,draftIdx); wireDraftCopy(); }); });
-  wireDraftCopy();
-  $$('[data-copyemail]',dr).forEach(function(b){ b.addEventListener('click',function(){copy(b.dataset.copyemail,'Email copied');}); });
-  const cc=$('#copyCurrent'); if(cc) cc.addEventListener('click',function(){ const d=p.drafts[draftIdx]; if(d) copy((d.subject?'Subject: '+d.subject+'\n\n':'')+(d.body||''),'Draft copied'); });
-  const ap=$('#approveBtn'); if(ap) ap.addEventListener('click',function(){ toast('Approved (queued) — send endpoint wires up next'); });
+  $$('[data-copysubj]',dr).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copysubj')]; if(d) copy(d.subject||'', 'Subject copied'); }); });
+  $$('[data-copymail]',dr).forEach(function(b){ b.addEventListener('click',function(){ var d=p.drafts[+b.getAttribute('data-copymail')]; if(d) copy((d.subject?d.subject+'\n\n':'')+(d.body||''), 'Email copied'); }); });
+  $$('[data-copyemailaddr]',dr).forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copyemailaddr'), 'Email address copied'); }); });
 
   $('#overlay').classList.add('show');
   dr.classList.add('show'); dr.setAttribute('aria-hidden','false');
-  const fc=$('#drClose'); if(fc) fc.focus();
+  dr.scrollTop=0;
+  var fc=$('#drClose'); if(fc) fc.focus();
+  document.body.style.overflow='hidden';
 }
-function wireDraftCopy(){ $$('[data-copydraft]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); const d=drawerData.drafts[+b.dataset.copydraft]; if(d) copy((d.subject?'Subject: '+d.subject+'\n\n':'')+(d.body||''),'Draft copied'); }); }); }
-function closeDrawer(){ $('#drawer').classList.remove('show'); $('#drawer').setAttribute('aria-hidden','true'); $('#overlay').classList.remove('show'); }
+function closeDrawer(){ $('#drawer').classList.remove('show'); $('#drawer').setAttribute('aria-hidden','true'); $('#overlay').classList.remove('show'); document.body.style.overflow=''; }
 
 /* ---------- utilities ---------- */
-let toastT;
-function toast(msg){ const t=$('#toast'); $('#toastMsg').textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show');},1900); }
-function copy(text,msg){ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){toast(msg||'Copied');}).catch(function(){toast('Copy failed');}); } else { toast('Copy unavailable'); } }
-function setLive(ok,ts){ const d=$('#liveDot'); d.classList.toggle('seed',!ok); $('#updated').textContent=(ok?'Live · ':'Seeded · ')+ (ts||new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})); }
+var toastT;
+function toast(msg){ var t=$('#toast'); $('#toastMsg').textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){ t.classList.remove('show'); },1800); }
+function copy(text,msg){
+  function done(ok){ toast(ok?(msg||'Copied'):'Copy failed'); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){done(true);}).catch(function(){done(false);}); }
+  else { try{ var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(true); }catch(e){ done(false); } }
+}
+function setLive(kind, ts){
+  var d=$('#liveDot'), t=$('#liveTxt');
+  d.className='live-dot'+(kind==='live'?'':kind==='error'?' is-err':' is-seed');
+  t.textContent = kind==='live' ? ('Live · '+(ts||now())) : kind==='error' ? 'Offline' : 'Loading…';
+}
+function now(){ try{ return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } }
+function fmt(iso){ try{ return new Date(iso).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }catch(e){ return now(); } }
 
 /* ---------- data load ---------- */
-function applyData(list){ RAW = (list||[]).map(norm); renderAll(); }
-async function load(){
-  const btn=$('#refreshBtn'); if(btn) btn.disabled=true;
-  try{
-    const res = await fetch(API, {cache:'no-store'});
+function load(){
+  if(!RAW.length){ STATE='loading'; render(); setLive('seed'); }
+  var btn=$('#refreshBtn'); if(btn) btn.disabled=true;
+  fetch(API, {cache:'no-store'}).then(function(res){
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const j = await res.json();
-    const list = j.prospects || j.data || [];
-    if(!Array.isArray(list) || !list.length) throw new Error('empty feed');
-    applyData(list);
-    setLive(true, j.generatedAt ? new Date(j.generatedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : null);
-  }catch(err){
-    if(!RAW.length) applyData(SEED);
-    setLive(false);
-    console.warn('[prospect-command] live fetch failed, using seed:', err.message);
-  }finally{ if(btn) btn.disabled=false; }
+    return res.json();
+  }).then(function(j){
+    var list = j.prospects || j.data || [];
+    if(!Array.isArray(list)) throw new Error('bad payload');
+    RAW = list.map(norm);
+    STATE = RAW.length ? 'ready' : 'empty';
+    render();
+    setLive('live', j.generatedAt ? fmt(j.generatedAt) : now());
+  }).catch(function(err){
+    if(!RAW.length){ STATE='error'; render(); }
+    setLive('error');
+    if(window.console) console.warn('[prospect-command] load failed:', err && err.message);
+  }).then(function(){ if(btn) btn.disabled=false; });
 }
 
 /* ---------- events ---------- */
-$('#search').addEventListener('input',function(e){ search=e.target.value.trim(); renderTable(); });
-$('#refreshBtn').addEventListener('click',load);
-$('#overlay').addEventListener('click',closeDrawer);
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeDrawer(); });
-$('#menuBtn').addEventListener('click',function(){ $('#side').classList.toggle('open'); });
-$('#chips').addEventListener('click',function(e){ const c=e.target.closest('[data-chip]'); if(!c) return; filter=c.dataset.chip; renderChips(); renderNav(); renderTable(); });
-$$('.nav-item[data-navfilter]').forEach(function(b){ b.addEventListener('click',function(){ filter=b.getAttribute('data-navfilter'); renderChips(); renderNav(); renderTable(); $('#side').classList.remove('open'); window.scrollTo({top:0,behavior:'smooth'}); }); });
-$$('thead th.sortable').forEach(function(th){ th.addEventListener('click',function(){ const k=th.dataset.sort; if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=(k==='storeName')?1:-1; } renderTable(); }); });
-$('#tbody').addEventListener('click',function(e){ const tr=e.target.closest('tr[data-i]'); if(!tr) return; const p=RAW[+tr.dataset.i]; if(p) openDrawer(p); });
-$('#tbody').addEventListener('keydown',function(e){ if(e.key==='Enter'){ const tr=e.target.closest('tr[data-i]'); if(tr){ const p=RAW[+tr.dataset.i]; if(p) openDrawer(p); } } });
+$('#search').addEventListener('input', function(e){ search=e.target.value.trim(); if(STATE==='ready') renderTable(); });
+$('#refreshBtn').addEventListener('click', load);
+$('#overlay').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDrawer(); });
+$('#chips').addEventListener('click', function(e){ var c=e.target.closest('[data-chip]'); if(!c) return; filter=c.getAttribute('data-chip'); renderChips(); renderTable(); });
+$$('.sortbtn').forEach(function(b){ b.addEventListener('click', function(){ var k=b.getAttribute('data-sort'); if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=(k==='store')?1:-1; } syncSortUI(); renderTable(); }); });
+$$('thead th.sortable').forEach(function(th){ th.addEventListener('click', function(){ var k=th.getAttribute('data-sort'); if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=(k==='store')?1:-1; } syncSortUI(); renderTable(); }); });
+$('#tbody').addEventListener('click', function(e){ var tr=e.target.closest('tr[data-i]'); if(!tr) return; var p=RAW[+tr.getAttribute('data-i')]; if(p) openDrawer(p); });
+$('#tbody').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ var tr=e.target.closest('tr[data-i]'); if(tr){ e.preventDefault(); var p=RAW[+tr.getAttribute('data-i')]; if(p) openDrawer(p); } } });
 
 /* boot */
-applyData(SEED); setLive(false);
+render();
 load();
 </script>
 </body>
